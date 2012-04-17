@@ -1,0 +1,14 @@
+%p#notice= notice
+
+%h1= @project.name
+
+%table
+	- @project.people.each do |person|
+		%tr
+			%td= person.id
+			%td= link_to person.name, person
+			%td= person.email
+
+= link_to 'Edit', edit_project_path(@project)
+\|
+= link_to 'Back', projects_path
