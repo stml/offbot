@@ -41,6 +41,13 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(params[:project])
+    emails = params[:emails]
+    invitations = emails.split(', ')
+    invitations.each do |invitation|
+      invite = Invitation.find_or_create_by_email(invitation)
+      invite.projects << @project
+      invite.save
+    end
 
     respond_to do |format|
       if @project.save

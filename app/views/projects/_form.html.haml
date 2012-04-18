@@ -1,13 +1,21 @@
 = form_for @project do |f|
-  -if @project.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
-      %ul
-        - @project.errors.full_messages.each do |msg|
-          %li= msg
+	-if @project.errors.any?
+		#error_explanation
+			%h2= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
+			%ul
+				- @project.errors.full_messages.each do |msg|
+					%li= msg
 
-  = f.label :name 
-  = f.text_field :name
+	= f.label :name 
+	= f.text_field :name
 
-  .actions
-    = f.submit 'Save'
+	%h2 Add people to this project
+	- for person in Person.all
+		= f.label person.name
+		= check_box_tag("project[person_ids][]", person.id, @project.people.include?(person))
+
+		= label_tag "emails"
+		= text_field_tag "emails"
+
+	.actions
+		= f.submit 'Save'
