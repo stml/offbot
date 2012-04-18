@@ -6,6 +6,6 @@ require File.expand_path('../config/application', __FILE__)
 
 Offbot::Application.load_tasks
 
-taks :send_email => :environment do
+task :send_email => :environment do
 	Pony.mail(:to => 'natalia.buckley@gmail.com', :via => :sendmail)
 end
