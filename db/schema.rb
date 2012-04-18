@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120418123140) do
+ActiveRecord::Schema.define(:version => 20120418123818) do
 
   create_table "invitations", :force => true do |t|
     t.string   "email"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20120418123140) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
   end
 
   add_index "people", ["email"], :name => "index_people_on_email", :unique => true
