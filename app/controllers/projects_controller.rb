@@ -80,4 +80,13 @@ class ProjectsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def my_index
+    @projects = Person.find(current_person.id).projects
+    
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @projects }
+    end
+  end
 end

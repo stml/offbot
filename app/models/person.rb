@@ -8,6 +8,6 @@ class Person < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :email, :name
   has_many :updates
-  belongs_to :project
+  has_and_belongs_to_many :projects
   validates_presence_of :email, :name
 end
