@@ -85,7 +85,7 @@ Offbot::Application.configure do
     :address => "smtp.sendgrid.net",
     :port => 587,
     :authentication => :plain,
-  :enable_starttls_auto => true
+    :enable_starttls_auto => true
   }
 
   # Log the query plan for queries taking more than this (works
