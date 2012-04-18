@@ -18,7 +18,7 @@ Offbot::Application.routes.draw do
   resources :people
   resources :updates
 
-  devise_for :people, :path => "you", :path_names => { :sign_in => 'login', :sign_out => 'logout', :password => 'secret', :confirmation => 'verification', :unlock => 'unblock', :registration => 'register', :sign_up => 'sign_up' }
+  devise_for :people, :path => "you", :path_names => { :sign_in => 'login', :sign_out => 'logout', :password => 'secret', :confirmation => 'verification', :unlock => 'unblock', :sign_up => 'sign_up' }
 
 
   # Sample resource route with options:
