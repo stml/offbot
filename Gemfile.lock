@@ -68,8 +68,6 @@ GEM
     orm_adapter (0.0.7)
     pg (0.13.2)
     polyglot (0.3.3)
-    pony (1.4)
-      mail (> 2.0)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -127,7 +125,6 @@ DEPENDENCIES
   haml-rails
   jquery-rails
   pg
-  pony
   rails (= 3.2.3)
   sass-rails (~> 3.2.3)
   sqlite3

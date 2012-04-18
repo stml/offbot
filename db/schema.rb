@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120418123818) do
+ActiveRecord::Schema.define(:version => 20120418145419) do
+
+  create_table "email_messages", :force => true do |t|
+    t.string   "message_id"
+    t.datetime "response_timestap"
+    t.integer  "project_id"
+    t.integer  "person_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "invitations", :force => true do |t|
     t.string   "email"
@@ -61,10 +70,11 @@ ActiveRecord::Schema.define(:version => 20120418123818) do
 
   create_table "updates", :force => true do |t|
     t.text     "body"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.integer  "person_id"
     t.integer  "project_id"
+    t.integer  "email_message_id"
   end
 
 end
