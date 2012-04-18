@@ -6,7 +6,8 @@ class Person < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name
-  has_many :updates, :email_messages
+  has_many :updates
+  has_many :email_messages
   has_and_belongs_to_many :projects
   validates_presence_of :email, :name
 
