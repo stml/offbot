@@ -61,17 +61,31 @@ Offbot::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
   Pony.options = {
     :via => :smtp,
     :via_options => {
       :address => 'smtp.sendgrid.net',
       :port => '587',
-      :domain => 'heroku.com',
+      :domain => 'offbott.com',
       :user_name => ENV['SENDGRID_USERNAME'],
       :password => ENV['SENDGRID_PASSWORD'],
       :authentication => :plain,
       :enable_starttls_auto => true
     }
+  }
+
+  ActionMailer::Base.smtp_settings = {
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => "offbott.com",
+    :address => "smtp.sendgrid.net",
+    :port => 587,
+    :authentication => :plain,
+  :enable_starttls_auto => true
   }
 
   # Log the query plan for queries taking more than this (works
