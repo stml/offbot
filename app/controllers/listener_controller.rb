@@ -10,10 +10,10 @@ class ListenerController < ApplicationController
     email_message = EmailMessage.find_by_message_id(message_id)
     person = email_message.person
     project = email_message.project
-    @update = Update.new(:body => params["html"], :email_message_id => email_message.id, :person_id => person.id, :project_id => project.id)
+    @update = Update.new(:body => params["text"], :email_message_id => email_message.id, :person_id => person.id, :project_id => project.id)
                           
     respond_to do |format|
-      if @update.save && request.post?
+      if @update.save
         flash[:notice] = 'Sucessful Post.'
         format.xml { render :xml => @update.xml, :status => :ok  }
         format.json { render :json => @update.json, :status => :ok  }
