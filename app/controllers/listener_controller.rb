@@ -1,5 +1,6 @@
 class ListenerController < ApplicationController
 	skip_before_filter :verify_authenticity_token
+	skip_before_filter :authenticate_person!
   
   def receive_email
   	# do i need this? *scratches head*
