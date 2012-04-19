@@ -10,16 +10,21 @@ task :cron => :environment do
 	#Pony.mail(:to => 'james@shorttermmemoryloss.com', :from => "offbot@bot.com", :subject => "Hi", :body => "I am sentient", :via => :smtp)
 	time = Time.now.hour
 	time_left = 17 - time
-	date = Date.today
-	Project.all.each do |project|
-		#puts project
-		project.people.each do |person|
-			message = person.email_messages.today.first
-			unless message
-				email = EmailMessage.new
-				email.person = person
-				email.project = project
-				email.save
+	if time_left > 0
+		date = Date.today
+		Project.all.each do |project|
+			project.people.each do |person|
+				message = person.email_messages.today.first
+				unless message
+					random_number = rand(1...time_left)
+					puts "Likelihood of sending out the update request for #{person.name} on project #{project.name}: #{random_number}"
+					if random_number === 1
+						email = EmailMessage.new
+						email.person = person
+						email.project = project
+						email.save
+					end
+				end
 			end
 		end
 	end
