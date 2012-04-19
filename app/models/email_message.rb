@@ -7,10 +7,10 @@ class EmailMessage < ActiveRecord::Base
   before_create :generate_message_id
   after_create :send_email_message
 
-  scope :today, lambda { where('created_at >= ? AND created_at <= ?', Date.today.beginning_of_day, Date.today.end_of_day) }
+  #scope :today, lambda { where('created_at >= ? AND created_at <= ?', Date.today.beginning_of_day, Date.today.end_of_day) }
 
-  def self.on_project(project)
-	  where("project_id = ?", project.id)
+  def self.today_on_project(passed_project)
+	  where('project_id = ? AND created_at >= ? AND created_at <= ?', passed_project.id, Date.today.beginning_of_day, Date.today.end_of_day)
 	end
 
   private 
