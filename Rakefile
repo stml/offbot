@@ -17,7 +17,7 @@ task :cron => :environment do
 				message = person.email_messages.on_project(project).today.first
 				unless message
 					random_number = rand(1..time_left)
-					puts "Likelihood of sending out the update request for #{person.name} on project #{project.name}: #{random_number}"
+					Rails.logger.info "Likelihood of sending out the update request for #{person.name} on project #{project.name}: 1/#{random_number}"
 					if random_number === 1
 						email = EmailMessage.new
 						email.person = person
