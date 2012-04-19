@@ -11,3 +11,37 @@
  *= require_self
  *= require_tree .
 */
+
+* {
+	margin: 0;
+	padding: 0;
+	}
+
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background: #fff url('/images/robot_bg.png') bottom right no-repeat;
+	background-attachment: fixed;
+	}
+
+#header_o {
+	background: #004;
+	color: #fff;
+	padding: 10px 25px;
+	}
+#header_o h1 {
+	font-size: 1em;
+	margin-bottom: 0;
+	}
+	
+#container_o {
+	margin: 25px;
+	}
+	
+h1 { font-size: 1.8em; }
+h2 { font-size: 1.6em; }
+h3 { font-size: 1.4em; }
+h4 { font-size: 1.2em; }
+h1, h2, h3, h4, p, ul {
+	line-height: 1.5;
+	margin-bottom: 10px;
+	}
