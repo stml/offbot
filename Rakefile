@@ -9,17 +9,17 @@ Offbot::Application.load_tasks
 task :cron => :environment do
 	#Pony.mail(:to => 'james@shorttermmemoryloss.com', :from => "offbot@bot.com", :subject => "Hi", :body => "I am sentient", :via => :smtp)
 	time = Time.now.hour
-	time_left = 17 - time
 	if (9..17).member?(time)
+		time_left = 17 - time
 		date = Date.today
 		Project.all.each do |project|
 			project.people.each do |person|
 				message = person.email_messages.today_on_project(project).first
 				unless message
-					random_number = rand(1..time_left).to_i
+					random_number = rand(1..time_left)
 					puts  "Likelihood of sending out the update request for #{person.name} on project #{project.name}: 1/#{random_number}"
 					Rails.logger.info "Likelihood of sending out the update request for #{person.name} on project #{project.name}: 1/#{random_number}"
-					if random_number === 1
+					if random_number.to_i === 1
 						email = EmailMessage.new
 						email.person = person
 						email.project = project
