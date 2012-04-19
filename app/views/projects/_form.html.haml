@@ -14,8 +14,10 @@
 		= f.label person.name
 		= check_box_tag("project[person_ids][]", person.id, @project.people.include?(person))
 
-		= label_tag "emails"
-		= text_field_tag "emails"
+	%h2 Invite others to join the project
+	%p Add their emails spearated by commas
+	= label_tag "emails"
+	= text_field_tag "emails"
 
 	.actions
 		= f.submit 'Save'

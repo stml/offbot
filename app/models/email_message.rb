@@ -9,6 +9,10 @@ class EmailMessage < ActiveRecord::Base
 
   scope :today, lambda { where('created_at >= ? AND created_at <= ?', Date.today.beginning_of_day, Date.today.end_of_day) }
 
+  def self.on_project(project)
+	  where("project_id", project.id)
+	end
+
   private 
 
   def generate_message_id
