@@ -6,17 +6,17 @@ class ListenerController < ApplicationController
   	# do i need this? *scratches head*
     @params = params
     
-    puts sent_to = params["to"].split('@')
-    puts message_id = sent_to[0].split('.')[1]
+    sent_to = params["to"].split('@')
+    message_id = sent_to[0].split('.')[1]
     email_message = EmailMessage.find_by_message_id(message_id)
-    puts person = email_message.person
-    puts project = email_message.project
+    person = email_message.person
+    project = email_message.project
     @update = Update.new(:body => params["text"], :email_message_id => email_message.id, :person_id => person.id, :project_id => project.id)
                           
     respond_to do |format|
       if @update.save
         flash[:notice] = 'Sucessful Post.'
-        format.html { render :html => @update.html, :status => :ok  }
+        format.html
         format.xml { render :xml => @update.xml, :status => :ok  }
         format.json { render :json => @update.json, :status => :ok  }
       else
