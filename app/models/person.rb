@@ -10,6 +10,7 @@ class Person < ActiveRecord::Base
   has_many :email_messages
   has_and_belongs_to_many :projects
   validates_presence_of :email, :name
+  validates_uniqueness_of :email
 
   after_create :add_to_projects
 

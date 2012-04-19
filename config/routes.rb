@@ -20,6 +20,7 @@ Offbot::Application.routes.draw do
 
   devise_for :people, :path => "you", :path_names => { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'sign_up' }
 
+  match "/sendmail/incoming" => "listener#receive_email", :via => :post
 
   # Sample resource route with options:
   #   resources :products do
