@@ -5,12 +5,19 @@ class EmailMessage < ActiveRecord::Base
   belongs_to :project
 
   before_create :generate_message_id
+  after_create :send_email_message
 
   scope :today, lambda { where('created_at >= ? AND created_at <= ?', Date.today.beginning_of_day, Date.today.end_of_day) }
+
+  private 
 
   def generate_message_id
   	uuid = UUID.new
   	self.message_id = uuid.generate.to_s
+  end
+
+  def send_email_message
+  	RequestUpdate.request_update(self).deliver
   end
 
 end
