@@ -12,13 +12,14 @@ task :cron => :environment do
 	time_left = 17 - time
 	date = Date.today
 	Project.all.each do |project|
+		#puts project
 		project.people.each do |person|
-			unless EmailMessage.find(:all, :conditions => { :person => person, :project => project, :created_at => ['created_at >= ? AND created_at <= ?', date.beginning_of_day, date.end_of_day] } )
+			message = person.email_messages.today.first
+			unless message
 				email = EmailMessage.new
-				email.project = project
 				email.person = person
+				email.project = project
 				email.save
-				puts email
 			end
 		end
 	end
