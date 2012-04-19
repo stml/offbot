@@ -16,6 +16,7 @@ class ListenerController < ApplicationController
     respond_to do |format|
       if @update.save
         flash[:notice] = 'Sucessful Post.'
+        format.html { render :html => @update.html, :status => :ok  }
         format.xml { render :xml => @update.xml, :status => :ok  }
         format.json { render :json => @update.json, :status => :ok  }
       else
