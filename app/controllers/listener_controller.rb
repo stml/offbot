@@ -7,7 +7,7 @@ class ListenerController < ApplicationController
     @params = params
     
     puts sent_to = params["to"].split('@')
-    puts message_id = sent_to[0].split('.')[0]
+    puts message_id = sent_to[0].split('.')[1]
     email_message = EmailMessage.find_by_message_id(message_id)
     puts person = email_message.person
     puts project = email_message.project
