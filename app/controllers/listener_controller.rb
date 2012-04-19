@@ -9,9 +9,9 @@ class ListenerController < ApplicationController
 		sent_to = params["to"].split('@')
 		message_id = sent_to[0].split('.')[1]
 		@email_message = EmailMessage.find_by_message_id(message_id)
-		puts email_message.id
-		person = email_message.person
-		project = email_message.project
+		puts @email_message.id
+		person = @email_message.person
+		project = @email_message.project
 		@update = Update.new(:body => params["text"], :person_id => person.id, :project_id => project.id)
 													
 		respond_to do |format|
