@@ -5,18 +5,12 @@
 	%p= link_to 'Tell <span class="logotype">offbot</span> about a new project', new_project_path
 	
 - else
-	%table#project_list
-		%tr
-			%th
-			%th
-			%th
-			%th
-
-		- @projects.each do |project|
-			%tr
-				%td= project.name
-				%td= link_to 'Show', project
-				%td= link_to 'Edit', edit_project_path(project)
-				%td= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete
+	#pop_box
+		%table#project_list
+			- @projects.each do |project|
+				%tr
+					%td= link_to project.name, project
+					%td= link_to 'Edit', edit_project_path(project)
+					%td= link_to 'Delete', project, :confirm => 'Are you sure?', :method => :delete
 
 	%p= link_to 'New Project', new_project_path

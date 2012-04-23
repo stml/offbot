@@ -56,20 +56,24 @@ h1 { font-size: 1.8em; }
 h2 { font-size: 1.6em; }
 h3 { font-size: 1.4em; }
 h4 { font-size: 1.2em; }
-h1, h2, h3, h4, p, ul {
+h1, h2, h3, h4, p, ul, table {
 	line-height: 1.5;
 	margin-bottom: 10px;
 	}
 	
-#login_box {
+#pop_box {
 	background: #eef;
-	margin: 0 0 20px 0;
+	margin: 0 0 10px 0;
 	padding: 10px 10px 5px 10px;
 	}
 #login_box table {
-	margin: 0 10px 5px 10px;
+	margin: 0 10px;
 	}
-	
+
+table td {
+	padding-right: 10px;
+	}
+
 #new_project table {
 	margin-bottom: 20px;
 	}

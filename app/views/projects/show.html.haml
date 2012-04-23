@@ -2,13 +2,13 @@
 
 %h1= @project.name
 
-%table
-	- @project.people.each do |person|
-		%tr
-			%td= person.id
-			%td= link_to person.name, person
-			%td= person.email
+#project_member_list
+	%table
+		- @project.people.each do |person|
+			%tr
+				%td= link_to person.name, person
+				%td (#{person.email})
 
-= link_to 'Edit', edit_project_path(@project)
-\|
-= link_to 'Back', projects_path
+%p= link_to 'Edit the name and members of this project', edit_project_path(@project)
+
+%p= link_to 'See all your projects', root_url
