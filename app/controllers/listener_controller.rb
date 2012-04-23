@@ -8,13 +8,16 @@ class ListenerController < ApplicationController
 		
 		sent_to = params["to"].split('@')
 		message_id = sent_to[0].split('.')[1]
+		sent_by = params["from"].split('<')[0].chop
 		@email_message = EmailMessage.find_by_message_id(message_id)
 		puts @email_message.id
 		person = @email_message.person
 		project = @email_message.project
 		reply = extract_reply(params["text"], "offbott.#{@email_message.message_id}@offbott.com")
-		@update = Update.new(:body => reply, :person_id => person.id, :project_id => project.id)
-		puts params["from"]
+		@update = Update.new
+		if sent_by == person.email
+			@update = Update.new(:body => reply, :person_id => person.id, :project_id => project.id)
+		end
 													
 		respond_to do |format|
 			if @update.save
