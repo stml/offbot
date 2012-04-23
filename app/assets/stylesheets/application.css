@@ -44,6 +44,10 @@ body {
 	margin-right: 40px;
 	float: right;
 	}
+#header_i h1 a {
+	color: #fff;
+	text-decoration: none;
+	}
 #header_login {
 	float: left; 
 	}
