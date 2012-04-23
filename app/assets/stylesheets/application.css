@@ -24,22 +24,28 @@ body {
 	}
 
 #header_o {
+	position: fixed;
+	z-index: 99999;
+	bottom: 0;
+	left: 0;
+	width: 100%;
 	background: #004;
 	color: #fff;
-	padding: 10px 25px;
 	}
 #header_i {
 	overflow: hidden;
 	position: relative;
+	padding: 10px 25px;
 	}
 #header_i h1 {
 	font-family: "Courier New", Courier, monospace;
 	font-size: 1em;
 	margin-bottom: 0;
-	float: left;
+	margin-right: 40px;
+	float: right;
 	}
 #header_login {
-	float: right; 
+	float: left; 
 	}
 #header_login a {
 	color: #fff;
@@ -63,6 +69,7 @@ h1, h2, h3, h4, p, ul, table {
 	
 #pop_box {
 	background: #eef;
+	width: 500px;
 	margin: 0 0 10px 0;
 	padding: 10px 20px 5px 20px;
 	}
@@ -79,12 +86,6 @@ table td {
 	}
 #new_project .label {
 	width: 150px;
-	}
-	
-.logotype {
-	color: #004;
-	font-weight: bold;
-	font-family: "Courier New", Courier, monospace;
 	}
 	
 td.edit a {

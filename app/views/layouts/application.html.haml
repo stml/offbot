@@ -1,7 +1,7 @@
 !!!
 %html
 	%head
-		%title Offbot
+		%title Office Robot
 		= stylesheet_link_tag    "application", :media => "all"
 		= javascript_include_tag "application"
 		= csrf_meta_tags
@@ -10,7 +10,7 @@
 
 		#header_o
 			#header_i
-				%h1 offbot
+				%h1 offbott
 				#header_login
 					- if person_signed_in?
 						= link_to 'Your Projects', root_url
