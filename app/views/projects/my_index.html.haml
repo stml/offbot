@@ -1,19 +1,22 @@
-%h1 Listing my projects
+%h1 Your projects
 
-%table
-  %tr
-    %th
-    %th
-    %th
-    %th
+- if @projects.empty?
+	%p <strong>offbott</strong> doesn't know about any of your projects yet.
+	%p= link_to 'Tell offbot about a new project', new_project_path
+	
+- else
+	%table#project_list
+		%tr
+			%th
+			%th
+			%th
+			%th
 
-  - @projects.each do |project|
-    %tr
-      %td= project.name
-      %td= link_to 'Show', project
-      %td= link_to 'Edit', edit_project_path(project)
-      %td= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete
+		- @projects.each do |project|
+			%tr
+				%td= project.name
+				%td= link_to 'Show', project
+				%td= link_to 'Edit', edit_project_path(project)
+				%td= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete
 
-%br
-
-= link_to 'New Project', new_project_path
+	%p= link_to 'New Project', new_project_path
