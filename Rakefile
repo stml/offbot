@@ -31,3 +31,30 @@ task :cron => :environment do
 	end
 end
 
+task :extract_reply => :environment do
+	def extract_reply(text, address)
+	    regex_arr = [
+	      Regexp.new("From:\s*" + Regexp.escape(address), Regexp::IGNORECASE),
+	      Regexp.new("<" + Regexp.escape(address) + ">", Regexp::IGNORECASE),
+	      Regexp.new(Regexp.escape(address) + "\s+wrote:", Regexp::IGNORECASE),
+	      Regexp.new("^.*On.*(\n)?wrote:$", Regexp::IGNORECASE),
+	      Regexp.new("\s\S*On\s\w*.\s.*", Regexp::IGNORECASE),
+				Regexp.new("On\s.*,", Regexp::IGNORECASE),
+	      Regexp.new("-+original\s+message-+\s*$", Regexp::IGNORECASE),
+	      Regexp.new("from:\s*$", Regexp::IGNORECASE)
+	    ]
+
+	    text_length = text.length
+	    #calculates the matching regex closest to top of page
+	    index = regex_arr.inject(text_length) do |min, regex|
+	    	puts min
+	        [(text.index(regex) || text_length), min].min
+	    end
+
+	    text[0, index].strip
+	end
+
+	puts extract_reply(Update.last.body, 'offbott.114cbbb0-6f52-012f-7b02-123139338563@offbott.com')
+
+end
+
