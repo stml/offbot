@@ -15,9 +15,9 @@
 					- if person_signed_in?
 						= link_to 'Your Projects', root_url
 						&nbsp;
-						= link_to 'Logout', destroy_person_session_path, :method => :delete        
+						= link_to 'Sign Out', destroy_person_session_path, :method => :delete        
 					- else
-						= link_to 'Login', new_person_session_path 
+						= link_to 'Sign In', new_person_session_path 
 		
 		#container_o
 			#container_i
