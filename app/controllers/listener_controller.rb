@@ -49,7 +49,7 @@ class ListenerController < ApplicationController
       Regexp.new("From:\s*" + Regexp.escape(address), Regexp::IGNORECASE),
       Regexp.new("<" + Regexp.escape(address) + ">", Regexp::IGNORECASE),
       Regexp.new(Regexp.escape(address) + "\s+wrote:", Regexp::IGNORECASE),
-      Regexp.new("\S*On\s\w*.\s.*@offbott.com\swrote:.*", Regexp::IGNORECASE),
+      Regexp.new("\S*On\s\w*.\s.*", Regexp::IGNORECASE),
       Regexp.new("-+original\s+message-+\s*$", Regexp::IGNORECASE),
       Regexp.new("from:\s*$", Regexp::IGNORECASE)
     ]
