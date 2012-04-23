@@ -86,3 +86,18 @@ table td {
 	font-weight: bold;
 	font-family: "Courier New", Courier, monospace;
 	}
+	
+td.edit a {
+	display: block;
+	text-indent: -999999px;
+	width: 16px;
+	height: 16px;
+	background: transparent url('/images/icons/pencil.png') 0 0 no-repeat;
+	}
+td.delete a {
+	display: block;
+	text-indent: -999999px;
+	width: 16px;
+	height: 16px;
+	background: transparent url('/images/icons/trash.png') 0 0 no-repeat;
+	}

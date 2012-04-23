@@ -9,8 +9,8 @@
 		%table#project_list
 			- @projects.each do |project|
 				%tr
-					%td= link_to project.name, project
-					%td= link_to 'Edit', edit_project_path(project)
-					%td= link_to 'Delete', project, :confirm => 'Are you sure?', :method => :delete
+					%td= link_to project.name, project, :title => "Check out this Project"
+					%td.edit= link_to 'Edit', edit_project_path(project), :title => "Edit this Project"
+					%td.delete= link_to 'Delete', project, :confirm => 'Are you sure?', :method => :delete, :title => "Delete this Project"
 
 	%p= link_to 'New Project', new_project_path
