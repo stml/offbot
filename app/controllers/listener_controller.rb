@@ -14,9 +14,10 @@ class ListenerController < ApplicationController
 		person = @email_message.person
 		project = @email_message.project
 		reply = extract_reply(params["text"], "offbott.#{@email_message.message_id}@offbott.com")
-		@update = Update.new
 		if sent_by == person.email
 			@update = Update.new(:body => reply, :person_id => person.id, :project_id => project.id)
+		else 
+			@update = Update.new
 		end
 													
 		respond_to do |format|
