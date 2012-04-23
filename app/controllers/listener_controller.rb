@@ -12,7 +12,8 @@ class ListenerController < ApplicationController
 		puts @email_message.id
 		person = @email_message.person
 		project = @email_message.project
-		@update = Update.new(:body => params["text"], :person_id => person.id, :project_id => project.id)
+		reply = extract_reply(params["text"], person.email)
+		@update = Update.new(:body => reply, :person_id => person.id, :project_id => project.id)
 													
 		respond_to do |format|
 			if @update.save
@@ -39,6 +40,27 @@ class ListenerController < ApplicationController
 	def add_association_with_email_message
 		@email_message.update = @update
 		@email_message.save
+	end
+
+	def extract_reply(text, address)
+		# What would one do without stack overflow
+		# http://stackoverflow.com/a/7376064/376704
+    regex_arr = [
+      Regexp.new("From:\s*" + Regexp.escape(address), Regexp::IGNORECASE),
+      Regexp.new("<" + Regexp.escape(address) + ">", Regexp::IGNORECASE),
+      Regexp.new(Regexp.escape(address) + "\s+wrote:", Regexp::IGNORECASE),
+      Regexp.new("^.*On.*(\n)?wrote:$", Regexp::IGNORECASE),
+      Regexp.new("-+original\s+message-+\s*$", Regexp::IGNORECASE),
+      Regexp.new("from:\s*$", Regexp::IGNORECASE)
+    ]
+
+    text_length = text.length
+    #calculates the matching regex closest to top of page
+    index = regex_arr.inject(text_length) do |min, regex|
+        [(text.index(regex) || text_length), min].min
+    end
+
+    text[0, index].strip
 	end
 
 end
