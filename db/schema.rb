@@ -11,21 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120418145419) do
+ActiveRecord::Schema.define(:version => 20120423143226) do
 
   create_table "email_messages", :force => true do |t|
-    t.string   "message_id"
-    t.datetime "response_timestap"
-    t.integer  "project_id"
-    t.integer  "person_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.string    "message_id"
+    t.timestamp "response_timestap"
+    t.integer   "project_id"
+    t.integer   "person_id"
+    t.timestamp "created_at",        :null => false
+    t.timestamp "updated_at",        :null => false
   end
 
   create_table "invitations", :force => true do |t|
-    t.string   "email"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string    "email"
+    t.timestamp "created_at", :null => false
+    t.timestamp "updated_at", :null => false
   end
 
   create_table "invitations_projects", :id => false, :force => true do |t|
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20120418145419) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.integer  "project_admins_list_id"
   end
 
   add_index "people", ["email"], :name => "index_people_on_email", :unique => true
@@ -62,19 +63,26 @@ ActiveRecord::Schema.define(:version => 20120418145419) do
     t.integer "project_id"
   end
 
-  create_table "projects", :force => true do |t|
+  create_table "project_admins_lists", :force => true do |t|
+    t.integer  "project_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "name"
+  end
+
+  create_table "projects", :force => true do |t|
+    t.timestamp "created_at", :null => false
+    t.timestamp "updated_at", :null => false
+    t.string    "name"
+    t.integer   "created_by"
   end
 
   create_table "updates", :force => true do |t|
-    t.text     "body"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-    t.integer  "person_id"
-    t.integer  "project_id"
-    t.integer  "email_message_id"
+    t.text      "body"
+    t.timestamp "created_at",       :null => false
+    t.timestamp "updated_at",       :null => false
+    t.integer   "person_id"
+    t.integer   "project_id"
+    t.integer   "email_message_id"
   end
 
 end

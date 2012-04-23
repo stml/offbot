@@ -13,6 +13,9 @@
 			%td.label= f.label :name 
 			%td.field= f.text_field :name
 
+	- person = current_person
+	= hidden_field(:project, :created_by, :value => person.id)
+
 	%h3 Add people to this project
 	
 	%table#new_project_people
