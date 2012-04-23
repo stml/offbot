@@ -101,3 +101,34 @@ td.delete a {
 	height: 16px;
 	background: transparent url('/images/icons/trash.png') 0 0 no-repeat;
 	}
+	
+#project_cols {
+	width: 800px;
+	overflow: hidden;
+	position: relative;
+	}
+#project_col_left {
+	width: 500px;
+	float: left;
+	}
+#project_col_right {
+	width: 250px;
+	float: right;
+	}
+#project_col_right ul {	
+	list-style: none;
+	}
+	
+#project_col_left #update {
+	background: #ddf;
+	margin: 0 0 10px 0;
+	padding: 10px 20px 5px 20px;
+	}
+#project_col_left #update .author {
+	font-weight: bold;
+	}
+#project_col_left #update .date {
+	font-style: italic;
+	margin-left: 10px;
+	font-size: 80%;
+	}

@@ -2,13 +2,28 @@
 
 %h1= @project.name
 
-#project_member_list
-	%table
-		- @project.people.each do |person|
-			%tr
-				%td= link_to person.name, person
-				%td (#{person.email})
+#project_cols
+	
+	#project_col_left
 
-%p= link_to 'Edit the name and members of this project', edit_project_path(@project)
+		- if @project.updates.empty?
+			%p No updates on this project yet!
+	
+		- else 
+			#updates
+				- @project.updates.reverse_each do |update|
+					#update
+						%p.body= update.body
+						%p.credit <span class="author">#{update.person.name}</span> <span class="date">#{update.updated_at}</span>
+	#project_col_right			
+		
+		%h4 Project members:
 
-%p= link_to 'See all your projects', root_url
+		#pop_box
+			%ul
+				- @project.people.each do |person|
+					%li= link_to person.name, person
+
+		%p= link_to 'Edit the name and members of this project', edit_project_path(@project)
+
+		%p= link_to 'See all your projects', root_url
