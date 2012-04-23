@@ -50,14 +50,14 @@ class ListenerController < ApplicationController
 
 	def extract_reply(text, address)
 		regex_arr = [
-			Regexp.new("From:\s*" + Regexp.escape(address), Regexp::IGNORECASE),
-			Regexp.new("<" + Regexp.escape(address) + ">", Regexp::IGNORECASE),
-			Regexp.new(Regexp.escape(address) + "\s+wrote:", Regexp::IGNORECASE),
-			Regexp.new("^.*On.*(\n)?wrote:$", Regexp::IGNORECASE),
-			Regexp.new("\s\S*On\s\w*.\s.*", Regexp::IGNORECASE),
-			Regexp.new("On\s.*,", Regexp::IGNORECASE),
-			Regexp.new("-+original\s+message-+\s*$", Regexp::IGNORECASE),
-			Regexp.new("from:\s*$", Regexp::IGNORECASE)
+			Regexp.new("From:\s*" + Regexp.escape(address), Regexp::IGNORECASE | Regexp::MULTILINE),
+			Regexp.new("<" + Regexp.escape(address) + ">", Regexp::IGNORECASE | Regexp::MULTILINE),
+			Regexp.new(Regexp.escape(address) + "\s+wrote:", Regexp::IGNORECASE | Regexp::MULTILINE),
+			Regexp.new("^.*On.*(\n)?wrote:$", Regexp::IGNORECASE | Regexp::MULTILINE),
+			Regexp.new("\s\S*On\s\w*.\s.*", Regexp::IGNORECASE | Regexp::MULTILINE),
+			Regexp.new("On\s.*,", Regexp::IGNORECASE | Regexp::MULTILINE),
+			Regexp.new("-+original\s+message-+\s*$", Regexp::IGNORECASE | Regexp::MULTILINE),
+			Regexp.new("from:\s*$", Regexp::IGNORECASE | Regexp::MULTILINE)
 		]
 
 		text_length = text.length

@@ -9,6 +9,9 @@
 	= f.label :name 
 	= f.text_field :name
 
+	- person = current_person
+	= hidden_field(:project, :created_by, :value => person.id)
+
 	%h2 Add people to this project
 	- for person in Person.all
 		= f.label person.name
