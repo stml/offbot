@@ -7,7 +7,12 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :invitations
   validates_presence_of :name
 
-  after_create :add_creator_to_admins
+  after_create :add_project_admins_list, :add_creator_to_admins
+
+  def add_project_admins_list
+  	admins_list = ProjectAdminsList.new
+  	self.project_admins_list = admins_list
+  end
 
   def add_creator_to_admins
   	creator = Person.find(self.created_by)
