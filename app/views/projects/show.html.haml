@@ -11,10 +11,25 @@
 	
 		- else 
 			#updates
+				/ here we're checking if this update is the same day as the last one
+				/ if it's not, print the date (changing to "today" and "yesterday" as required)
+				- lastday = ''
+				- today = Time.new
+				- yesterday = today - 86400
 				- @project.updates.reverse_each do |update|
+					- updateday = update.created_at.strftime("%Y-%m-%d")
+					- if updateday != lastday
+						- if updateday == today.strftime("%Y-%m-%d")
+							%p= 'Today'
+						- elsif updateday == yesterday.strftime("%Y-%m-%d")
+							%p= 'Yesterday'
+						- else
+							%p= update.created_at.strftime("%A %d %B")
 					#update
 						%p.body= update.body
-						%p.credit <span class="author">#{update.person.name}</span> <span class="date">#{update.updated_at}</span>
+						%p.credit <span class="author">#{update.person.name}</span> <span class="date">#{update.created_at.strftime("%I:%M %p")}</span>
+					- lastday = updateday	
+						
 	#project_col_right			
 		
 		%h4 Project members:
