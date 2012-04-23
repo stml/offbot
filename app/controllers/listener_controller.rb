@@ -46,12 +46,12 @@ class ListenerController < ApplicationController
 		# What would one do without stack overflow
 		# http://stackoverflow.com/a/7376064/376704
     regex_arr = [
-    	Regexp.new("\S*On\s\w*.\s.*", Regexp::IGNORECASE),
-      Regexp.new("From:\s*" + Regexp.escape(address), Regexp::IGNORECASE),
-      Regexp.new("<" + Regexp.escape(address) + ">", Regexp::IGNORECASE),
-      Regexp.new(Regexp.escape(address) + "\s+wrote:", Regexp::IGNORECASE),
-      Regexp.new("-+original\s+message-+\s*$", Regexp::IGNORECASE),
-      Regexp.new("from:\s*$", Regexp::IGNORECASE)
+    	Regexp.new("\S*On\s\w*.\s.*", Regexp::IGNORECASE)
+      # Regexp.new("From:\s*" + Regexp.escape(address), Regexp::IGNORECASE),
+      # Regexp.new("<" + Regexp.escape(address) + ">", Regexp::IGNORECASE),
+      # Regexp.new(Regexp.escape(address) + "\s+wrote:", Regexp::IGNORECASE),
+      # Regexp.new("-+original\s+message-+\s*$", Regexp::IGNORECASE),
+      # Regexp.new("from:\s*$", Regexp::IGNORECASE)
     ]
 
     text_length = text.length
