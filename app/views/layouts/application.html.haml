@@ -11,13 +11,13 @@
 		#header_o
 			#header_i
 				%h1 offbot
+				#header_login
+					- if person_signed_in?
+						= link_to 'Logout', destroy_person_session_path, :method => :delete        
+					- else
+						= link_to 'Login', new_person_session_path 
 		
 		#container_o
 			#container_i
 		
 			= yield
-		
-			- if person_signed_in?
-				= link_to 'Logout', destroy_person_session_path, :method => :delete        
-			- else
-				= link_to 'Login', new_person_session_path 

@@ -28,9 +28,20 @@ body {
 	color: #fff;
 	padding: 10px 25px;
 	}
-#header_o h1 {
+#header_i {
+	overflow: hidden;
+	position: relative;
+	}
+#header_i h1 {
 	font-size: 1em;
 	margin-bottom: 0;
+	float: left;
+	}
+#header_login {
+	float: right; 
+	}
+#header_login a {
+	color: #fff;
 	}
 	
 #container_o {
