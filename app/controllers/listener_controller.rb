@@ -43,25 +43,26 @@ class ListenerController < ApplicationController
 	end
 
 	def extract_reply(text, address)
-		# What would one do without stack overflow
-		# http://stackoverflow.com/a/7376064/376704
-    regex_arr = [
-    	Regexp.new("\S*On\s\w*.\s.*", Regexp::IGNORECASE),
-    	Regexp.new("\S*On\s\w*.\s.*", Regexp::IGNORECASE)
-      # Regexp.new("From:\s*" + Regexp.escape(address), Regexp::IGNORECASE),
-      # Regexp.new("<" + Regexp.escape(address) + ">", Regexp::IGNORECASE),
-      # Regexp.new(Regexp.escape(address) + "\s+wrote:", Regexp::IGNORECASE),
-      # Regexp.new("-+original\s+message-+\s*$", Regexp::IGNORECASE),
-      # Regexp.new("from:\s*$", Regexp::IGNORECASE)
-    ]
+		regex_arr = [
+			Regexp.new("From:\s*" + Regexp.escape(address), Regexp::IGNORECASE),
+			Regexp.new("<" + Regexp.escape(address) + ">", Regexp::IGNORECASE),
+			Regexp.new(Regexp.escape(address) + "\s+wrote:", Regexp::IGNORECASE),
+			Regexp.new("^.*On.*(\n)?wrote:$", Regexp::IGNORECASE),
+			Regexp.new("\s\S*On\s\w*.\s.*", Regexp::IGNORECASE),
+			Regexp.new("On\s.*,", Regexp::IGNORECASE),
+			Regexp.new("-+original\s+message-+\s*$", Regexp::IGNORECASE),
+			Regexp.new("from:\s*$", Regexp::IGNORECASE)
+		]
 
-    text_length = text.length
-    #calculates the matching regex closest to top of page
-    index = regex_arr.inject(text_length) do |min, regex|
-        [(text.index(regex) || text_length), min].min
-    end
+		text_length = text.length
+		#calculates the matching regex closest to top of page
+		index = regex_arr.inject(text_length) do |min, regex|
+			puts min
+				[(text.index(regex) || text_length), min].min
+		end
 
-    text[0, index].strip
+		text[0, index].strip
 	end
+
 
 end
