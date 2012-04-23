@@ -1,0 +1,23 @@
+!!!
+%html
+	%head
+		%title Offbott
+		= stylesheet_link_tag    "application", :media => "all"
+		= javascript_include_tag "application"
+		= csrf_meta_tags
+
+	%body
+
+		#header_o
+			#header_i
+				%h1 offbot
+		
+		#container_o
+			#container_i
+		
+			= yield
+		
+			- if person_signed_in?
+				= link_to 'Logout', destroy_person_session_path, :method => :delete        
+			- else
+				= link_to 'Login', new_person_session_path 
