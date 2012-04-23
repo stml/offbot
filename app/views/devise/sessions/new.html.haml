@@ -1,8 +1,8 @@
 %h2 Hello!
 
-%p If you already know <strong>offbot</strong>, please sign in:
+%p If you already know <span class="logotype">offbot</span>, please sign in:
 
-#login_box
+#pop_box
 	= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
 		%table
 			%tr#email 

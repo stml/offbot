@@ -1,19 +1,16 @@
-%h1 Listing my projects
+%h1 Your projects
 
-%table
-  %tr
-    %th
-    %th
-    %th
-    %th
+- if @projects.empty?
+	%p <span class="logotype">offbot</span> doesn't know about any of your projects yet.
+	%p= link_to 'Tell <span class="logotype">offbot</span> about a new project', new_project_path
+	
+- else
+	#pop_box
+		%table#project_list
+			- @projects.each do |project|
+				%tr
+					%td= link_to project.name, project, :title => "Check out this Project"
+					%td.edit= link_to 'Edit', edit_project_path(project), :title => "Edit this Project"
+					%td.delete= link_to 'Delete', project, :confirm => 'Are you sure?', :method => :delete, :title => "Delete this Project"
 
-  - @projects.each do |project|
-    %tr
-      %td= project.name
-      %td= link_to 'Show', project
-      %td= link_to 'Edit', edit_project_path(project)
-      %td= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New Project', new_project_path
+	%p= link_to 'New Project', new_project_path

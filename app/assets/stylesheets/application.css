@@ -33,6 +33,7 @@ body {
 	position: relative;
 	}
 #header_i h1 {
+	font-family: "Courier New", Courier, monospace;
 	font-size: 1em;
 	margin-bottom: 0;
 	float: left;
@@ -55,17 +56,48 @@ h1 { font-size: 1.8em; }
 h2 { font-size: 1.6em; }
 h3 { font-size: 1.4em; }
 h4 { font-size: 1.2em; }
-h1, h2, h3, h4, p, ul {
+h1, h2, h3, h4, p, ul, table {
 	line-height: 1.5;
 	margin-bottom: 10px;
 	}
 	
-#login_box {
+#pop_box {
 	background: #eef;
-	margin: 0 0 20px 0;
+	margin: 0 0 10px 0;
 	padding: 10px 10px 5px 10px;
 	}
 #login_box table {
-	margin: 0 10px 5px 10px;
+	margin: 0 10px;
+	}
+
+table td {
+	padding-right: 10px;
+	}
+
+#new_project table {
+	margin-bottom: 20px;
+	}
+#new_project .label {
+	width: 150px;
 	}
 	
+.logotype {
+	color: #004;
+	font-weight: bold;
+	font-family: "Courier New", Courier, monospace;
+	}
+	
+td.edit a {
+	display: block;
+	text-indent: -999999px;
+	width: 16px;
+	height: 16px;
+	background: transparent url('/images/icons/pencil.png') 0 0 no-repeat;
+	}
+td.delete a {
+	display: block;
+	text-indent: -999999px;
+	width: 16px;
+	height: 16px;
+	background: transparent url('/images/icons/trash.png') 0 0 no-repeat;
+	}
