@@ -1,19 +1,13 @@
-%h1 Listing projects
+%h1 ALL THE PROJECTS!1!
 
-%table
-  %tr
-    %th
-    %th
-    %th
-    %th
+#pop_box
+	%table
+		- @projects.each do |project|
+			%tr
+				%td= link_to project.name, project
+				%td.edit= link_to 'Edit', edit_project_path(project)
+				%td.delete= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete
 
-  - @projects.each do |project|
-    %tr
-      %td= project.name
-      %td= link_to 'Show', project
-      %td= link_to 'Edit', edit_project_path(project)
-      %td= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete
+%p= link_to 'Create a new Project', new_project_path
 
-%br
-
-= link_to 'New Project', new_project_path
+%p= link_to 'See just your Projects', root_url
