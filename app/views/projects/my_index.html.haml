@@ -1,8 +1,8 @@
 %h1 Your projects
 
 - if @projects.empty?
-	%p <strong>offbott</strong> doesn't know about any of your projects yet.
-	%p= link_to 'Tell offbot about a new project', new_project_path
+	%p <span class="logotype">offbot</span> doesn't know about any of your projects yet.
+	%p= link_to 'Tell <span class="logotype">offbot</span> about a new project', new_project_path
 	
 - else
 	%table#project_list

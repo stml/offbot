@@ -6,18 +6,28 @@
 				- @project.errors.full_messages.each do |msg|
 					%li= msg
 
-	= f.label :name 
-	= f.text_field :name
+	%table#new_project_name
+		%tr
+			%td.label= f.label :name 
+			%td.field= f.text_field :name
 
-	%h2 Add people to this project
-	- for person in Person.all
-		= f.label person.name
-		= check_box_tag("project[person_ids][]", person.id, @project.people.include?(person))
+	%h3 Add people to this project
+	
+	%table#new_project_people
+		- for person in Person.all
+			%tr
+				%td.label= f.label person.name
+				%td.field= check_box_tag("project[person_ids][]", person.id, @project.people.include?(person))
 
-	%h2 Invite others to join the project
-	%p Add their emails spearated by commas
-	= label_tag "emails"
-	= text_field_tag "emails"
+	%h3 Invite others to join the project
+	%p Add their emails separated by commas:
+	
+	%table#new_project_invites
+		%tr
+			%td.label= label_tag "emails"
+			%td.field= text_field_tag "emails"
 
-	.actions
-		= f.submit 'Save'
+	%table#new_project_submit
+		%tr
+			%td.label
+			%td.field= f.submit 'Create your new project!'

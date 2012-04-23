@@ -33,6 +33,7 @@ body {
 	position: relative;
 	}
 #header_i h1 {
+	font-family: "Courier New", Courier, monospace;
 	font-size: 1em;
 	margin-bottom: 0;
 	float: left;
@@ -69,3 +70,15 @@ h1, h2, h3, h4, p, ul {
 	margin: 0 10px 5px 10px;
 	}
 	
+#new_project table {
+	margin-bottom: 20px;
+	}
+#new_project .label {
+	width: 150px;
+	}
+	
+.logotype {
+	color: #004;
+	font-weight: bold;
+	font-family: "Courier New", Courier, monospace;
+	}
