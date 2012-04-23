@@ -12,7 +12,7 @@ class ListenerController < ApplicationController
 		puts @email_message.id
 		person = @email_message.person
 		project = @email_message.project
-		reply = extract_reply(params["text"], person.email)
+		reply = extract_reply(params["text"], "offbott.#{@email_message.message_id}@offbott.com")
 		@update = Update.new(:body => reply, :person_id => person.id, :project_id => project.id)
 													
 		respond_to do |format|
