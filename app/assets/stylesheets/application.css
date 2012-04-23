@@ -47,6 +47,9 @@ body {
 #container_o {
 	margin: 25px;
 	}
+#container_i {
+	width: 800px;
+	}
 	
 h1 { font-size: 1.8em; }
 h2 { font-size: 1.6em; }
@@ -56,3 +59,13 @@ h1, h2, h3, h4, p, ul {
 	line-height: 1.5;
 	margin-bottom: 10px;
 	}
+	
+#login_box {
+	background: #eef;
+	margin: 0 0 20px 0;
+	padding: 10px 10px 5px 10px;
+	}
+#login_box .line {
+	margin: 0 10px 5px 10px;
+	}
+	

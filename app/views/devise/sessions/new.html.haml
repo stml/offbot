@@ -1,0 +1,31 @@
+%h2 Hello!
+
+%p If you're already registered, please sign in:
+
+#login_box
+	= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+		%table
+			%tr#email 
+				%td 
+					= f.label :email
+				%td 
+					= f.email_field :email
+			%tr#password
+				%td 
+					= f.label :password
+				%td 
+					= f.password_field :password
+
+			- if devise_mapping.rememberable?
+				%tr#remember
+					%td 
+						= f.label :remember_me
+					%td 
+						= f.check_box :remember_me
+				
+			%tr#submit.line
+				%td
+				%td 
+					= f.submit "Sign in"
+
+= render "links"
