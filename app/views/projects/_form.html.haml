@@ -15,14 +15,22 @@
 
 	- person = current_person
 	= hidden_field(:project, :created_by, :value => person.id)
-
-	%h3 Add people to this project
 	
-	%table#new_project_people
-		- for person in Person.all
-			%tr
-				%td.label= f.label person.name
-				%td.field= check_box_tag("project[person_ids][]", person.id, @project.people.include?(person))
+	- unless @project.id.nil?
+		%table#new_project_people
+			- already_on_the_project = []
+			- for person in Person.all
+				- if current_person.is_admin?(@project)
+					%tr
+						%td.label= f.label person.name.titleize
+						%td.field= check_box_tag("project[person_ids][]", person.id, @project.people.include?(person))
+				- else
+					- if @project.people.include?(person)
+						- already_on_the_project << person.name.titleize
+			- if already_on_the_project
+				%p 
+					These folks have already joined: 
+					= already_on_the_project.join(", ")
 
 	%h3 Invite others to join the project
 	%p Add their emails separated by commas:

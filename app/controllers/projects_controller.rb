@@ -35,6 +35,32 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def create
+    @project = Project.new(params[:project])
+    emails = params[:emails]
+    invitations = emails.split(', ')
+    invitations.each do |invitation|
+      if Person.find_by_email(invitation) 
+        @project.people << Person.find_by_email(invitation) 
+      else
+        invite = Invitation.find_or_create_by_email(invitation)
+        invite.projects << @project
+        invite.save
+      end
+    end
+
+    respond_to do |format|
+      if @project.save
+        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        format.json { render json: @project, status: :created, location: @project }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
   def edit
     @project = Project.find(params[:id])
     raise ProjectAccessNotPermitted unless @project.viewable_by?(current_person)

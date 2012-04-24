@@ -17,6 +17,7 @@ class Project < ActiveRecord::Base
   def add_creator_to_admins
   	creator = Person.find(self.created_by)
   	self.project_admins_list.people << creator
+    self.people << creator
   end
 
   def viewable_by?(person)
