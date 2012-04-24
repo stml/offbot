@@ -11,6 +11,6 @@
 - if person_signed_in?
 	%p= link_to 'Create a new project', new_project_path
 - else
-	%p Why not #{link_to 'log in', new_person_session_path} to start tracking your projects?
+	%p Why not #{link_to 'log in', new_person_session_path} or #{link_to 'register', new_person_registration_path} to start tracking your projects?
 
 
