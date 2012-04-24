@@ -1,6 +1,8 @@
-%h2 Hello!
+%h2 Hello! Welcome to Offbott.
 
-%p If you already know <span class="logotype">offbot</span>, please sign in:
+%h3 Offbott is a (mostly) friendly robot who helps small teams keep a journal of their projects. #{link_to 'Find out more.', about_url}
+
+%p If you already know Offbott, please sign in:
 
 #pop_box
 	= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|

@@ -24,29 +24,39 @@ body {
 	}
 
 #header_o {
+	position: fixed;
+	z-index: 99999;
+	bottom: 0;
+	left: 0;
+	width: 100%;
 	background: #004;
 	color: #fff;
-	padding: 10px 25px;
 	}
 #header_i {
 	overflow: hidden;
 	position: relative;
+	padding: 10px 25px;
 	}
 #header_i h1 {
 	font-family: "Courier New", Courier, monospace;
 	font-size: 1em;
 	margin-bottom: 0;
-	float: left;
+	margin-right: 40px;
+	float: right;
+	}
+#header_i h1 a {
+	color: #fff;
+	text-decoration: none;
 	}
 #header_login {
-	float: right; 
+	float: left; 
 	}
 #header_login a {
 	color: #fff;
 	}
 	
 #container_o {
-	margin: 25px;
+	margin: 25px 25px 100px 25px;
 	}
 #container_i {
 	width: 800px;
@@ -63,6 +73,7 @@ h1, h2, h3, h4, p, ul, table {
 	
 #pop_box {
 	background: #eef;
+	width: 500px;
 	margin: 0 0 10px 0;
 	padding: 10px 20px 5px 20px;
 	}
@@ -81,12 +92,6 @@ table td {
 	width: 150px;
 	}
 	
-.logotype {
-	color: #004;
-	font-weight: bold;
-	font-family: "Courier New", Courier, monospace;
-	}
-	
 td.edit a {
 	display: block;
 	text-indent: -999999px;
@@ -100,4 +105,35 @@ td.delete a {
 	width: 16px;
 	height: 16px;
 	background: transparent url('/images/icons/trash.png') 0 0 no-repeat;
+	}
+	
+#project_cols {
+	width: 800px;
+	overflow: hidden;
+	position: relative;
+	}
+#project_col_left {
+	width: 500px;
+	float: left;
+	}
+#project_col_right {
+	width: 250px;
+	float: right;
+	}
+#project_col_right ul {	
+	list-style: none;
+	}
+	
+#project_col_left #update {
+	background: #ddf;
+	margin: 0 0 10px 0;
+	padding: 10px 20px 5px 20px;
+	}
+#project_col_left #update .author {
+	font-weight: bold;
+	}
+#project_col_left #update .date {
+	font-style: italic;
+	margin-left: 10px;
+	font-size: 80%;
 	}

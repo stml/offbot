@@ -1,0 +1,16 @@
+%h1 About Offbott
+
+%h3 Offbott is a (mostly) friendly robot who helps small teams keep a journal of their projects.
+
+%p Every day, Offbott sends an email to every member of your team, asking what they're up to. It might be a little, it might be a lot. You don't even have to answer if you're busy, or working on something else.
+
+%p Offbott remembers what everyone says, and at any stage of the project you and everyone else on the team can check in to see how it's all going. And at the end of the project, you've got a journal to save and review.
+
+%p It's pretty simple.
+
+- if person_signed_in?
+	%p= link_to 'Create a new project', new_project_path
+- else
+	%p Why not #{link_to 'log in', new_person_session_path} to start tracking your projects?
+
+
