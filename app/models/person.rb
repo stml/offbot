@@ -13,7 +13,19 @@ class Person < ActiveRecord::Base
   validates_presence_of :email, :name
   validates_uniqueness_of :email
 
-  after_create :add_to_projects
+  after_create :add_to_projects, :set_superadmin_to_false
+
+  def is_admin?(project)
+    project.project_admins_list.people.include?(self)
+  end
+
+  def can_view?(project)
+    project.people.include?(self)
+  end
+
+  def is_superadmin?
+    self.is_superadmin
+  end
 
   private
 
@@ -24,5 +36,9 @@ class Person < ActiveRecord::Base
         self.projects << project
       end
     end
+  end
+
+  def set_superadmin_to_false
+    self.is_superadmin = false
   end
 end

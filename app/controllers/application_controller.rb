@@ -8,7 +8,4 @@ class ApplicationController < ActionController::Base
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
 
-  def current_ability
-	  @current_ability ||= AccountAbility.new(current_person)
-	end
 end

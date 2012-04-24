@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120423143226) do
+ActiveRecord::Schema.define(:version => 20120424113218) do
 
   create_table "email_messages", :force => true do |t|
     t.string    "message_id"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20120423143226) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.integer  "project_admins_list_id"
+    t.boolean  "is_superadmin"
   end
 
   add_index "people", ["email"], :name => "index_people_on_email", :unique => true
@@ -70,10 +71,10 @@ ActiveRecord::Schema.define(:version => 20120423143226) do
   end
 
   create_table "projects", :force => true do |t|
-    t.timestamp "created_at", :null => false
-    t.timestamp "updated_at", :null => false
-    t.string    "name"
-    t.integer   "created_by"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "name"
+    t.integer  "created_by"
   end
 
   create_table "updates", :force => true do |t|

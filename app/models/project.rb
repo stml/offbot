@@ -18,4 +18,8 @@ class Project < ActiveRecord::Base
   	creator = Person.find(self.created_by)
   	self.project_admins_list.people << creator
   end
+
+  def viewable_by?(person)
+    self.people.include?(person)
+  end
 end

@@ -5,8 +5,9 @@
 		- @projects.each do |project|
 			%tr
 				%td= link_to project.name, project
-				%td.edit= link_to 'Edit', edit_project_path(project)
-				%td.delete= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete
+				- if current_person.is_superadmin?
+					%td.edit= link_to 'Edit', edit_project_path(project)
+					%td.delete= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete
 
 %p= link_to 'Create a new Project', new_project_path
 

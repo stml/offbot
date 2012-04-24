@@ -10,9 +10,12 @@
 			- @projects.each do |project|
 				%tr
 					%td= link_to project.name, project, :title => "Check out this Project"
-					%td.edit= link_to 'Edit', edit_project_path(project), :title => "Edit this Project"
-					%td.delete= link_to 'Delete', project, :confirm => 'Are you sure?', :method => :delete, :title => "Delete this Project"
+					- if current_person.can_view?(project)
+						%td.edit= link_to 'Edit', edit_project_path(project), :title => "Edit this Project"
+					- if current_person.is_admin?(project)
+						%td.delete= link_to 'Delete', project, :confirm => 'Are you sure?', :method => :delete, :title => "Delete this Project"
 
 %p= link_to 'Create a new Project', new_project_path
 
-%p= link_to 'See all Projects', projects_path
+- if current_person.is_superadmin?
+	%p= link_to 'See all Projects', projects_path

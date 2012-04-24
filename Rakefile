@@ -58,3 +58,14 @@ task :extract_reply => :environment do
 
 end
 
+desc "Add project admins list to every project that's missing one"
+task :add_project_admins_list => :environment do
+	Project.all.each do |project|
+		unless project.add_project_admins_list
+			admins_list = ProjectAdminsList.new
+			project.project_admins_list = admins_list
+			project.save
+		end
+	end
+end
+
