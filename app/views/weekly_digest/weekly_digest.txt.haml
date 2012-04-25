@@ -1,0 +1,7 @@
+Hi, #{@name}
+
+Here's what your teammates have been up to this week:
+
+- @project.updates.where("created_at >= ? AND created_at <= ?", Date.today.beginning_of_day - 7.days, Date.today.end_of_day).limit(20).each do |update|
+	#{update.body}
+	by #{update.person}, posted at #{update.created_at.strftime("%A %d %B")}
