@@ -7,3 +7,9 @@
       Hi, #{@name}
     %p What have you been up to?
     %p Offbott
+
+    %h2 Recently others involved with the project #{@project.name} said:
+
+		- @project.updates.order("created_at DESC").limit(3).each do |update|
+			%p #{update.body}
+			%p by #{update.person}, posted at #{update.created_at.strftime("%A %d %B")}
