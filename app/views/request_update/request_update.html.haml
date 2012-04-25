@@ -12,4 +12,4 @@
 
 		- @project.updates.order("created_at DESC").limit(3).each do |update|
 			%p #{update.body}
-			%p by #{update.person}, posted at #{update.created_at.strftime("%A %d %B")}
+			%p by #{update.person.name}, posted at #{update.created_at.strftime("%A %d %B")}

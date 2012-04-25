@@ -9,4 +9,4 @@ Recently others involved with the project #{@project.name} said:
 
 - @project.updates.order("created_at DESC").limit(3).each do |update|
 	#{update.body}
-	by #{update.person}, posted at #{update.created_at.strftime("%A %d %B")}
+	by #{update.person.name}, posted at #{update.created_at.strftime("%A %d %B")}
