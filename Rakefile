@@ -23,8 +23,8 @@ task :cron => :environment do
 						email.project = project
 						email.save
 					end
+					sleep(2.minutes)
 				end
-				sleep(2.minutes)
 			end
 		end
 	end
