@@ -1,6 +1,9 @@
-%p#notice= notice
-
-
+%p= @update.body
+%p Added to project #{@update.project.name}
 = link_to 'Edit', edit_update_path(@update)
 \|
-= link_to 'Back', updates_path
+= link_to 'Back to my updates', updates_path
+\|
+= link_to @update.project.name, project_path(@update.project.name)
+\|
+= link_to 'Back to my projects', root_url

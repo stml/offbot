@@ -15,15 +15,16 @@
 
 	- person = current_person
 	= hidden_field(:project, :created_by, :value => person.id)
-	
+
 	- unless @project.id.nil?
 		%table#new_project_people
 			- already_on_the_project = []
 			- for person in Person.all
 				- if current_person.is_admin?(@project)
-					%tr
-						%td.label= f.label person.name.titleize
-						%td.field= check_box_tag("project[person_ids][]", person.id, @project.people.include?(person))
+					- if @project.people.include?(person)
+						%tr
+							%td.label= f.label person.name.titleize
+							%td.field= check_box_tag("project[person_ids][]", person.id, @project.people.include?(person))
 				- else
 					- if @project.people.include?(person)
 						- already_on_the_project << person.name.titleize

@@ -1,6 +1,4 @@
 class PeopleController < ApplicationController
-  class NotPermitted < StandardError
-  end
 
   def index
     raise NotPermitted unless current_person.is_superadmin?
@@ -53,10 +51,5 @@ class PeopleController < ApplicationController
     end
   end
 
-  rescue_from NotPermitted, :with => :not_permitted
-
-  def not_permitted(exception)
-    redirect_to root_path, :alert => "I'm very sorry, but you can't do this."
-  end
 
 end

@@ -1,13 +1,7 @@
 class ProjectsController < ApplicationController
-  ## Exception Handling
-  class ProjectAccessNotPermitted < StandardError
-  end
-
-  class ProjectIndexNotPermitted < StandardError
-  end
 
   def index
-    raise ProjectIndexNotPermitted unless current_person.is_superadmin?
+    raise NotPermitted unless current_person.is_superadmin?
     @projects = Project.all
 
     respond_to do |format|
@@ -18,7 +12,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
-    raise ProjectAccessNotPermitted unless @project.viewable_by?(current_person)
+    raise NotPermitted unless @project.viewable_by?(current_person)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -63,12 +57,12 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
-    raise ProjectAccessNotPermitted unless @project.viewable_by?(current_person)
+    raise NotPermitted unless @project.viewable_by?(current_person)
   end
 
   def update
     @project = Project.find(params[:id])
-    raise ProjectAccessNotPermitted unless @project.viewable_by?(current_person)
+    raise NotPermitted unless @project.viewable_by?(current_person)
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
@@ -83,7 +77,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project = Project.find(params[:id])
-    raise ProjectIndexNotPermitted unless current_person.is_superadmin?
+    raise NotPermitted unless current_person.is_superadmin?
     @project.destroy
 
     respond_to do |format|
@@ -101,18 +95,8 @@ class ProjectsController < ApplicationController
     end
   end
 
-  rescue_from ProjectAccessNotPermitted, :with => :access_not_permitted
-  rescue_from ProjectIndexNotPermitted, :with => :index_not_permitted
-
   # rescue_from NotPermitted do |exception|
   #   redirect_to root_path, :alert => exception.message
   # end
 
-  def access_not_permitted(exception)
-    redirect_to root_path, :alert => "Oi, you're not on that project! You ought to learn some manners."
-  end
-
-  def index_not_permitted(exception)
-    redirect_to root_path, :alert => "Oi, you're not a superadmin! Can't look at that."
-  end
 end
