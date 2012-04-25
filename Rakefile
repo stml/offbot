@@ -30,6 +30,16 @@ task :cron => :environment do
 			end
 		end
 	end
+
+	if Time.now.hour == 17
+		todays_digests = Project.where(:weekly_digest_day => (Date.parse(Date.today.to_s).strftime("%A")))
+		todays_digests.each do |project|
+			project.people.each do |person|
+				WeeklyDigest.weekly_digest(project, person).deliver
+			end
+		end
+	end
+
 end
 
 task :extract_reply => :environment do
