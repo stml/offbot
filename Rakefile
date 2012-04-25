@@ -1,13 +1,11 @@
 #!/usr/bin/env rake
-# Add your own tasks in files placed in lib/tasks ending in .rake,
-# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require File.expand_path('../config/application', __FILE__)
 
 Offbot::Application.load_tasks
 
 task :cron => :environment do
-	#Pony.mail(:to => 'james@shorttermmemoryloss.com', :from => "offbot@bot.com", :subject => "Hi", :body => "I am sentient", :via => :smtp)
+	# send out update requests
 	time = Time.now.hour
 	if (9..17).member?(time)
 		time_left = 17 - time
@@ -31,6 +29,7 @@ task :cron => :environment do
 		end
 	end
 
+	# send out weekly digest 
 	if Time.now.hour == 17
 		todays_digests = Project.where(:weekly_digest_day => (Date.parse(Date.today.to_s).strftime("%A")))
 		todays_digests.each do |project|

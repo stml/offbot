@@ -43,6 +43,10 @@
 				- @project.people.each do |person|
 					%li= link_to person.name, person
 
+		%h4 Weekly digest day
+
+		%p= if @project.weekly_digest_day.nil? then "Weekly digest not set up yet" else @project.weekly_digest_day end
+
 		%p= link_to 'Edit the name and members of this project', edit_project_path(@project)
 
 		%p= link_to 'See all your projects', root_url
