@@ -26,6 +26,7 @@ task :cron => :environment do
 						email.save
 					end
 				end
+				sleep(2.minutes)
 			end
 		end
 	end
@@ -65,6 +66,16 @@ task :add_project_admins_list => :environment do
 			admins_list = ProjectAdminsList.new
 			project.project_admins_list = admins_list
 			project.save
+		end
+	end
+end
+
+desc "Send out weekly digest"
+task :send_out_weekly_digest => :environment do
+	todays_digests = Project.where(:weekly_digest_day => (Date.parse(Date.today.to_s).strftime("%A")))
+	todays_digests.each do |project|
+		project.people.each do |person|
+			WeeklyDigest.weekly_digest(project, person).deliver
 		end
 	end
 end
