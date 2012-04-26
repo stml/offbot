@@ -11,7 +11,7 @@
 			%td.label= f.label :body 
 			%td.field= f.text_area :body
 
-		- unless controller.action_name = "edit"
+		- unless params[:action] == 'edit'
 			- for project in current_person.projects
 				%tr
 					%td.label= f.label :project_id, project.name

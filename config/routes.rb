@@ -10,6 +10,7 @@ Offbot::Application.routes.draw do
   match "/sendmail/incoming" => "listener#receive_email", :via => :post
   match '/about' => 'pages#about'
   match '/my_updates' => 'updates#my_index'
+  match '/projects/:id/updates/:tag' => 'updates#tagged'
 
   authenticate :person do
     root :to => 'projects#my_index'

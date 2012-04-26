@@ -26,7 +26,9 @@
 						- else
 							%p= update.created_at.strftime("%A %d %B")
 					#update
-						%p.body= update.body
+						- body = update.body
+						- body_with_linked_hashtags = auto_link(body, { :hashtag_url_base => "http://offbott.com/projects/#{@project.id}/updates/", :hashtag_class => "hashtag" })
+						%p.body= raw(body_with_linked_hashtags)
 						%p.credit 
 							<span class="author">#{update.person.name}</span> <span class="date">#{update.created_at.strftime("%I:%M %p")}</span>
 							- if update.editable_by?(current_person)

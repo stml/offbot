@@ -74,4 +74,14 @@ class UpdatesController < ApplicationController
       format.html
     end
   end
+
+  def tagged
+    @project = Project.find(params[:id])
+    @updates = @project.updates.tagged_with(params[:tag])
+    @tag = params[:tag]
+
+    respond_to do |format|
+      format.html
+    end
+  end
 end
