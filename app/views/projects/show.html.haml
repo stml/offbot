@@ -31,6 +31,7 @@
 						%p.body= raw(body_with_linked_hashtags)
 						%p.credit 
 							<span class="author">#{update.person.name}</span> <span class="date">#{update.created_at.strftime("%I:%M %p")}</span>
+							%span.permalink= link_to '∞', update_path(update)
 							- if update.editable_by?(current_person)
 								%span.edit= link_to 'Edit', edit_update_path(update)
 								%span.delete= link_to 'Delete', update, :confirm => 'Are you sure?', :method => :delete
