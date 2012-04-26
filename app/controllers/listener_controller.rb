@@ -9,7 +9,6 @@ class ListenerController < ApplicationController
 		sent_to = params["to"].split('@')
 		message_id = sent_to[0].split('.')[1]
 		sent_by = params["from"].split('<')[0].chop
-		puts sent by, person.email
 		@email_message = EmailMessage.find_by_message_id(message_id)
 		puts @email_message.id
 		person = @email_message.person
