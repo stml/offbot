@@ -10,7 +10,7 @@ class ListenerController < ApplicationController
 		message_id = sent_to[0].split('.')[1]
 		sent_by = params["from"].split('<')[0].chop
 		@email_message = EmailMessage.find_by_message_id(message_id)
-		puts @email_message.id
+		puts @email_message.id, sent_by, person.email
 		person = @email_message.person
 		project = @email_message.project
 		reply = extract_reply(params["text"], "offbott.#{@email_message.message_id}@offbott.com")
