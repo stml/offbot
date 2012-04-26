@@ -10,9 +10,9 @@ class ListenerController < ApplicationController
 		message_id = sent_to[0].split('.')[1]
 		sent_by = params["from"].split('<')[0].chop
 		@email_message = EmailMessage.find_by_message_id(message_id)
-		puts @email_message.id, sent_by, person.email
 		person = @email_message.person
 		project = @email_message.project
+		puts @email_message.id, sent_by, person.email
 		reply = extract_reply(params["text"], "offbott.#{@email_message.message_id}@offbott.com")
 		if sent_by == person.email
 			@update = Update.new(:body => reply, :person_id => person.id, :project_id => project.id)
