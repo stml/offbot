@@ -6,8 +6,9 @@
 		%tr
 			%td= update.body
 			%td= link_to 'Show', update
-			%td= link_to 'Edit', edit_update_path(update)
-			%td= link_to 'Destroy', update, :confirm => 'Are you sure?', :method => :delete
+			- if update.editable_by?(current_person)
+				%td= link_to 'Edit', edit_update_path(update)
+				%td= link_to 'Destroy', update, :confirm => 'Are you sure?', :method => :delete
 
 %br
 
