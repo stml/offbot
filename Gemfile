@@ -30,6 +30,5 @@ group :production do
 	gem 'pg'
 end
 
-
 # everyone loves a unicorn, especially one that is a webserver
 gem 'unicorn'

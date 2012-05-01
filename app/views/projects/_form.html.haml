@@ -48,4 +48,4 @@
 				- weekdays = I18n.t 'date.day_names'
 				= select(:project, :weekly_digest_day, options_for_select(weekdays))
 
-	%p= f.submit 'Save this project'
+	%p= f.submit 'Save this project', :class => 'confirm button'
