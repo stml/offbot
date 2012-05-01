@@ -66,6 +66,10 @@ h1 { font-size: 1.8em; }
 h2 { font-size: 1.6em; }
 h3 { font-size: 1.4em; }
 h4 { font-size: 1.2em; }
+h1, h2, h3, h4 {
+	font-family: Georgia, serif;
+	font-weight: normal;
+	}
 h1, h2, h3, h4, p, ul, table {
 	line-height: 1.5;
 	margin-bottom: 10px;
@@ -150,4 +154,21 @@ td.delete a {
 	font-style: italic;
 	margin-left: 10px;
 	font-size: 80%;
+	}
+
+.button {
+	color: #fff;
+	border: 0;
+	font-size: 0.9em;	
+	text-decoration: none;
+	padding: 3px 6px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	cursor: pointer;
+	}	
+.confirm {
+	background: #66c;
+	}
+.cancel {
+	background: #c00;
 	}
