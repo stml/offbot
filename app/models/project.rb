@@ -25,6 +25,6 @@ class Project < ActiveRecord::Base
   end
 
   def manageable_by?(person)
-    self.created_by == person.id or person.is_superadmin? or person.is_admin?(project)
+    self.created_by == person.id or person.is_superadmin? or person.is_admin?(self)
   end
 end
