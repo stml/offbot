@@ -8,6 +8,7 @@ gem 'devise'
 gem 'uuid'
 gem 'acts-as-taggable-on'
 gem 'twitter-text'
+gem 'jquery-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -29,13 +30,6 @@ group :production do
 	gem 'pg'
 end
 
-gem 'jquery-rails'
 
 # everyone loves a unicorn, especially one that is a webserver
 gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
