@@ -9,4 +9,4 @@
 
 		- @project.updates.where("created_at >= ? AND created_at <= ?", Date.today.beginning_of_day - 7.days, Date.today.end_of_day).limit(20).each do |update|
 			%p #{update.body}
-			%p by #{update.person.name}, posted at #{update.created_at.strftime("%A %d %B")}
+			%p{:style=>"border-bottom: 1px solid #cacaca;"} by #{update.person.name}, posted at #{update.created_at.strftime("%A %d %B")}
