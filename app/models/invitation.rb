@@ -5,6 +5,8 @@ class Invitation < ActiveRecord::Base
 
 	after_create :send_out_invite
 
+	private
+	
 	def send_out_invite
 		SendInvitation.send_out_invite(self).deliver
 	end

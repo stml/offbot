@@ -32,9 +32,3 @@ end
 
 # everyone loves a unicorn, especially one that is a webserver
 gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
