@@ -1,10 +1,20 @@
 = form_for @update do |f|
-  -if @update.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@update.errors.count, "error")} prohibited this update from being saved:"
-      %ul
-        - @update.errors.full_messages.each do |msg|
-          %li= msg
+	-if @update.errors.any?
+		#error_explanation
+			%h2= "#{pluralize(@update.errors.count, "error")} prohibited this update from being saved:"
+			%ul
+				- @update.errors.full_messages.each do |msg|
+					%li= msg
 
-  .actions
-    = f.submit 'Save'
+	%table#new_update
+		%tr
+			%td.label= f.label :body 
+			%td.field= f.text_area :body
+
+		- unless params[:action] == 'edit'
+			- for project in current_person.projects
+				%tr
+					%td.label= f.label :project_id, project.name
+					%td.field= radio_button_tag "update[project_id]", project.id, @update.project_id == project.id
+	.actions
+		= f.submit 'Save'

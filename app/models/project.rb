@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-	attr_accessible :name, :people, :person_ids, :created_by
+	attr_accessible :name, :people, :person_ids, :created_by, :weekly_digest_day
   has_and_belongs_to_many :people
   has_many :updates
   has_many :email_messages
@@ -17,5 +17,14 @@ class Project < ActiveRecord::Base
   def add_creator_to_admins
   	creator = Person.find(self.created_by)
   	self.project_admins_list.people << creator
+    self.people << creator
+  end
+
+  def viewable_by?(person)
+    self.people.include?(person)
+  end
+
+  def manageable_by?(person)
+    self.created_by == person.id or person.is_superadmin? or person.is_admin?(project)
   end
 end

@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
-  # GET /projects
-  # GET /projects.json
+
   def index
+    raise NotPermitted unless current_person.is_superadmin?
     @projects = Project.all
 
     respond_to do |format|
@@ -10,10 +10,9 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/1
-  # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
+    raise NotPermitted unless @project.viewable_by?(current_person)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,8 +20,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/new
-  # GET /projects/new.json
   def new
     @project = Project.new
 
@@ -32,21 +29,18 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/1/edit
-  def edit
-    @project = Project.find(params[:id])
-  end
-
-  # POST /projects
-  # POST /projects.json
   def create
     @project = Project.new(params[:project])
     emails = params[:emails]
     invitations = emails.split(', ')
     invitations.each do |invitation|
-      invite = Invitation.find_or_create_by_email(invitation)
-      invite.projects << @project
-      invite.save
+      if Person.find_by_email(invitation) 
+        @project.people << Person.find_by_email(invitation) 
+      else
+        invite = Invitation.find_or_create_by_email(invitation)
+        invite.projects << @project
+        invite.save
+      end
     end
 
     respond_to do |format|
@@ -60,10 +54,15 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # PUT /projects/1
-  # PUT /projects/1.json
+
+  def edit
+    @project = Project.find(params[:id])
+    raise NotPermitted unless @project.viewable_by?(current_person)
+  end
+
   def update
     @project = Project.find(params[:id])
+    raise NotPermitted unless @project.viewable_by?(current_person)
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
@@ -76,10 +75,9 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # DELETE /projects/1
-  # DELETE /projects/1.json
   def destroy
     @project = Project.find(params[:id])
+    raise NotPermitted unless current_person.is_superadmin?
     @project.destroy
 
     respond_to do |format|
@@ -96,4 +94,9 @@ class ProjectsController < ApplicationController
       format.json { render json: @projects }
     end
   end
+
+  # rescue_from NotPermitted do |exception|
+  #   redirect_to root_path, :alert => exception.message
+  # end
+
 end

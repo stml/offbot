@@ -1,13 +1,11 @@
 #!/usr/bin/env rake
-# Add your own tasks in files placed in lib/tasks ending in .rake,
-# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require File.expand_path('../config/application', __FILE__)
 
 Offbot::Application.load_tasks
 
 task :cron => :environment do
-	#Pony.mail(:to => 'james@shorttermmemoryloss.com', :from => "offbot@bot.com", :subject => "Hi", :body => "I am sentient", :via => :smtp)
+	# send out update requests
 	time = Time.now.hour
 	if (9..17).member?(time)
 		time_left = 17 - time
@@ -25,10 +23,26 @@ task :cron => :environment do
 						email.project = project
 						email.save
 					end
+					sleep(2.minutes)
 				end
 			end
 		end
 	end
+
+	# send out weekly digest 
+	if Time.now.hour == 17
+		todays_digests = Project.where(:weekly_digest_day => (Date.parse(Date.today.to_s).strftime("%A")))
+		todays_digests.each do |project|
+			unless Date.parse(project.last_weekly_digest_sent_at) == Date.today
+				project.people.each do |person|
+					WeeklyDigest.weekly_digest(project, person).deliver
+				end
+				project.last_weekly_digest_sent_at = DateTime.now
+				project.save
+			end
+		end
+	end
+
 end
 
 task :extract_reply => :environment do
@@ -56,5 +70,26 @@ task :extract_reply => :environment do
 
 	puts extract_reply(Update.last.body, 'offbott.114cbbb0-6f52-012f-7b02-123139338563@offbott.com')
 
+end
+
+desc "Add project admins list to every project that's missing one"
+task :add_project_admins_list => :environment do
+	Project.all.each do |project|
+		unless project.add_project_admins_list
+			admins_list = ProjectAdminsList.new
+			project.project_admins_list = admins_list
+			project.save
+		end
+	end
+end
+
+desc "Send out weekly digest"
+task :send_out_weekly_digest => :environment do
+	todays_digests = Project.where(:weekly_digest_day => (Date.parse(Date.today.to_s).strftime("%A")))
+	todays_digests.each do |project|
+		project.people.each do |person|
+			WeeklyDigest.weekly_digest(project, person).deliver
+		end
+	end
 end
 

@@ -1,83 +1,87 @@
 class UpdatesController < ApplicationController
-  # GET /updates
-  # GET /updates.json
   def index
+    raise NotPermitted unless current_person.is_superadmin?
     @updates = Update.all
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @updates }
+      format.html 
     end
   end
 
-  # GET /updates/1
-  # GET /updates/1.json
   def show
     @update = Update.find(params[:id])
+    raise NotPermitted unless @update.viewable_by?(current_person)
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @update }
+      format.html 
     end
   end
 
-  # GET /updates/new
-  # GET /updates/new.json
   def new
     @update = Update.new
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @update }
+      format.html 
     end
   end
 
-  # GET /updates/1/edit
   def edit
     @update = Update.find(params[:id])
+    raise NotPermitted unless @update.editable_by?(current_person)
   end
 
-  # POST /updates
-  # POST /updates.json
   def create
     @update = Update.new(params[:update])
+    @person = current_person
+    @person.updates << @update
 
     respond_to do |format|
       if @update.save
         format.html { redirect_to @update, notice: 'Update was successfully created.' }
-        format.json { render json: @update, status: :created, location: @update }
       else
         format.html { render action: "new" }
-        format.json { render json: @update.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PUT /updates/1
-  # PUT /updates/1.json
   def update
     @update = Update.find(params[:id])
+    raise NotPermitted unless @update.editable_by?(current_person)
 
     respond_to do |format|
       if @update.update_attributes(params[:update])
         format.html { redirect_to @update, notice: 'Update was successfully updated.' }
-        format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @update.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /updates/1
-  # DELETE /updates/1.json
   def destroy
     @update = Update.find(params[:id])
+    raise NotPermitted unless @update.editable_by?(current_person)
     @update.destroy
 
     respond_to do |format|
-      format.html { redirect_to updates_url }
-      format.json { head :no_content }
+      format.html { redirect_to :back }
+    end
+  end
+
+  def my_index
+    @updates = current_person.updates
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def tagged
+    @project = Project.find(params[:id])
+    @updates = @project.updates.tagged_with(params[:tag])
+    @tag = params[:tag]
+
+    respond_to do |format|
+      format.html
     end
   end
 end
