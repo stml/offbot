@@ -103,11 +103,34 @@ p#notice {
 	background: #fffacd;
 	}
 
-#new_project table {
-	margin-bottom: 20px;
+#project_name_bar {
+	margin-bottom: 10px;
+	padding: 5px 0;
+	background: #eef;
+	width: 400px;
 	}
-#new_project .label {
-	width: 150px;
+#project_name_bar p {
+	margin: 4px 20px 4px 10px;
+	}
+#project_name_bar input {
+	width: 100%;
+	font-size: 1.2em;
+	color: #777;
+	font-style: italic;
+	}
+#email_adds {
+	margin-bottom: 10px;
+	padding: 5px 0;
+	background: #eef;
+	width: 400px;
+	}
+#email_adds p.address {
+	margin: 4px 20px 4px 10px;
+	padding-left: 20px;
+	background: transparent url('/images/icons/add.png') 0 5px no-repeat;
+	}
+#email_adds input {
+	width: 100%;
 	}
 	
 td.edit a {
@@ -171,4 +194,11 @@ td.delete a {
 	}
 .cancel {
 	background: #c00;
+	}
+.operate {
+	background: #888;
+	}
+	
+.right {
+	text-align: right;
 	}

@@ -8,10 +8,11 @@
 
 	%h3 What's it called?
 
-	%table#new_project_name
-		%tr
-			%td.label= f.label :name 
-			%td.field= f.text_field :name
+	#project_name_bar
+		- if @project.id.nil?
+			%p= f.text_field(:name, :value => "My Awesome Project", :class => "clear_field")
+		- else
+			%p= f.text_field :name
 
 	- person = current_person
 	= hidden_field(:project, :created_by, :value => person.id)
@@ -34,17 +35,21 @@
 					= already_on_the_project.join(", ")
 
 	%h3 Invite others to join the project
-	%p Add their emails separated by commas:
+			
+	%p Add the email addresses of the other people you'd like to be on the project:
 	
-	%table#new_project_invites
-		%tr
-			%td.label= label_tag "emails"
-			%td.field= text_field_tag "emails"
-
+	#email_adds
+		%p.address= text_field_tag "emails"
+		%p.address= text_field_tag "emails"
+		%p.address= text_field_tag "emails"
+		%p.address= text_field_tag "emails"
+		%p.address= text_field_tag "emails"
+		%p.right= link_to '+ Add more', root_url, :class => 'operate button'
+	
 	%table#new_project_weekly_digest
 		%tr
-			%td.label= f.label :weekly_digest_day, "On which day would you like to receive the weekly digest of all updates?"
-			%td.field
+			%td= f.label :weekly_digest_day, "On which day would you like to receive the weekly digest of all updates?"
+			%td
 				- weekdays = I18n.t 'date.day_names'
 				= select(:project, :weekly_digest_day, options_for_select(weekdays))
 
