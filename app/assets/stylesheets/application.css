@@ -85,6 +85,20 @@ table td {
 	padding-right: 10px;
 	}
 
+p#alert, p#notice {
+	font-size: 0.9em;
+	text-align: center;
+	padding: 1px 5px;
+	border-top: 1px dotted #e0e0e0;	
+	border-bottom: 1px dotted #ddd;
+	}
+p#alert {	
+	background: #ffbfbf;
+	}
+p#notice {	
+	background: #fffacd;
+	}
+
 #new_project table {
 	margin-bottom: 20px;
 	}

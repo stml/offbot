@@ -65,18 +65,18 @@ ActiveRecord::Schema.define(:version => 20120425153055) do
   end
 
   create_table "project_admins_lists", :force => true do |t|
-    t.integer   "project_id"
-    t.timestamp "created_at", :null => false
-    t.timestamp "updated_at", :null => false
+    t.integer  "project_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "projects", :force => true do |t|
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
-    t.string   "name"
-    t.integer  "created_by"
-    t.string   "weekly_digest_day"
-    t.datetime "weekly_digest_sent_at"
+    t.timestamp "created_at",            :null => false
+    t.timestamp "updated_at",            :null => false
+    t.string    "name"
+    t.integer   "created_by"
+    t.string    "weekly_digest_day"
+    t.datetime  "weekly_digest_sent_at"
   end
 
   create_table "taggings", :force => true do |t|

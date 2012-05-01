@@ -23,7 +23,9 @@
 		
 		#container_o
 			#container_i
-				%p#notice= notice
-				%p#alert= alert
+				- unless notice.to_s == ''
+					%p#notice= notice
+				- unless alert.to_s == ''
+					%p#alert= alert
 
 				= yield
