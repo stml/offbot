@@ -97,11 +97,11 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project = Project.find(params[:id])
-    raise NotPermitted unless current_person.is_superadmin?
+    raise NotPermitted unless @project.manageable_by?(current_person)
     @project.destroy
 
     respond_to do |format|
-      format.html { redirect_to projects_url }
+      format.html { redirect_to root_url }
       format.json { head :no_content }
     end
   end
