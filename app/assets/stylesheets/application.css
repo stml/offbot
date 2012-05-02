@@ -132,6 +132,9 @@ p#notice {
 #email_adds input {
 	width: 100%;
 	}
+#email_adds .button {
+	margin-right: 15px;
+	}
 	
 td.edit a {
 	display: block;

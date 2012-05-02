@@ -39,12 +39,13 @@
 	%p Add the email addresses of the other people you'd like to be on the project:
 	
 	#email_adds
-		%p.address= text_field_tag "emails"
-		%p.address= text_field_tag "emails"
-		%p.address= text_field_tag "emails"
-		%p.address= text_field_tag "emails"
-		%p.address= text_field_tag "emails"
-		%p.right= link_to '+ Add more', root_url, :class => 'operate button'
+		.email_add_block
+			%p.address= text_field_tag "emails"
+			%p.address= text_field_tag "emails"
+			%p.address= text_field_tag "emails"
+			%p.address= text_field_tag "emails"
+			%p.address= text_field_tag "emails"
+		%p.right= link_to '+ Add more', root_url, :class => 'operate button', :id => 'addmoreemails'
 	
 	%table#new_project_weekly_digest
 		%tr
