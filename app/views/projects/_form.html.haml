@@ -10,7 +10,7 @@
 
 	#project_name_bar
 		- if @project.id.nil?
-			%p= f.text_field(:name, :value => "My Awesome Project", :class => "clear_field")
+			%p.void= f.text_field(:name, :value => "My Awesome Project", :class => "clear_field")
 		- else
 			%p= f.text_field :name
 
@@ -31,8 +31,14 @@
 						- already_on_the_project << person.name.titleize
 			- if already_on_the_project
 				%p 
-					These folks have already joined: 
+					These people have already joined the project: 
 					= already_on_the_project.join(", ")
+		-unless @project.invitations.empty?
+			%p These people have been invited to the project:	
+			%ul#new_project_invited
+				- @project.invitations.each do |person|
+					%li <em>#{person.email}</em>
+			
 
 	%h3 Invite others to join the project
 			

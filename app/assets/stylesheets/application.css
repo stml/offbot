@@ -112,11 +112,15 @@ p#notice {
 #project_name_bar p {
 	margin: 4px 20px 4px 10px;
 	}
-#project_name_bar input {
+#project_name_bar p.void input {
 	width: 100%;
 	font-size: 1.2em;
 	color: #777;
 	font-style: italic;
+	}
+#project_name_bar input {
+	width: 100%;
+	font-size: 1.2em;
 	}
 #email_adds {
 	margin-bottom: 10px;
@@ -149,6 +153,20 @@ td.delete a {
 	width: 16px;
 	height: 16px;
 	background: transparent url('/images/icons/trash.png') 0 0 no-repeat;
+	}
+	
+table#new_project_people {
+	width: 390px;
+	padding: 2px 5px;
+	background: #eef;
+	font-size: 0.9em;
+	}
+ul#new_project_invited {
+	width: 390px;
+	padding: 2px 5px;
+	background: #eef;
+	list-style: none;
+	font-size: 0.9em;
 	}
 	
 #project_cols {

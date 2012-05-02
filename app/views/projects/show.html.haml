@@ -44,7 +44,7 @@
 				- @project.people.each do |person|
 					%li= link_to person.name, person
 				- @project.invitations.each do |person|
-					%li <em>#{person.email}</em>
+					%li <em>#{person.email[0,20]}…</em>
 
 		- if @project.weekly_digest_day.nil? 
 			%p Weekly digest not set up yet
