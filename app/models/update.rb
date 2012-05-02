@@ -9,7 +9,7 @@ class Update < ActiveRecord::Base
   acts_as_taggable
 
   def viewable_by?(person)
-    project = self.project.people.include?(person)
+    self.project.people.include?(person)
   end
 
   def editable_by?(person)
