@@ -37,6 +37,7 @@ class Person < ActiveRecord::Base
           self.projects << project
         end
       end
+      invitation.destroy
     end
   end
 
