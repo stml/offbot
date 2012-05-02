@@ -40,14 +40,13 @@
 	
 	#email_adds
 		.email_add_block
-			%p.address= text_field_tag "emails"
-			%p.address= text_field_tag "emails"
-			%p.address= text_field_tag "emails"
-			%p.address= text_field_tag "emails"
-			%p.address= text_field_tag "emails"
+			%p.address= text_field_tag "emails[]"
+			%p.address= text_field_tag "emails[]"
+			%p.address= text_field_tag "emails[]"
+			%p.address= text_field_tag "emails[]"
+			%p.address= text_field_tag "emails[]"
 		%p.right 
-			%span{:id => 'addmoreemails', :class => ['operate', 'button']} + Add more
-	
+			%span{:id => 'addmoreemails', :class => ['operate', 'button']} + Add more	
 	%table#new_project_weekly_digest
 		%tr
 			%td= f.label :weekly_digest_day, "On which day would you like to receive the weekly digest of all updates?"
