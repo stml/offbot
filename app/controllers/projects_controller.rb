@@ -31,8 +31,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(params[:project])
-    emails = params[:emails]
-    invitations = emails.split(', ')
+    invitations = params[:emails]
     invitations.each do |invitation|
       if Person.find_by_email(invitation) 
         @project.people << Person.find_by_email(invitation) 

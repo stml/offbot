@@ -40,11 +40,11 @@
 	
 	#email_adds
 		.email_add_block
-			%p.address= text_field_tag "emails"
-			%p.address= text_field_tag "emails"
-			%p.address= text_field_tag "emails"
-			%p.address= text_field_tag "emails"
-			%p.address= text_field_tag "emails"
+			%p.address= text_field_tag "emails[]"
+			%p.address= text_field_tag "emails[]"
+			%p.address= text_field_tag "emails[]"
+			%p.address= text_field_tag "emails[]"
+			%p.address= text_field_tag "emails[]"
 		%p.right= link_to '+ Add more', root_url, :class => 'operate button', :id => 'addmoreemails'
 	
 	%table#new_project_weekly_digest
