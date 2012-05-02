@@ -1,5 +1,5 @@
-if [RAILS_ENV] == production
+if ENV["RAILS_ENV"] == "production"
 	DOMAIN = "offbott.com"
-elsif [RAILS_ENV] == staging
+elsif ENV["RAILS_ENV"] == "staging"
 	DOMAIN = "staging.offbott.com"
 end
