@@ -62,6 +62,22 @@ class ProjectsController < ApplicationController
   def edit
     @project = Project.find(params[:id])
     raise NotPermitted unless @project.viewable_by?(current_person)
+
+    invitations = params[:emails]
+    invitations.each do |invitation|
+      person = Person.find_by_email(invitation)
+      if person
+        unless @project.people.include?(person)
+          unless person == current_person
+            @project.people << person
+          end
+        end
+      else
+        invite = Invitation.find_or_create_by_email(invitation)
+        invite.projects << @project
+        invite.save
+      end
+    end
   end
 
   def update
