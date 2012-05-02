@@ -4,6 +4,7 @@ class Invitation < ActiveRecord::Base
 	validates_presence_of :email
 
 	after_create :send_out_invite
+	after_update :send_out_invite
 
 	private
 	
