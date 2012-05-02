@@ -62,6 +62,11 @@ class ProjectsController < ApplicationController
   def edit
     @project = Project.find(params[:id])
     raise NotPermitted unless @project.viewable_by?(current_person)
+  end
+
+  def update
+    @project = Project.find(params[:id])
+    raise NotPermitted unless @project.viewable_by?(current_person)
 
     invitations = params[:emails]
     invitations.each do |invitation|
@@ -78,11 +83,6 @@ class ProjectsController < ApplicationController
         invite.save
       end
     end
-  end
-
-  def update
-    @project = Project.find(params[:id])
-    raise NotPermitted unless @project.viewable_by?(current_person)
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
