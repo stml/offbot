@@ -33,7 +33,9 @@ class Person < ActiveRecord::Base
     invitation = Invitation.find_by_email(self.email)
     if invitation
       invitation.projects.each do |project|
-        self.projects << project
+        unless self.projects.include?(project)
+          self.projects << project
+        end
       end
     end
   end
