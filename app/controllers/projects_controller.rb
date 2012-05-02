@@ -36,7 +36,9 @@ class ProjectsController < ApplicationController
       person = Person.find_by_email(invitation)
       if person
         unless @project.people.include?(person)
-          @project.people << person
+          unless person == current_person
+            @project.people << person
+          end
         end
       else
         invite = Invitation.find_or_create_by_email(invitation)
