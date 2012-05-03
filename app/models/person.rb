@@ -5,7 +5,7 @@ class Person < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :project_ids
   has_many :updates
   has_many :email_messages
   has_and_belongs_to_many :projects
@@ -28,7 +28,11 @@ class Person < ActiveRecord::Base
   end
 
   def viewable_by?(person)
-    !(self.projects & person.projects).empty? or self.is_superadmin?
+    !(self.projects & person.projects).empty? or person.is_superadmin?
+  end
+
+  def editable_by?(person)
+    person.is_superadmin? or person == self
   end
 
   private

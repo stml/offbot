@@ -7,6 +7,7 @@
 	- for project in @person.projects
 		%li= project.name
 
-= link_to 'Edit', edit_person_path(@person)
-\|
-= link_to 'Back', people_path
+- if @person.editable_by?(current_person)
+	= link_to 'Edit', edit_person_path(@person)
+	\|
+= link_to 'Back', root_url

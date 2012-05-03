@@ -27,7 +27,7 @@ class PeopleController < ApplicationController
 
   def update
     @person = Person.find(params[:id])
-    raise NotPermitted unless @person == current_person or current_person.is_superadmin?
+    raise NotPermitted unless @person.editable_by?(current_person)
 
     respond_to do |format|
       if @person.update_attributes(params[:person])
