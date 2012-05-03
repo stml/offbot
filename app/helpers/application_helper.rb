@@ -6,9 +6,9 @@ module ApplicationHelper
       Regexp.new("From:\s*", Regexp::IGNORECASE | Regexp::MULTILINE),
       #Regexp.new("<>", Regexp::IGNORECASE | Regexp::MULTILINE),
       #Regexp.new(Regexp.escape(address) + "\s+wrote:", Regexp::IGNORECASE | Regexp::MULTILINE),
-      Regexp.new("^.*On.*(\n)?wrote:$", Regexp::IGNORECASE | Regexp::MULTILINE),
-      Regexp.new("\s\S*On\s\w*.\s.*", Regexp::IGNORECASE | Regexp::MULTILINE),
-      Regexp.new("On\s.*,\s.*offbott.com\swrote:.*", Regexp::IGNORECASE | Regexp::MULTILINE),
+      #Regexp.new("^.*On.*(\n)?wrote:$", Regexp::IGNORECASE | Regexp::MULTILINE),
+      #Regexp.new("\s\S*On\s\w*.\s.*", Regexp::IGNORECASE | Regexp::MULTILINE),
+      Regexp.new("\\r\\n\\r\\n\\r\\nOn\s.*,\s.*offbott.com\swrote:.*", Regexp::IGNORECASE | Regexp::MULTILINE),
       Regexp.new("-+original\s+message-+\s*$", Regexp::IGNORECASE | Regexp::MULTILINE),
       Regexp.new("from:\s*$", Regexp::IGNORECASE | Regexp::MULTILINE)
     ]
