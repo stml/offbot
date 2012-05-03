@@ -2,7 +2,6 @@
 
 %p Registered email: <em>#{@person.email}</em>
 - if @person.editable_by?(current_person)
-	%h2 #{@person.name.titleize}'s projects
 	- if @person.email_key
 		%h3 Use the secret email addresses to add updates to projects whenever you like
 	- else
