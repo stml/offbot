@@ -21,7 +21,7 @@ class Project < ActiveRecord::Base
   end
 
   def viewable_by?(person)
-    self.people.include?(person)
+    self.people.include?(person) or person.is_superadmin?
   end
 
   def manageable_by?(person)

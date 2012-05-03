@@ -68,6 +68,22 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     raise NotPermitted unless @project.viewable_by?(current_person)
 
+    invitations = params[:emails]
+    invitations.each do |invitation|
+      person = Person.find_by_email(invitation)
+      if person
+        unless @project.people.include?(person)
+          unless person == current_person
+            @project.people << person
+          end
+        end
+      else
+        invite = Invitation.find_or_create_by_email(invitation)
+        invite.projects << @project
+        invite.save
+      end
+    end
+
     respond_to do |format|
       if @project.update_attributes(params[:project])
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
@@ -81,11 +97,11 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project = Project.find(params[:id])
-    raise NotPermitted unless current_person.is_superadmin?
+    raise NotPermitted unless @project.manageable_by?(current_person)
     @project.destroy
 
     respond_to do |format|
-      format.html { redirect_to projects_url }
+      format.html { redirect_to root_url }
       format.json { head :no_content }
     end
   end
@@ -102,5 +118,25 @@ class ProjectsController < ApplicationController
   # rescue_from NotPermitted do |exception|
   #   redirect_to root_path, :alert => exception.message
   # end
+
+  protected
+
+  def invite_or_add_people
+    invitations = params[:emails]
+    invitations.each do |invitation|
+      person = Person.find_by_email(invitation)
+      if person
+        unless @project.people.include?(person)
+          unless person == current_person
+            @project.people << person
+          end
+        end
+      else
+        invite = Invitation.find_or_create_by_email(invitation)
+        invite.projects << @project
+        invite.save
+      end
+    end
+  end
 
 end

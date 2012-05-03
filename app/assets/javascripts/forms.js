@@ -7,7 +7,7 @@ $(document).ready(function() {
       	});
 	
 	$("#addmoreemails").click(function() {
-		$(".email_add_block").append('<p class="address"><input id="emails" name="emails" type="text" /></p>');
+		$(".email_add_block").append('<p class="address"><input id="emails_" name="emails[]" type="text" /></p>');
 		});
 	
 	});

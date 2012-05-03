@@ -13,6 +13,10 @@
 		%tr
 			%td.label= f.label :email 
 			%td.field= f.text_field :email
+		- for project in @person.projects
+			%tr
+				%td.label= f.label :project_id, project.name
+				%td.field= check_box_tag "person[project_ids][]", project.id, true
 		%tr
 			%td.label
 			%td.field= f.submit 'Save'

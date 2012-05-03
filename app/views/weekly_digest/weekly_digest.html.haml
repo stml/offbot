@@ -5,8 +5,15 @@
 	%body
 		%h1
 			Hi, #{@name}
-		%p Here's what your teammates have been up to this week:
 
-		- @project.updates.where("created_at >= ? AND created_at <= ?", Date.today.beginning_of_day - 7.days, Date.today.end_of_day).limit(20).each do |update|
-			%p #{update.body}
-			%p{:style=>"border-bottom: 1px solid #cacaca;"} by #{update.person.name}, posted at #{update.created_at.strftime("%A %d %B")}
+		- if @project.updates
+
+			%p Here's what your teammates have been up to this week:
+
+			- @project.updates.where("created_at >= ? AND created_at <= ?", Date.today.beginning_of_day - 7.days, Date.today.end_of_day).limit(20).each do |update|
+				%p #{update.body}
+				%p{:style=>"border-bottom: 1px solid #cacaca;"} by #{update.person.name}, posted at #{update.created_at.strftime("%A %d %B")}
+
+		- else
+
+			%p Your team mates haven't posted any updates yet! 

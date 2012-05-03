@@ -14,7 +14,7 @@
 				- lastday = ''
 				- today = Time.new
 				- yesterday = today - 86400
-				- @project.updates.reverse_each do |update|
+				- @project.updates.order("created_at").reverse_each do |update|
 					- updateday = update.created_at.strftime("%Y-%m-%d")
 					- if updateday != lastday
 						- if updateday == today.strftime("%Y-%m-%d")
@@ -25,10 +25,12 @@
 							%p= update.created_at.strftime("%A %d %B")
 					.update
 						- body = update.body
+					#update
+						- body = extract_reply(update.body)
 						- body_with_linked_hashtags = auto_link(body, { :hashtag_url_base => "http://offbott.com/projects/#{@project.id}/updates/", :hashtag_class => "hashtag" })
 						%p.body= raw(body_with_linked_hashtags)
 						%p.credit 
-							<span class="author">#{update.person.name}</span> <span class="date">#{update.created_at.strftime("%I:%M %p")}</span>
+							<span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime("%I:%M %p")}</span>
 							%span.permalink= link_to '∞', update_path(update)
 							- if update.editable_by?(current_person)
 								%span.edit= link_to 'Edit', edit_update_path(update)
@@ -42,7 +44,7 @@
 		#pop_box
 			%ul
 				- @project.people.each do |person|
-					%li= link_to person.name, person
+					%li= link_to person.name.titleize, person
 				- @project.invitations.each do |person|
 					%li <em>#{person.email[0,20]}…</em>
 
@@ -50,6 +52,8 @@
 			%p Weekly digest not set up yet
 		- else 
 			%p Weekly digest: #{@project.weekly_digest_day}
+
+		= link_to "Add an update", :controller => "updates", :action => "new", :project => @project
 
 		%p= link_to 'Edit the name and members of this project', edit_project_path(@project)
 
