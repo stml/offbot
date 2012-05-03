@@ -1,5 +1,11 @@
-%p#notice= notice
+%h1= @person.name.titleize
+%p
+	%a{:href=>@person.email}= @person.email
 
+%h2 #{@person.name.titleize}'s projects
+%ul
+	- for project in @person.projects
+		%li= project.name
 
 = link_to 'Edit', edit_person_path(@person)
 \|

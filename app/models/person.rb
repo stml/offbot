@@ -27,6 +27,10 @@ class Person < ActiveRecord::Base
     self.is_superadmin
   end
 
+  def viewable_by?(person)
+    !(self.projects & person.projects).empty? or self.is_superadmin?
+  end
+
   private
 
   def add_to_projects

@@ -12,7 +12,7 @@ class PeopleController < ApplicationController
 
   def show
     @person = Person.find(params[:id])
-    raise NotPermitted unless @person == current_person
+    raise NotPermitted unless @person.viewable_by?(current_person)
 
     respond_to do |format|
       format.html # show.html.erb
