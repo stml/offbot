@@ -112,11 +112,15 @@ p#notice {
 #project_name_bar p {
 	margin: 4px 20px 4px 10px;
 	}
-#project_name_bar input {
+#project_name_bar p.void input {
 	width: 100%;
 	font-size: 1.2em;
 	color: #777;
 	font-style: italic;
+	}
+#project_name_bar input {
+	width: 100%;
+	font-size: 1.2em;
 	}
 #email_adds {
 	margin-bottom: 10px;
@@ -135,20 +139,47 @@ p#notice {
 #email_adds .button {
 	margin-right: 15px;
 	}
-	
-td.edit a {
+
+.update .permalink a {
 	display: block;
+	margin-left: 10px;
+	float: right;
+	text-indent: -999999px;
+	width: 16px;
+	height: 16px;
+	background: transparent url('/images/icons/link.png') 0 0 no-repeat;
+	}
+.update .edit a {
+	display: block;
+	margin-left: 10px;
+	float: right;
 	text-indent: -999999px;
 	width: 16px;
 	height: 16px;
 	background: transparent url('/images/icons/pencil.png') 0 0 no-repeat;
 	}
-td.delete a {
+.update .delete a {
 	display: block;
+	margin-left: 10px;
+	float: right;
 	text-indent: -999999px;
 	width: 16px;
 	height: 16px;
 	background: transparent url('/images/icons/trash.png') 0 0 no-repeat;
+	}
+	
+table#new_project_people {
+	width: 390px;
+	padding: 2px 5px;
+	background: #eef;
+	font-size: 0.9em;
+	}
+ul#new_project_invited {
+	width: 390px;
+	padding: 2px 5px;
+	background: #eef;
+	list-style: none;
+	font-size: 0.9em;
 	}
 	
 #project_cols {
@@ -168,15 +199,15 @@ td.delete a {
 	list-style: none;
 	}
 	
-#project_col_left #update {
+.update {
 	background: #ddf;
 	margin: 0 0 10px 0;
 	padding: 10px 20px 5px 20px;
 	}
-#project_col_left #update .author {
+.update .author {
 	font-weight: bold;
 	}
-#project_col_left #update .date {
+.update .date {
 	font-style: italic;
 	margin-left: 10px;
 	font-size: 80%;

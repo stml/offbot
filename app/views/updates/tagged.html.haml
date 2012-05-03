@@ -1,15 +1,16 @@
-%h1 Updates tagged #{@tag}
+%h1 Updates tagged with ##{@tag}
 
-%table
-
+#updates
 	- @updates.each do |update|
-		%tr
-			%td= extract_reply(update.body)
-			%td= link_to 'Show', update
-			- if update.editable_by?(current_person)
-				%td= link_to 'Edit', edit_update_path(update)
-				%td= link_to 'Destroy', update, :confirm => 'Are you sure?', :method => :delete
+		.update
+			- body = extract_reply(update.body)
+			- body_with_linked_hashtags = auto_link(body, { :hashtag_url_base => "http://offbott.com/projects/#{@project.id}/updates/", :hashtag_class => "hashtag" })
+			%p.body= raw(body_with_linked_hashtags)
+			%p.credit 
+				<span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime("%I:%M %p")}</span>
+				%span.permalink= link_to 'Show', update_path(update)
+				- if update.editable_by?(current_person)
+					%span.edit= link_to 'Edit', edit_update_path(update)
+					%span.delete= link_to 'Delete', update, :confirm => 'Are you sure?', :method => :delete
 
-%br
-
-= link_to 'New Update', new_update_path
+%p= link_to 'New Update', new_update_path
