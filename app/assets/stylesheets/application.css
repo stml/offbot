@@ -140,6 +140,7 @@ p#notice {
 	margin-right: 15px;
 	}
 
+
 .update .permalink a {
 	display: block;
 	margin-left: 10px;
@@ -149,6 +150,7 @@ p#notice {
 	height: 16px;
 	background: transparent url('/images/icons/link.png') 0 0 no-repeat;
 	}
+td.edit a,
 .update .edit a {
 	display: block;
 	margin-left: 10px;
@@ -158,6 +160,7 @@ p#notice {
 	height: 16px;
 	background: transparent url('/images/icons/pencil.png') 0 0 no-repeat;
 	}
+td.delete a,
 .update .delete a {
 	display: block;
 	margin-left: 10px;
