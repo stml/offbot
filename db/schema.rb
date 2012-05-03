@@ -65,9 +65,9 @@ ActiveRecord::Schema.define(:version => 20120425153055) do
   end
 
   create_table "project_admins_lists", :force => true do |t|
-    t.integer  "project_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer   "project_id"
+    t.timestamp "created_at", :null => false
+    t.timestamp "updated_at", :null => false
   end
 
   create_table "projects", :force => true do |t|
@@ -76,17 +76,17 @@ ActiveRecord::Schema.define(:version => 20120425153055) do
     t.string    "name"
     t.integer   "created_by"
     t.string    "weekly_digest_day"
-    t.datetime  "weekly_digest_sent_at"
+    t.timestamp "weekly_digest_sent_at"
   end
 
   create_table "taggings", :force => true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       :limit => 128
-    t.datetime "created_at"
+    t.integer   "tag_id"
+    t.integer   "taggable_id"
+    t.string    "taggable_type"
+    t.integer   "tagger_id"
+    t.string    "tagger_type"
+    t.string    "context",       :limit => 128
+    t.timestamp "created_at"
   end
 
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"

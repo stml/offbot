@@ -186,15 +186,15 @@ ul#new_project_invited {
 	list-style: none;
 	}
 	
-#project_col_left #update {
+.update {
 	background: #ddf;
 	margin: 0 0 10px 0;
 	padding: 10px 20px 5px 20px;
 	}
-#project_col_left #update .author {
+.update .author {
 	font-weight: bold;
 	}
-#project_col_left #update .date {
+.update .date {
 	font-style: italic;
 	margin-left: 10px;
 	font-size: 80%;
