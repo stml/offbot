@@ -119,4 +119,24 @@ class ProjectsController < ApplicationController
   #   redirect_to root_path, :alert => exception.message
   # end
 
+  protected
+
+  def invite_or_add_people
+    invitations = params[:emails]
+    invitations.each do |invitation|
+      person = Person.find_by_email(invitation)
+      if person
+        unless @project.people.include?(person)
+          unless person == current_person
+            @project.people << person
+          end
+        end
+      else
+        invite = Invitation.find_or_create_by_email(invitation)
+        invite.projects << @project
+        invite.save
+      end
+    end
+  end
+
 end
