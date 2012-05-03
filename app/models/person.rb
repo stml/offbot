@@ -5,7 +5,7 @@ class Person < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :project_ids
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :project_ids, :email_key
   has_many :updates
   has_many :email_messages
   has_and_belongs_to_many :projects
@@ -13,7 +13,7 @@ class Person < ActiveRecord::Base
   validates_presence_of :email, :name
   validates_uniqueness_of :email
 
-  after_create :add_to_projects, :set_superadmin_to_false
+  after_create :add_to_projects, :set_superadmin_to_false, :generate_email_key
 
   def is_admin?(project)
     project.project_admins_list.people.include?(self)
@@ -35,6 +35,12 @@ class Person < ActiveRecord::Base
     person.is_superadmin? or person == self
   end
 
+  def generate_email_key
+    uuid = UUID.new
+    self.email_key = uuid.generate.to_s
+    self.save
+  end
+
   private
 
   def add_to_projects
@@ -51,4 +57,5 @@ class Person < ActiveRecord::Base
   def set_superadmin_to_false
     self.is_superadmin = false
   end
+
 end

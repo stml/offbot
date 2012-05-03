@@ -22,4 +22,5 @@ module ApplicationHelper
 
     text[0, index].strip
   end
+
 end

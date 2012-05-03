@@ -1,4 +1,4 @@
-%p= @update.body
+%p= extract_reply(@update.body)
 %p Added to project #{@update.project.name}
 - if @update.editable_by?(current_person)
 	= link_to 'Edit', edit_update_path(@update)

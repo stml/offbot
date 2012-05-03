@@ -27,4 +27,30 @@ class Project < ActiveRecord::Base
   def manageable_by?(person)
     self.created_by == person.id or person.is_superadmin? or person.is_admin?(self)
   end
+
+  def to_slug
+    #strip the string
+    ret = self.name.downcase.strip
+
+    #blow away apostrophes
+    ret.gsub! /['`]/,""
+
+    # @ --> at, and & --> and
+    ret.gsub! /\s*@\s*/, " at "
+    ret.gsub! /\s*&\s*/, " and "
+
+    #replace all non alphanumeric, underscore or periods with hyphen
+    ret.gsub! /\s*[^A-Za-z0-9\.\-]\s*/, '-'  
+
+    #convert double underscores to single hyphen
+    ret.gsub! /_+/,"-"
+
+    #strip off leading/trailing underscore
+    ret.gsub! /\A[_\.]+|[_\.]+\z/,""
+
+    #strip off leading/trailing hyphen
+    ret.gsub! /\A[-\.]+|[-\.]+\z/,""
+
+    ret
+  end
 end

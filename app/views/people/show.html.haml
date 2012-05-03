@@ -2,10 +2,22 @@
 %p
 	%a{:href=>@person.email}= @person.email
 
-%h2 #{@person.name.titleize}'s projects
+- if @person.editable_by?(current_person)
+	%h2 #{@person.name.titleize}'s projects
+	- if @person.email_key
+		%h3 Use the secret email addresses to add updates to projects whenever you like
+	- else
+		%h3 Would you like to send emails to offbot whenver you like?
+		%p You can generate an email address for your projects, and Offbott will automatically connect them to the right project.
+		%p= link_to "Generate!", generate_email_key_path(@person)
 %ul
 	- for project in @person.projects
-		%li= project.name
+		%li
+			= project.name 
+			- if @person.email_key and @person.editable_by?(current_person)
+				- email = "#{project.to_slug}.#{@person.email_key}@offbott.com"
+				\| <a href="mailto:#{email}">#{email}</a>
+
 
 - if @person.editable_by?(current_person)
 	= link_to 'Edit', edit_person_path(@person)

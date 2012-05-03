@@ -22,7 +22,21 @@ class PeopleController < ApplicationController
 
   def edit
     @person = Person.find(params[:id])
-    raise NotPermitted unless @person == current_person or current_person.is_superadmin?
+    raise NotPermitted unless @person.editable_by?(current_person)
+  end
+
+  def generate_email_key
+    @person = Person.find(params[:id])
+    raise NotPermitted unless @person.editable_by?(current_person)
+    @person.generate_email_key
+
+    respond_to do |format|
+      if @person.update_attributes(params[:person])
+        format.html { redirect_to @person, notice: 'Secret email was successfully updated.' }
+      else
+        format.html { redirect_to @person, alert: 'Sorry, something went wrong.' }
+      end
+    end
   end
 
   def update
