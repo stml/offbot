@@ -24,8 +24,6 @@
 						- else
 							%p= update.created_at.strftime("%A %d %B")
 					.update
-						- body = update.body
-					#update
 						- body = extract_reply(update.body)
 						- body_with_linked_hashtags = auto_link(body, { :hashtag_url_base => "http://offbott.com/projects/#{@project.id}/updates/", :hashtag_class => "hashtag" })
 						%p.body= raw(body_with_linked_hashtags)
