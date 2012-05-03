@@ -12,7 +12,7 @@
 					- if current_person.can_view?(project)
 						%td.edit= link_to 'Edit', edit_project_path(project), :title => "Edit this Project"
 					- if project.manageable_by?(current_person)
-						%td.delete= link_to 'Delete', project, :confirm => 'Are you sure?', :method => :delete, :title => "Delete this Project"
+						%td.delete= link_to 'Delete', project, :confirm => 'Are you sure you want to delete this project?', :method => :delete, :title => "Delete this Project"
 
 %p= link_to 'Create a new Project', new_project_path
 
