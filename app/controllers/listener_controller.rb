@@ -13,9 +13,8 @@ class ListenerController < ApplicationController
 		person = @email_message.person
 		project = @email_message.project
 		puts @email_message.id, sent_by, person.email
-		reply = extract_reply(params["text"], "offbott.#{@email_message.message_id}@offbott.com")
 		if sent_by == person.email
-			@update = Update.new(:body => reply, :person_id => person.id, :project_id => project.id)
+			@update = Update.new(:body => params["text"], :person_id => person.id, :project_id => project.id)
 		else 
 			@update = Update.new
 		end
@@ -47,27 +46,6 @@ class ListenerController < ApplicationController
 		@email_message.save
 	end
 
-	def extract_reply(text, address)
-		regex_arr = [
-			Regexp.new("From:\s*" + Regexp.escape(address), Regexp::IGNORECASE | Regexp::MULTILINE),
-			Regexp.new("<" + Regexp.escape(address) + ">", Regexp::IGNORECASE | Regexp::MULTILINE),
-			Regexp.new(Regexp.escape(address) + "\s+wrote:", Regexp::IGNORECASE | Regexp::MULTILINE),
-			Regexp.new("^.*On.*(\n)?wrote:$", Regexp::IGNORECASE | Regexp::MULTILINE),
-			Regexp.new("\s\S*On\s\w*.\s.*", Regexp::IGNORECASE | Regexp::MULTILINE),
-			Regexp.new("On\s.*,\s.*offbott.com\swrote:.*", Regexp::IGNORECASE | Regexp::MULTILINE),
-			Regexp.new("-+original\s+message-+\s*$", Regexp::IGNORECASE | Regexp::MULTILINE),
-			Regexp.new("from:\s*$", Regexp::IGNORECASE | Regexp::MULTILINE)
-		]
-
-		text_length = text.length
-		#calculates the matching regex closest to top of page
-		index = regex_arr.inject(text_length) do |min, regex|
-			puts min
-				[(text.index(regex) || text_length), min].min
-		end
-
-		text[0, index].strip
-	end
 
 
 end
