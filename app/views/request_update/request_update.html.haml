@@ -5,13 +5,15 @@
 	%body
 		%h1
 			Hi, #{@name}
-		%p What have you been up to?
+		%p What have you been up to? Just reply to this email to let me know.
 		%p Offbott
 
 		%hr
 
-		%h2 Recently others involved with the project #{@project.name} said:
+		- if @project.updates
 
-		- @project.updates.order("created_at DESC").limit(3).each do |update|
-			%p #{update.body}
-			%p{:style=>"border-bottom: 1px solid #cacaca;"} by #{update.person.name}, posted at #{update.created_at.strftime("%A %d %B")}
+			%h2 Recently others involved with the project #{@project.name} said:
+
+			- @project.updates.order("created_at DESC").limit(3).each do |update|
+				%p #{update.body}
+				%p{:style=>"border-bottom: 1px solid #cacaca;"} by #{update.person.name}, posted at #{update.created_at.strftime("%A %d %B")}
