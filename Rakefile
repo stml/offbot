@@ -10,7 +10,7 @@ task :cron => :environment do
 	date = Date.today
 
 	#only on weekdays
-	if (1..5).member?(date.day)
+	if (1..5).member?(date.wday)
 		#only during working hours
 		if (9..17).member?(time)
 			time_left = 17 - time
