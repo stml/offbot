@@ -15,5 +15,5 @@
 			%h2 Recently others involved with the project #{@project.name} said:
 
 			- @project.updates.order("created_at DESC").limit(3).each do |update|
-				%p #{update.body}
+				%p #{extract_reply(update.body)}
 				%p{:style=>"border-bottom: 1px solid #cacaca;"} by #{update.person.name}, posted at #{update.created_at.strftime("%A %d %B")}
