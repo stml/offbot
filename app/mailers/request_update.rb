@@ -1,4 +1,5 @@
 class RequestUpdate < ActionMailer::Base 
+	helper :all
   def request_update(email_message)
     @person = email_message.person
     @name = email_message.person.name
