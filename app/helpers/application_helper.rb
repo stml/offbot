@@ -10,6 +10,8 @@ module ApplicationHelper
       #Regexp.new("\s\S*On\s\w*.\s.*", Regexp::IGNORECASE | Regexp::MULTILINE),
       Regexp.new("\\r\\n\\r\\n\\r\\nOn\s.*,\s.*offbott.com\swrote:.*", Regexp::IGNORECASE | Regexp::MULTILINE),
       Regexp.new("\\r\\nOn\s.*,\s.*offbott.com\swrote:.*", Regexp::IGNORECASE | Regexp::MULTILINE),
+      Regexp.new("\\n\\nOn\s.*,\s.*offbott.com\swrote:.*", Regexp::IGNORECASE | Regexp::MULTILINE),
+      Regexp.new("On\s.*offbott.*sent:.*", Regexp::IGNORECASE | Regexp::MULTILINE),
       Regexp.new("-+original\s+message-+\s*$", Regexp::IGNORECASE | Regexp::MULTILINE),
       Regexp.new("from:\s*$", Regexp::IGNORECASE | Regexp::MULTILINE)
     ]
