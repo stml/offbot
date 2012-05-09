@@ -43,8 +43,9 @@
 			%ul
 				- @project.people.each do |person|
 					%li= link_to person.name.titleize, person
-				- @project.invitations.each do |person|
-					%li <em>#{person.email[0,20]}…</em>
+				- @project.invitations.uniq.each do |person|
+					- unless @project.people.include?(Person.find_by_email(person.email))
+						%li <em>#{person.email[0,20]}…</em>
 
 		- if @project.weekly_digest_day.nil? 
 			%p Weekly digest not set up yet
