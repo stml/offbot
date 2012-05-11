@@ -29,7 +29,7 @@ class ListenerController < ApplicationController
 			@email_message = EmailMessage.find_by_message_id(message_id)
 			person = @email_message.person
 			project = @email_message.project
-			puts @email_message.id, sent_by, person.email
+			puts "Message id: #{@email_message.id}, sent by: #{sent_by}, #{person.email}"
 			# people use email aliases. not sure what to do.
 			#if sent_by == person.email
 				@update = Update.new(:body => params["text"], :person_id => person.id, :project_id => project.id)
