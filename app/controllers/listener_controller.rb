@@ -58,8 +58,10 @@ class ListenerController < ApplicationController
 	end
 
 	def add_association_with_email_message
-		@email_message.update = @update
-		@email_message.save
+		if @email_message
+			@email_message.update = @update
+			@email_message.save
+		end
 	end
 
 
