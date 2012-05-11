@@ -27,11 +27,12 @@ class ListenerController < ApplicationController
 			person = @email_message.person
 			project = @email_message.project
 			puts @email_message.id, sent_by, person.email
-			if sent_by == person.email
+			# people use email aliases. not sure what to do.
+			#if sent_by == person.email
 				@update = Update.new(:body => params["text"], :person_id => person.id, :project_id => project.id)
-			else 
+			#else 
 				@update = Update.new
-			end										
+			#end										
 		end
 
 		respond_to do |format|
