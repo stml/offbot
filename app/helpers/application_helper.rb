@@ -13,8 +13,10 @@ module ApplicationHelper
       Regexp.new("\\n\\nOn\s.*,\s.*offbott.com\swrote:.*", Regexp::IGNORECASE | Regexp::MULTILINE),
       Regexp.new("\\nOn\s.*,\s.*offbott.com.*wrote:", Regexp::IGNORECASE | Regexp::MULTILINE),
       Regexp.new("On\s.*offbott.*sent:.*", Regexp::IGNORECASE | Regexp::MULTILINE),
+      Regexp.new("\\nOn\s.*,\s\d+.*wrote:.*", Regexp::IGNORECASE | Regexp::MULTILINE),
       Regexp.new("-+original\s+message-+\s*$", Regexp::IGNORECASE | Regexp::MULTILINE),
-      Regexp.new("from:\s*$", Regexp::IGNORECASE | Regexp::MULTILINE)
+      Regexp.new("from:\s*$", Regexp::IGNORECASE | Regexp::MULTILINE),
+
     ]
 
     text_length = text.length
