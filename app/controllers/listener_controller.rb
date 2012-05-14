@@ -13,19 +13,19 @@ class ListenerController < ApplicationController
 		puts "Message id: #{message_id}"
 		puts "Sent by: #{sent_by}"
 
-		if Person.find_by_email_key(message_id)
-			# this means that it's unprompted, needs to be processed slightly differently
-			person = Person.find_by_email_key(message_id)
-			project_slug = sent_to[0].split('.')[0]
-			puts "Project slug: #{project_slug}"
-			person.projects.each do |project|
-				if project.to_slug == project_slug
-					@update = Update.new(:body => params["text"], :person_id => person.id, :project_id => project.id)
-				else 
-					@update = Update.new
-				end
-			end
-		else
+		# if Person.find_by_email_key(message_id)
+		# 	# this means that it's unprompted, needs to be processed slightly differently
+		# 	person = Person.find_by_email_key(message_id)
+		# 	project_slug = sent_to[0].split('.')[0]
+		# 	puts "Project slug: #{project_slug}"
+		# 	person.projects.each do |project|
+		# 		if project.to_slug == project_slug
+		# 			@update = Update.new(:body => params["text"], :person_id => person.id, :project_id => project.id)
+		# 		else 
+		# 			@update = Update.new
+		# 		end
+		# 	end
+		# else
 			# this is a response to an update request
 			@email_message = EmailMessage.find_by_message_id(message_id)
 			person = @email_message.person
@@ -37,7 +37,7 @@ class ListenerController < ApplicationController
 			#else 
 				@update = Update.new
 			#end										
-		end
+		# end
 
 		respond_to do |format|
 			if @update.save
