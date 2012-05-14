@@ -15,6 +15,7 @@ class ListenerController < ApplicationController
 
 		if Person.find_by_email_key(message_id)
 			# this means that it's unprompted, needs to be processed slightly differently
+			puts "---Unprompted---"
 			person = Person.find_by_email_key(message_id)
 			project_slug = sent_to[0].split('.')[0]
 			puts "Project slug: #{project_slug}"
@@ -25,6 +26,7 @@ class ListenerController < ApplicationController
 			end
 		else
 			# this is a response to an update request
+			puts "---Prompted---"
 			@email_message = EmailMessage.find_by_message_id(message_id)
 			person = @email_message.person
 			project = @email_message.project
@@ -39,7 +41,9 @@ class ListenerController < ApplicationController
 
 		respond_to do |format|
 			if @update.save
-				add_association_with_email_message
+				unless Person.find_by_email_key(message_id)
+					add_association_with_email_message
+				end
 				flash[:notice] = 'Sucessful Post.'
 				format.html
 				format.xml { render :xml => @update.xml, :status => :ok  }
