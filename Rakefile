@@ -7,23 +7,28 @@ Offbot::Application.load_tasks
 task :cron => :environment do
 	# send out update requests
 	time = Time.now.hour
-	if (9..17).member?(time)
-		time_left = 17 - time
-		date = Date.today
-		Project.all.each do |project|
-			project.people.each do |person|
-				message = person.email_messages.today_on_project(project).first
-				unless message
-					random_number = rand(time_left) + 1
-					puts  "Likelihood of sending out the update request for #{person.name} on project #{project.name}: 1/#{random_number}"
-					Rails.logger.info "Likelihood of sending out the update request for #{person.name} on project #{project.name}: 1/#{random_number}"
-					if random_number.to_i === 1
-						email = EmailMessage.new
-						email.person = person
-						email.project = project
-						email.save
+	date = Date.today
+
+	#only on weekdays
+	if (1..5).member?(date.wday)
+		#only during working hours
+		if (9..17).member?(time)
+			time_left = 17 - time
+			Project.all.each do |project|
+				project.people.each do |person|
+					message = person.email_messages.today_on_project(project).first
+					unless message
+						random_number = rand(time_left) + 1
+						puts  "Likelihood of sending out the update request for #{person.name} on project #{project.name}: 1/#{random_number}"
+						Rails.logger.info "Likelihood of sending out the update request for #{person.name} on project #{project.name}: 1/#{random_number}"
+						if random_number.to_i === 1
+							email = EmailMessage.new
+							email.person = person
+							email.project = project
+							email.save
+						end
+						sleep(2.minutes)
 					end
-					sleep(2.minutes)
 				end
 			end
 		end

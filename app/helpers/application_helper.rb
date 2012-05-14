@@ -9,8 +9,14 @@ module ApplicationHelper
       #Regexp.new("^.*On.*(\n)?wrote:$", Regexp::IGNORECASE | Regexp::MULTILINE),
       #Regexp.new("\s\S*On\s\w*.\s.*", Regexp::IGNORECASE | Regexp::MULTILINE),
       Regexp.new("\\r\\n\\r\\n\\r\\nOn\s.*,\s.*offbott.com\swrote:.*", Regexp::IGNORECASE | Regexp::MULTILINE),
+      Regexp.new("\\r\\nOn\s.*,\s.*offbott.com\swrote:.*", Regexp::IGNORECASE | Regexp::MULTILINE),
+      Regexp.new("\\n\\nOn\s.*,\s.*offbott.com\swrote:.*", Regexp::IGNORECASE | Regexp::MULTILINE),
+      Regexp.new("\\nOn\s.*,\s.*offbott.com.*wrote:", Regexp::IGNORECASE | Regexp::MULTILINE),
+      Regexp.new("\\nOn\s.*,\s.*wrote:.*", Regexp::MULTILINE),
+      Regexp.new("On\s.*offbott.*sent:.*", Regexp::IGNORECASE | Regexp::MULTILINE),
       Regexp.new("-+original\s+message-+\s*$", Regexp::IGNORECASE | Regexp::MULTILINE),
-      Regexp.new("from:\s*$", Regexp::IGNORECASE | Regexp::MULTILINE)
+      Regexp.new("from:\s*$", Regexp::IGNORECASE | Regexp::MULTILINE),
+
     ]
 
     text_length = text.length
@@ -22,4 +28,7 @@ module ApplicationHelper
 
     text[0, index].strip
   end
+
 end
+
+

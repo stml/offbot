@@ -11,6 +11,7 @@ Offbot::Application.routes.draw do
   match '/about' => 'pages#about'
   match '/my_updates' => 'updates#my_index'
   match '/projects/:id/updates/:tag' => 'updates#tagged'
+  match '/you/generate_email_key/:id' => 'people#generate_email_key', :as => "generate_email_key"
 
   authenticate :person do
     root :to => 'projects#my_index'

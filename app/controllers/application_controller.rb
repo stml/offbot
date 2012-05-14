@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
 
+
   # let's handle the exceptions
   class NotPermitted < StandardError
   end

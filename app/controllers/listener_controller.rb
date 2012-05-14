@@ -9,19 +9,45 @@ class ListenerController < ApplicationController
 		sent_to = params["to"].split('@')
 		message_id = sent_to[0].split('.')[1]
 		sent_by = params["from"].split('<')[1].chop
-		@email_message = EmailMessage.find_by_message_id(message_id)
-		person = @email_message.person
-		project = @email_message.project
-		puts @email_message.id, sent_by, person.email
-		if sent_by == person.email
-			@update = Update.new(:body => params["text"], :person_id => person.id, :project_id => project.id)
-		else 
-			@update = Update.new
+
+		puts "Message id: #{message_id}"
+		puts "Sent by: #{sent_by}"
+
+		if Person.find_by_email_key(message_id)
+			# this means that it's unprompted, needs to be processed slightly differently
+			puts "---Unprompted---"
+			person = Person.find_by_email_key(message_id)
+			project_slug = sent_to[0].split('.')[0]
+			puts "Project slug: #{project_slug}"
+			person.projects.each do |project|
+				if project.to_slug == project_slug
+					unless Update.find_by_body(params["text"])
+						@update = Update.new(:body => params["text"], :person_id => person.id, :project_id => project.id)
+					end
+				end
+			end
+		else
+			# this is a response to an update request
+			puts "---Prompted---"
+			@email_message = EmailMessage.find_by_message_id(message_id)
+			person = @email_message.person
+			project = @email_message.project
+			puts "Message id: #{@email_message.id}, sent by: #{sent_by}, #{person.email}"
+			# people use email aliases. not sure what to do.
+			#if sent_by == person.email
+				unless Update.find_by_body(params["text"])
+					@update = Update.new(:body => params["text"], :person_id => person.id, :project_id => project.id)
+				end
+			#else 
+				# @update = Update.new
+			#end										
 		end
-													
+
 		respond_to do |format|
 			if @update.save
-				add_association_with_email_message
+				unless Person.find_by_email_key(message_id)
+					add_association_with_email_message
+				end
 				flash[:notice] = 'Sucessful Post.'
 				format.html
 				format.xml { render :xml => @update.xml, :status => :ok  }
@@ -32,7 +58,7 @@ class ListenerController < ApplicationController
 				format.json { render :json => @update.errors, :status => :unprocessable_entry }
 			end
 		end
-	
+
 	end
 	
 	protected
@@ -42,8 +68,10 @@ class ListenerController < ApplicationController
 	end
 
 	def add_association_with_email_message
-		@email_message.update = @update
-		@email_message.save
+		if @email_message
+			@email_message.update = @update
+			@email_message.save
+		end
 	end
 
 

@@ -26,7 +26,7 @@
 					.update
 						- body = extract_reply(update.body)
 						- body_with_linked_hashtags = auto_link(body, { :hashtag_url_base => "http://offbott.com/projects/#{@project.id}/updates/", :hashtag_class => "hashtag" })
-						%p.body= raw(body_with_linked_hashtags)
+						%p.body= simple_format(raw(body_with_linked_hashtags))
 						%p.credit 
 							<span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime("%I:%M %p")}</span>
 							%span.permalink= link_to '∞', update_path(update)
@@ -43,13 +43,16 @@
 			%ul
 				- @project.people.each do |person|
 					%li= link_to person.name.titleize, person
-				- @project.invitations.each do |person|
-					%li <em>#{person.email[0,20]}…</em>
+				- @project.invitations.uniq.each do |person|
+					- unless @project.people.include?(Person.find_by_email(person.email))
+						%li <em>#{person.email[0,20]}…</em>
 
 		- if @project.weekly_digest_day.nil? 
 			%p Weekly digest not set up yet
 		- else 
 			%p Weekly digest: #{@project.weekly_digest_day}
+
+		%p Found a bug? <a href="https://github.com/stml/offbot/issues/new">Let us know on github</a> or <a href="mailto:ntalia.buckley@gmail.com?subject=Found a bug in Offbott">via email</a>.
 
 		= link_to "Add an update", :controller => "updates", :action => "new", :project => @project
 
