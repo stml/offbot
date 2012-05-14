@@ -33,7 +33,7 @@ class ListenerController < ApplicationController
 			#if sent_by == person.email
 				@update = Update.new(:body => params["text"], :person_id => person.id, :project_id => project.id)
 			#else 
-				@update = Update.new
+				# @update = Update.new
 			#end										
 		end
 
