@@ -32,8 +32,10 @@ class UpdatesController < ApplicationController
 
   def create
     @update = Update.new(params[:update])
-    @person = current_person
-    @person.updates << @update
+    if current_person
+      @person = current_person
+      @person.updates << @update
+    end
 
     respond_to do |format|
       if @update.save
