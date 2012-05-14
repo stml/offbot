@@ -10,7 +10,7 @@ class ListenerController < ApplicationController
 		message_id = sent_to[0].split('.')[1]
 		sent_by = params["from"].split('<')[1].chop
 
-		puts "Message id: #{message_id}"
+		puts "Message id: #{message_id}, project: #{sent_to[0].split('.')[0]}"
 		puts "Sent by: #{sent_by}"
 
 		# if Person.find_by_email_key(message_id)
