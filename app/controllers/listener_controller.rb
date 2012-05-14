@@ -21,7 +21,9 @@ class ListenerController < ApplicationController
 			puts "Project slug: #{project_slug}"
 			person.projects.each do |project|
 				if project.to_slug == project_slug
-					@update = Update.new(:body => params["html"], :person_id => person.id, :project_id => project.id)
+					unless Update.find_by_body(params["html"])
+						@update = Update.new(:body => params["html"], :person_id => person.id, :project_id => project.id)
+					end
 				end
 			end
 		else
@@ -33,7 +35,9 @@ class ListenerController < ApplicationController
 			puts "Message id: #{@email_message.id}, sent by: #{sent_by}, #{person.email}"
 			# people use email aliases. not sure what to do.
 			#if sent_by == person.email
-				@update = Update.new(:body => params["html"], :person_id => person.id, :project_id => project.id)
+				unless Update.find_by_body(params["html"])
+					@update = Update.new(:body => params["html"], :person_id => person.id, :project_id => project.id)
+				end
 			#else 
 				# @update = Update.new
 			#end										
