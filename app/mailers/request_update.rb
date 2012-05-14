@@ -3,6 +3,6 @@ class RequestUpdate < ActionMailer::Base
     @person = email_message.person
     @name = email_message.person.name
     @project = email_message.project
-    mail(:to => @person.email, :from => "offbott.#{email_message.message_id}@#{DOMAIN}", :subject => "Hello, it's Offbott again")
+    mail(:to => @person.email, :from => "offbott.#{email_message.message_id}@#{DOMAIN}", :subject => "[#{@project.name}] Hello, it's Offbott again")
   end
 end
