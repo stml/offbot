@@ -2,15 +2,16 @@
 
 #updates
 	- @updates.each do |update|
-		.update
-			- body = add_line_breaks(extract_reply(update.body))
-			- body_with_linked_hashtags = auto_link(body, { :hashtag_url_base => "http://#{request.host}/projects/#{@project.id}/updates/", :hashtag_class => "hashtag" })
-			%p.body= raw(body_with_linked_hashtags)
-			%p.credit 
-				<span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime("%I:%M %p")}</span>
-				%span.permalink= link_to 'Show', update_path(update)
-				- if update.editable_by?(current_person)
-					%span.edit= link_to 'Edit', edit_update_path(update)
-					%span.delete= link_to 'Delete', update, :confirm => 'Are you sure?', :method => :delete
+		- if extract_reply(update.body).include?(@tag)
+			.update
+				- body = add_line_breaks(extract_reply(update.body))
+				- body_with_linked_hashtags = auto_link(body, { :hashtag_url_base => "http://#{request.host}/projects/#{@project.id}/updates/", :hashtag_class => "hashtag" })
+				%p.body= raw(body_with_linked_hashtags)
+				%p.credit 
+					<span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime("%I:%M %p")}</span>
+					%span.permalink= link_to 'Show', update_path(update)
+					- if update.editable_by?(current_person)
+						%span.edit= link_to 'Edit', edit_update_path(update)
+						%span.delete= link_to 'Delete', update, :confirm => 'Are you sure?', :method => :delete
 
 %p= link_to 'New Update', new_update_path
