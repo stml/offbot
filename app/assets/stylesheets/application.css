@@ -176,6 +176,16 @@ span.delete a,
 	border: none;
 	}
 	
+#new_update textarea {
+	margin-bottom: 10px;
+	border: 1px solid #000;
+	padding: 10px;
+	font-family: Georgia, serif;
+	font-size: 120%;
+	height: 300px;
+	width: 600px;
+	}
+	
 table#new_project_people {
 	width: 390px;
 	padding: 2px 5px;
