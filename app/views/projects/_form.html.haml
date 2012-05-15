@@ -24,7 +24,7 @@
 				- if current_person.is_admin?(@project)
 					- if @project.people.include?(person)
 						%tr
-							%td.label= f.label person.name.titleize
+							%td.label= f.label person.name, person.name.titleize
 							%td.field= check_box_tag("project[person_ids][]", person.id, @project.people.include?(person))
 				- else
 					- if @project.people.include?(person)
