@@ -9,13 +9,17 @@ class ListenerController < ApplicationController
 		sent_to = params["to"].split('@')
 		message_id = sent_to[0].split('.')[1]
 		sent_by = params["from"].split('<')[1].chop
-		body = remove_previous_updates(params["text"])
+
+		date = Regexp.new("\d{2}\s\w*\s\d{4}\s\d{2}:\d{2}:\d{2}\s.\d{4}\s\([a-zA-Z]{2,}\)", Regexp::IGNORECASE | Regexp::MULTILINE)
 
 		puts "Message id: #{message_id}"
 		puts "Sent by: #{sent_by}"
 		puts "Body encoding: #{params["text"].encoding}"
 		puts "Headers:"
 		puts params["headers"]
+
+		body = remove_previous_updates(params["text"])
+		puts body.scan(date)
 
 		if Person.find_by_email_key(message_id)
 			# this means that it's unprompted, needs to be processed slightly differently
