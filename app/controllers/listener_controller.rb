@@ -16,7 +16,12 @@ class ListenerController < ApplicationController
 		puts "Headers:"
 		puts params["headers"]
 
-		body = remove_previous_updates(params["text"])
+		unless (params["text"].encoding == "UTF-8") or (params["text"].encoding == "utf-8")
+			text = params["text"].convert_to_utf8
+		else
+			text = params["text"]
+		end
+		body = remove_previous_updates(text)
 		date = params["headers"].scan(/\d{2}\s\w*\s\d{4}\s\d{2}:\d{2}:\d{2}\s.\d{4}\s\([a-zA-Z]{2,}\)/).last
 
 		if Person.find_by_email_key(message_id)
