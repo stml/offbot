@@ -13,6 +13,8 @@ class ListenerController < ApplicationController
 
 		puts "Message id: #{message_id}"
 		puts "Sent by: #{sent_by}"
+		puts "Headers:"
+		puts params["headers"]
 
 		if Person.find_by_email_key(message_id)
 			# this means that it's unprompted, needs to be processed slightly differently
