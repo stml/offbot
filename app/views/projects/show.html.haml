@@ -47,16 +47,17 @@
 					- unless @project.people.include?(Person.find_by_email(person.email))
 						%li <em>#{person.email[0,20]}…</em>
 
-		- if @project.weekly_digest_day.nil? 
-			%p Weekly digest not set up yet
-		- else 
-			%p Weekly digest: #{@project.weekly_digest_day}
+		#digest_box
+			- if @project.weekly_digest_day.nil? 
+				%p There is no weekly digest set up for this project
+			- else 
+				%p The weekly digest for this project comes out on a #{@project.weekly_digest_day}
 
-		#bugbox
+		#link_box
+			%p= link_to "Add an update", :controller => "updates", :action => "new", :project => @project
+		#link_box
+			%p= link_to 'Edit this project', edit_project_path(@project)
+		#link_box
+			%p= link_to 'See all your projects', root_url
+		#bug_box
 			%p <strong>Found a bug?</strong> <a href="https://github.com/stml/offbot/issues/new">Let us know on github</a> or <a href="mailto:ntalia.buckley@gmail.com?subject=Found a bug in Offbott">via email</a>.
-
-		= link_to "Add an update", :controller => "updates", :action => "new", :project => @project
-
-		%p= link_to 'Edit the name and members of this project', edit_project_path(@project)
-
-		%p= link_to 'See all your projects', root_url

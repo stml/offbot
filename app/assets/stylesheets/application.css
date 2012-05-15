@@ -70,8 +70,6 @@ h4 { font-size: 1.2em; }
 	border-bottom: 1px solid #000;
 	}
 h1, h2, h3, h4 {
-	font-family: Georgia, serif;
-	font-weight: normal;
 	}
 h1, h2, h3, h4, p, ul, table {
 	line-height: 1.5;
@@ -79,7 +77,7 @@ h1, h2, h3, h4, p, ul, table {
 	}
 	
 #pop_box {
-	background: #eef;
+	background: rgba(205,205,255,0.5);
 	width: 500px;
 	margin: 0 0 10px 0;
 	padding: 10px 20px 5px 20px;
@@ -143,7 +141,9 @@ p#notice {
 	margin-right: 15px;
 	}
 
-
+.update .body {
+	font-family: Georgia, serif;
+	}
 .update .permalink a {
 	display: block;
 	margin-left: 10px;
@@ -225,14 +225,40 @@ ul#new_project_invited {
 	font-size: 80%;
 	}
 	
-#bugbox {
-	background: #fffacd url('/images/icons/bug.png') 7px 8px no-repeat;
-	padding: 5px 5px 5px 28px;
+#bug_box {
+	background: rgba(255,244,143,0.5) url('/images/icons/bug.png') 10px 8px no-repeat;
+	padding: 5px 5px 5px 33px;
 	margin-bottom: 10px;
-	font-size: 85%;
+	font-size: 80%;
 	}
-#bugbox p {
+#bug_box p {
 	margin: 0;
+	}
+#digest_box p {
+	font-size: 90%;
+	}
+#link_box {
+	color: #333;
+	text-align: center;
+	margin-bottom: 10px;
+	}
+#link_box p {
+	font-size: 75%;
+	margin: 0;
+	text-transform: uppercase;
+	}
+#link_box a {
+	background: rgba(220,220,220,0.5);
+	font-weight: bold;
+	color: #333;
+	padding: 5px;
+	width: 100%;
+	display: block;
+	text-decoration: none;
+	border: none;
+	}
+#link_box a:hover {
+	background: rgba(200,200,200,0.75);
 	}
 
 .button {
@@ -257,4 +283,19 @@ ul#new_project_invited {
 	
 .right {
 	text-align: right;
+	}
+	
+a {
+	color: #00c;
+	text-decoration: none;
+	border-bottom: 1px solid #00c;
+	}
+a:hover {
+	color: #000;
+	border-bottom: 1px solid #000;	
+	}
+img a,
+#header_o a,
+p.credit a {
+	border: none;
 	}
