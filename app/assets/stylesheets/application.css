@@ -250,9 +250,18 @@ ul#new_project_invited {
 p.updatecount {
 	font-size: 200%;
 	text-align: center;
-	background: rgba(50,50,50,0.5);
+	background: rgba(0,0,100,1);
 	color: #fff; 
 	padding: 5px 0;
+	}
+span.updatepersoncount {
+	font-size: 50%;
+	font-weight: bold;
+	padding: 2px 5px;
+	vertical-align: super;
+	background: rgba(0,0,100,1);
+	color: #fff;
+	border-radius: 15px;
 	}
 	
 #bug_box {
