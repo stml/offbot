@@ -35,9 +35,11 @@
 					= already_on_the_project.join(", ")
 		-unless @project.invitations.empty?
 			%p These people have been invited to the project:	
-			%ul#new_project_invited
+			%table#new_project_invited
 				- @project.invitations.each do |person|
-					%li <em>#{person.email}</em>
+					%tr
+						%td.label= f.label person.email, person.email
+						%td.field= check_box_tag("invitation[project_ids][]", @project.id, person.projects.include?(@project))
 			
 
 	%h3 Invite others to join the project
