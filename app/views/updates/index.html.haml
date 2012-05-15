@@ -4,7 +4,10 @@
 
 	- @updates.each do |update|
 		%tr
-			%td= update.body
+			%td
+				- body = add_line_breaks(extract_reply(update.body))
+				- body_with_linked_hashtags = auto_link(body, { :hashtag_url_base => "http://offbott.com/projects/#{@project.id}/updates/", :hashtag_class => "hashtag" })
+				= raw(body_with_linked_hashtags)
 			%td= link_to 'Show', update
 			%td= link_to 'Edit', edit_update_path(update)
 			%td= link_to 'Destroy', update, :confirm => 'Are you sure?', :method => :delete

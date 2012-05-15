@@ -29,6 +29,10 @@ module ApplicationHelper
     text[0, index].strip
   end
 
+  def add_line_breaks(text)
+    text.gsub(/\r\n?\r\n?/,"<br/><br/>")
+  end
+
 end
 
 
