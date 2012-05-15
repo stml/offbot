@@ -13,6 +13,7 @@ class ListenerController < ApplicationController
 
 		puts "Message id: #{message_id}"
 		puts "Sent by: #{sent_by}"
+		puts "Body encoding: #{params["text"].encoding}"
 		puts "Headers:"
 		puts params["headers"]
 
