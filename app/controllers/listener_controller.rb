@@ -75,6 +75,21 @@ class ListenerController < ApplicationController
 		end
 	end
 
+	def remove_previous_updates(text)
+    regex_arr = [
+      Regexp.new("(What have you been up to?).*", Regexp::MULTILINE)
+    ]
+
+    text_length = text.length
+    #calculates the matching regex closest to top of page
+    index = regex_arr.inject(text_length) do |min, regex|
+      puts min
+        [(text.index(regex) || text_length), min].min
+    end
+
+    text[0, index].strip
+  end
+
 
 
 end
