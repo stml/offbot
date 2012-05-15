@@ -17,7 +17,7 @@ class ListenerController < ApplicationController
 		puts params["headers"]
 
 		body = remove_previous_updates(params["text"])
-		puts params["headers"].scan(/\d{2}\s\w*\s\d{4}\s\d{2}:\d{2}:\d{2}\s.\d{4}\s\([a-zA-Z]{2,}\)/)
+		date = params["headers"].scan(/\d{2}\s\w*\s\d{4}\s\d{2}:\d{2}:\d{2}\s.\d{4}\s\([a-zA-Z]{2,}\)/).last
 
 		if Person.find_by_email_key(message_id)
 			# this means that it's unprompted, needs to be processed slightly differently
@@ -28,7 +28,7 @@ class ListenerController < ApplicationController
 			person.projects.each do |project|
 				if project.to_slug == project_slug
 					unless Update.find_by_body(body)
-						@update = Update.new(:body => body, :person_id => person.id, :project_id => project.id)
+						@update = Update.new(:body => body, :person_id => person.id, :project_id => project.id, :created_at => date)
 					end
 				end
 			end
@@ -42,7 +42,7 @@ class ListenerController < ApplicationController
 			# people use email aliases. not sure what to do.
 			#if sent_by == person.email
 				unless Update.find_by_body(body)
-					@update = Update.new(:body => body, :person_id => person.id, :project_id => project.id)
+					@update = Update.new(:body => body, :person_id => person.id, :project_id => project.id, :created_at => date)
 				end
 			#else 
 				# @update = Update.new
