@@ -20,9 +20,9 @@
 							
 	#project_col_right	
 
-		#link_box
+		.link_box
 			%p= link_to 'Create a new Project', new_project_path
-		#link_box
+		.link_box
 			- if current_person.is_superadmin?
 				%p= link_to 'See all Projects', projects_path
 		#bug_box

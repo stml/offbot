@@ -247,6 +247,14 @@ ul#new_project_invited {
 	font-size: 80%;
 	}
 	
+p.updatecount {
+	font-size: 200%;
+	text-align: center;
+	background: rgba(50,50,50,0.5);
+	color: #fff; 
+	padding: 5px 0;
+	}
+	
 #bug_box {
 	background: rgba(255,244,143,0.5) url('/images/icons/bug.png') 10px 8px no-repeat;
 	padding: 5px 5px 5px 33px;
@@ -259,17 +267,17 @@ ul#new_project_invited {
 #digest_box p {
 	font-size: 90%;
 	}
-#link_box {
+.link_box {
 	color: #333;
 	text-align: center;
 	margin-bottom: 10px;
 	}
-#link_box p {
+.link_box p {
 	font-size: 75%;
 	margin: 0;
 	text-transform: uppercase;
 	}
-#link_box a {
+.link_box a {
 	background: rgba(220,220,220,0.5);
 	font-weight: bold;
 	color: #333;
@@ -279,7 +287,7 @@ ul#new_project_invited {
 	text-decoration: none;
 	border: none;
 	}
-#link_box a:hover {
+.link_box a:hover {
 	background: rgba(200,200,200,0.75);
 	}
 

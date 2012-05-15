@@ -37,12 +37,18 @@
 						
 	#project_col_right			
 		
+		%h4 Project updates:
+		
+		%p.updatecount= @project.updates.count
+		
 		%h4 Project members:
 
 		#pop_box
-			%ul
+			%ul.updatepersonlist
 				- @project.people.each do |person|
-					%li= link_to person.name.titleize, person
+					%li 
+						<span class="updatepersoncount">34</span>
+						=link_to person.name.titleize, person
 				- @project.invitations.uniq.each do |person|
 					- unless @project.people.include?(Person.find_by_email(person.email))
 						%li <em>#{person.email[0,20]}…</em>
@@ -53,11 +59,11 @@
 			- else 
 				%p The weekly digest for this project comes out on a #{@project.weekly_digest_day}
 
-		#link_box
+		.link_box
 			%p= link_to "Add an update", :controller => "updates", :action => "new", :project => @project
-		#link_box
+		.link_box
 			%p= link_to 'Edit this project', edit_project_path(@project)
-		#link_box
+		.link_box
 			%p= link_to 'See all your projects', root_url
 		#bug_box
 			%p <strong>Found a bug?</strong> <a href="https://github.com/stml/offbot/issues/new">Let us know on github</a> or <a href="mailto:ntalia.buckley@gmail.com?subject=Found a bug in Offbott">via email</a>.

@@ -33,7 +33,7 @@
 	#project_col_right
 
 		- if @person.editable_by?(current_person)
-			#link_box
+			.link_box
 				%p= link_to 'Edit', edit_person_path(@person)
-		#link_box
+		.link_box
 			%p= link_to 'Home', root_url
