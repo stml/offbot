@@ -66,6 +66,9 @@ h1 { font-size: 1.8em; }
 h2 { font-size: 1.6em; }
 h3 { font-size: 1.4em; }
 h4 { font-size: 1.2em; }
+#container_i h1 {	
+	border-bottom: 1px solid #000;
+	}
 h1, h2, h3, h4 {
 	font-family: Georgia, serif;
 	font-weight: normal;
@@ -198,6 +201,12 @@ ul#new_project_invited {
 	width: 250px;
 	float: right;
 	}
+#project_col_right h4 {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	text-transform: uppercase;	
+	font-weight: bold;
+	font-size: 75%;
+	}
 #project_col_right ul {	
 	list-style: none;
 	}
@@ -214,6 +223,16 @@ ul#new_project_invited {
 	font-style: italic;
 	margin-left: 10px;
 	font-size: 80%;
+	}
+	
+#bugbox {
+	background: #fffacd url('/images/icons/bug.png') 7px 8px no-repeat;
+	padding: 5px 5px 5px 28px;
+	margin-bottom: 10px;
+	font-size: 85%;
+	}
+#bugbox p {
+	margin: 0;
 	}
 
 .button {
