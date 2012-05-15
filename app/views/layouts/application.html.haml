@@ -14,13 +14,13 @@
 				#header_login
 					- if person_signed_in?
 						= link_to 'Your Projects', root_url
-						&nbsp;
+						&nbsp;&nbsp;&nbsp;
 						= link_to 'You', person_path(current_person)
-						&nbsp;
+						&nbsp;&nbsp;&nbsp;
 						= link_to 'Sign Out', destroy_person_session_path, :method => :delete        
 					- else
 						= link_to 'Sign In', new_person_session_path 
-						&nbsp;
+						&nbsp;&nbsp;&nbsp;
 						= link_to 'Register', new_person_registration_path
 		
 		#container_o

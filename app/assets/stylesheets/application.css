@@ -68,6 +68,7 @@ h3 { font-size: 1.4em; }
 h4 { font-size: 1.2em; }
 #container_i h1 {	
 	border-bottom: 1px solid #000;
+	margin-bottom: 15px;
 	}
 h1, h2, h3, h4 {
 	}
@@ -78,7 +79,6 @@ h1, h2, h3, h4, p, ul, table {
 	
 #pop_box {
 	background: rgba(205,205,255,0.5);
-	width: 500px;
 	margin: 0 0 10px 0;
 	padding: 10px 20px 5px 20px;
 	}
@@ -153,7 +153,7 @@ p#notice {
 	height: 16px;
 	background: transparent url('/images/icons/link.png') 0 0 no-repeat;
 	}
-td.edit a,
+span.edit a,
 .update .edit a {
 	display: block;
 	margin-left: 10px;
@@ -162,8 +162,9 @@ td.edit a,
 	width: 16px;
 	height: 16px;
 	background: transparent url('/images/icons/pencil.png') 0 0 no-repeat;
+	border: none;
 	}
-td.delete a,
+span.delete a,
 .update .delete a {
 	display: block;
 	margin-left: 10px;
@@ -172,6 +173,7 @@ td.delete a,
 	width: 16px;
 	height: 16px;
 	background: transparent url('/images/icons/trash.png') 0 0 no-repeat;
+	border: none;
 	}
 	
 table#new_project_people {
