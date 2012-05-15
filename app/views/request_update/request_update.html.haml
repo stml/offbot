@@ -17,3 +17,9 @@
 			- @project.updates.order("created_at DESC").limit(3).each do |update|
 				%p #{extract_reply(update.body)}
 				%p{:style=>"border-bottom: 1px solid #cacaca;"} by #{update.person.name}, posted at #{update.created_at.strftime("%A %d %B")}
+
+		%hr
+
+		= link_to "See this project", project_path
+		\|
+		= link_to "Edit this project", edit_project_path
