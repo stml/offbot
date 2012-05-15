@@ -58,6 +58,6 @@
 			%td= f.label :weekly_digest_day, "On which day would you like to receive the weekly digest of all updates?"
 			%td
 				- weekdays = I18n.t 'date.day_names'
-				= select(:project, :weekly_digest_day, options_for_select(weekdays))
+				= select(:project, :weekly_digest_day, options_for_select(weekdays, @project.weekly_digest_day))
 
 	%p= f.submit 'Save this project', :class => 'confirm button'
