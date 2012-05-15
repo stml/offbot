@@ -175,6 +175,16 @@ span.delete a,
 	background: transparent url('/images/icons/trash.png') 0 0 no-repeat;
 	border: none;
 	}
+span.email a {
+	display: block;
+	margin-left: 10px;
+	float: right;
+	text-indent: -999999px;
+	width: 16px;
+	height: 16px;
+	background: transparent url('/images/icons/email.png') 0 2px no-repeat;
+	border: none;
+	}
 	
 #new_update textarea {
 	margin-bottom: 10px;
@@ -296,6 +306,11 @@ ul#new_project_invited {
 .right {
 	text-align: right;
 	}
+p.emailicon {
+	font-size: 90%;
+	background: transparent url('/images/icons/email.png') 0 2px no-repeat;
+	padding-left: 25px;
+	}
 	
 a {
 	color: #00c;
@@ -307,7 +322,12 @@ a:hover {
 	border-bottom: 1px solid #000;	
 	}
 img a,
+.button a,
 #header_o a,
 p.credit a {
 	border: none;
+	}
+a.button:hover {
+	border: none;
+	color: #fff;
 	}

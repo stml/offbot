@@ -2,4 +2,4 @@
 
 = render 'form'
 
-%p= link_to 'Cancel', updates_path, :class => 'cancel button'
+%p= link_to 'Cancel', Project.find(params[:project]), :class => 'cancel button'
