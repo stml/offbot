@@ -6,10 +6,9 @@
 				- @update.errors.full_messages.each do |msg|
 					%li= msg
 
-	%table#new_update
-		%tr
-			%td.label= f.label :body 
-			%td.field= f.text_area :body
+	#new_update
+		%p To create a new update on this project, just type in the box below, and hit "Save".
+		= f.text_area :body
 
 		- unless params[:action] == 'edit'
 			- if params[:project]
@@ -20,4 +19,4 @@
 						%td.label= f.label :project_id, project.name
 						%td.field= radio_button_tag "update[project_id]", project.id
 	.actions
-		= f.submit 'Save'
+		%p= f.submit 'Save this Update', :class => 'confirm button'

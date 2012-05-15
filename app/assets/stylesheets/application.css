@@ -66,9 +66,11 @@ h1 { font-size: 1.8em; }
 h2 { font-size: 1.6em; }
 h3 { font-size: 1.4em; }
 h4 { font-size: 1.2em; }
+#container_i h1 {	
+	border-bottom: 1px solid #000;
+	margin-bottom: 15px;
+	}
 h1, h2, h3, h4 {
-	font-family: Georgia, serif;
-	font-weight: normal;
 	}
 h1, h2, h3, h4, p, ul, table {
 	line-height: 1.5;
@@ -76,8 +78,7 @@ h1, h2, h3, h4, p, ul, table {
 	}
 	
 #pop_box {
-	background: #eef;
-	width: 500px;
+	background: rgba(205,205,255,0.5);
 	margin: 0 0 10px 0;
 	padding: 10px 20px 5px 20px;
 	}
@@ -140,7 +141,9 @@ p#notice {
 	margin-right: 15px;
 	}
 
-
+.update .body {
+	font-family: Georgia, serif;
+	}
 .update .permalink a {
 	display: block;
 	margin-left: 10px;
@@ -150,7 +153,7 @@ p#notice {
 	height: 16px;
 	background: transparent url('/images/icons/link.png') 0 0 no-repeat;
 	}
-td.edit a,
+span.edit a,
 .update .edit a {
 	display: block;
 	margin-left: 10px;
@@ -159,8 +162,9 @@ td.edit a,
 	width: 16px;
 	height: 16px;
 	background: transparent url('/images/icons/pencil.png') 0 0 no-repeat;
+	border: none;
 	}
-td.delete a,
+span.delete a,
 .update .delete a {
 	display: block;
 	margin-left: 10px;
@@ -169,6 +173,27 @@ td.delete a,
 	width: 16px;
 	height: 16px;
 	background: transparent url('/images/icons/trash.png') 0 0 no-repeat;
+	border: none;
+	}
+span.email a {
+	display: block;
+	margin-left: 10px;
+	float: right;
+	text-indent: -999999px;
+	width: 16px;
+	height: 16px;
+	background: transparent url('/images/icons/email.png') 0 2px no-repeat;
+	border: none;
+	}
+	
+#new_update textarea {
+	margin-bottom: 10px;
+	border: 1px solid #000;
+	padding: 10px;
+	font-family: Georgia, serif;
+	font-size: 120%;
+	height: 300px;
+	width: 600px;
 	}
 	
 table#new_project_people {
@@ -198,6 +223,12 @@ ul#new_project_invited {
 	width: 250px;
 	float: right;
 	}
+#project_col_right h4 {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	text-transform: uppercase;	
+	font-weight: bold;
+	font-size: 75%;
+	}
 #project_col_right ul {	
 	list-style: none;
 	}
@@ -214,6 +245,42 @@ ul#new_project_invited {
 	font-style: italic;
 	margin-left: 10px;
 	font-size: 80%;
+	}
+	
+#bug_box {
+	background: rgba(255,244,143,0.5) url('/images/icons/bug.png') 10px 8px no-repeat;
+	padding: 5px 5px 5px 33px;
+	margin-bottom: 10px;
+	font-size: 80%;
+	}
+#bug_box p {
+	margin: 0;
+	}
+#digest_box p {
+	font-size: 90%;
+	}
+#link_box {
+	color: #333;
+	text-align: center;
+	margin-bottom: 10px;
+	}
+#link_box p {
+	font-size: 75%;
+	margin: 0;
+	text-transform: uppercase;
+	}
+#link_box a {
+	background: rgba(220,220,220,0.5);
+	font-weight: bold;
+	color: #333;
+	padding: 5px;
+	width: 100%;
+	display: block;
+	text-decoration: none;
+	border: none;
+	}
+#link_box a:hover {
+	background: rgba(200,200,200,0.75);
 	}
 
 .button {
@@ -238,4 +305,29 @@ ul#new_project_invited {
 	
 .right {
 	text-align: right;
+	}
+p.emailicon {
+	font-size: 90%;
+	background: transparent url('/images/icons/email.png') 0 2px no-repeat;
+	padding-left: 25px;
+	}
+	
+a {
+	color: #00c;
+	text-decoration: none;
+	border-bottom: 1px solid #00c;
+	}
+a:hover {
+	color: #000;
+	border-bottom: 1px solid #000;	
+	}
+img a,
+.button a,
+#header_o a,
+p.credit a {
+	border: none;
+	}
+a.button:hover {
+	border: none;
+	color: #fff;
 	}
