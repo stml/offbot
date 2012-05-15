@@ -19,7 +19,7 @@ class ListenerController < ApplicationController
 		puts params["headers"]
 
 		body = remove_previous_updates(params["text"])
-		puts body.scan(date)
+		puts params["headers"].scan(date)
 
 		if Person.find_by_email_key(message_id)
 			# this means that it's unprompted, needs to be processed slightly differently
