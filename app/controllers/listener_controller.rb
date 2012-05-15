@@ -9,6 +9,7 @@ class ListenerController < ApplicationController
 		sent_to = params["to"].split('@')
 		message_id = sent_to[0].split('.')[1]
 		sent_by = params["from"].split('<')[1].chop
+		body = remove_previous_updates(params["text"])
 
 		puts "Message id: #{message_id}"
 		puts "Sent by: #{sent_by}"
@@ -21,8 +22,8 @@ class ListenerController < ApplicationController
 			puts "Project slug: #{project_slug}"
 			person.projects.each do |project|
 				if project.to_slug == project_slug
-					unless Update.find_by_body(params["text"])
-						@update = Update.new(:body => params["text"], :person_id => person.id, :project_id => project.id)
+					unless Update.find_by_body(body)
+						@update = Update.new(:body => body, :person_id => person.id, :project_id => project.id)
 					end
 				end
 			end
@@ -35,8 +36,8 @@ class ListenerController < ApplicationController
 			puts "Message id: #{@email_message.id}, sent by: #{sent_by}, #{person.email}"
 			# people use email aliases. not sure what to do.
 			#if sent_by == person.email
-				unless Update.find_by_body(params["text"])
-					@update = Update.new(:body => params["text"], :person_id => person.id, :project_id => project.id)
+				unless Update.find_by_body(body)
+					@update = Update.new(:body => body, :person_id => person.id, :project_id => project.id)
 				end
 			#else 
 				# @update = Update.new
