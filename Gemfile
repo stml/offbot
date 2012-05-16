@@ -10,6 +10,8 @@ gem 'acts-as-taggable-on'
 gem 'twitter-text'
 gem 'jquery-rails'
 gem 'roadie'
+gem 'mail_view', :git => 'https://github.com/37signals/mail_view.git'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,8 +27,6 @@ end
 
 group :development, :test do
 	gem 'sqlite3'
-	gem 'mail_view', :git => 'https://github.com/37signals/mail_view.git'
-
 end
 
 group :production do
