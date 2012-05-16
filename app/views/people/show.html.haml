@@ -24,7 +24,9 @@
 
 		- if @person.editable_by?(current_person)
 			- if @person.email_key
-				%p.emailicon The email addresses above allow you to send updates whenever you like - just save them in your address book.
+				%p.emailicon 
+					The email addresses above allow you to send updates whenever you like - just save them in your address book. 
+					= link_to "Would you like to regenerate them?", generate_email_key_path(@person)
 			- else
 				%h3 Would you like to send emails to offbot whenever you like?
 				%p You can generate an email address for your projects, and Offbott will automatically connect them to the right project.
