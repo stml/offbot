@@ -270,7 +270,7 @@ span.updatepersoncount {
 	font-weight: bold;
 	padding: 2px 5px;
 	vertical-align: super;
-	background: rgba(0,0,100,1);
+	background: rgba(0,0,50,0.5);
 	color: #fff;
 	border-radius: 15px;
 	}
@@ -350,6 +350,7 @@ a:hover {
 	border-bottom: 1px solid #000;	
 	}
 img a,
+.link_box a:hover,
 .button a,
 #header_o a,
 p.credit a {
