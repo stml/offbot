@@ -18,6 +18,9 @@ class ListenerController < ApplicationController
 		puts params["headers"]
 		puts "Charsets:"
 		puts params["charsets"]
+		puts "Validate encoding:"
+		puts validate_encoding(params["text"], :invalid => :replace, :replace => "")
+
 
 		unless (params["text"].encoding == "UTF-8") or (params["text"].encoding == "utf-8")
 			text = params["text"]
