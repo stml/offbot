@@ -22,6 +22,6 @@
 							- body = add_line_breaks(extract_reply(update.body))
 							%p.body= body
 							%p.credit 
-								<span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime(""%I:%M %p, %A %B %e"")}</span>
+								<span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime("%I:%M %p, %A %B %e")}</span>
 
 

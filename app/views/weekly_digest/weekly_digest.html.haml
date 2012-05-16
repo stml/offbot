@@ -16,7 +16,7 @@
 				%p Here's what your teammates have been up to this week:
 			
 				#updates
-					- @project.updates.where("created_at >= ? AND created_at <= ?", Date.today.beginning_of_day - 7.days, Date.today.end_of_day).limit(20).each do |update|
+					- @project.updates.where("created_at >= ? AND created_at <= ?", Date.today.beginning_of_day - 7.days, Date.today.end_of_day).limit(20).reverse_each do |update|
 						.update
 							- body = add_line_breaks(extract_reply(update.body))
 							%p.body= body
