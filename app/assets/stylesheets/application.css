@@ -31,6 +31,7 @@ body {
 	width: 100%;
 	background: #004;
 	color: #fff;
+	border-top: 1px solid #fff;
 	}
 #header_i {
 	overflow: hidden;
@@ -141,8 +142,28 @@ p#notice {
 	margin-right: 15px;
 	}
 
+.update {
+	background: #ddf;
+	margin: 0 0 10px 0;
+	padding-bottom: 5px;
+	}
+.update .credit {
+	font-size: 14px;
+	background: #007 url('/images/stripes/blue_blue_stripe.png');
+	color: #fff;
+	padding: 5px 20px 5px 20px;
+	}
+.update .author {
+	font-weight: bold;
+	}
+.update .date {
+	font-style: italic;
+	margin-left: 10px;
+	font-size: 80%;
+	}
 .update .body {
 	font-family: Georgia, serif;
+	margin: 10px 20px 20px 20px;
 	}
 .update .permalink a {
 	display: block;
@@ -242,20 +263,6 @@ ul#new_project_invited {
 	}
 #project_col_right ul {	
 	list-style: none;
-	}
-	
-.update {
-	background: #ddf;
-	margin: 0 0 10px 0;
-	padding: 10px 20px 5px 20px;
-	}
-.update .author {
-	font-weight: bold;
-	}
-.update .date {
-	font-style: italic;
-	margin-left: 10px;
-	font-size: 80%;
 	}
 	
 p.updatecount {
