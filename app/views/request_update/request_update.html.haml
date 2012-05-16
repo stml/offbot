@@ -3,7 +3,7 @@
 	%head
 		%meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
 	%body
-		%h1 Hi, #{@name}
+		%h1 Hi, #{@name}!
 
 		#project_cols
 	
@@ -12,11 +12,11 @@
 				%p What have you been up to on project #{@project.name}? Just reply to this email to let me know.
 				%p Offbott
 
-				%hr
-
 				- if @project.updates
 
-					%h2 Recently others involved with the project #{@project.name} said:
+					%h3.project_name #{@project.name}
+
+					%p Recently others involved with the project #{@project.name} said:
 
 					#updates
 						- @project.updates.order("created_at DESC").limit(3).each do |update|

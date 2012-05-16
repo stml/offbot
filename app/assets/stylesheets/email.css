@@ -18,6 +18,11 @@ h1, h2, h3, h4, p, ul, table {
 	line-height: 1.5;
 	margin-bottom: 10px;
 	}
+
+.project_name h3 {
+	border-bottom: 1px solid #000;
+	margin-bottom: 15px;
+}
 .update .body {
 	font-family: Georgia, serif;
 	}
