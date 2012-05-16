@@ -1,4 +1,14 @@
-%h1= @project.name
+
+
+%h1 
+	#{@project.name} 
+	%span.project_sparkline
+			
+/ group the updates by day and count them (update[0] = date, update[1] = count)
+- @upDateNums = @project.updates.group_by{|day| day.created_at.strftime("%Y-%m-%d")}.map {|d, items| [d, items.length]}.reverse
+%ul#project_sparkline_numbers.hidden
+	- @upDateNums.each do |update|
+		%li= update[1]
 
 #project_cols
 	

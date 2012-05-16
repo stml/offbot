@@ -8,5 +8,12 @@
 $(document).ready(function() {
 	
 	$('ul.updatepersonlist>li').tsort('span.updatepersoncount',{order:'desc'});
+	
+	var project_sparkline_numbers = []
+	$('ul#project_sparkline_numbers > li').each(function(i,elem) {
+		project_sparkline_numbers.push($(elem).text());
+		});
+	console.log(project_sparkline_numbers)
+	$(".project_sparkline").sparkline(project_sparkline_numbers);
 		
 	});

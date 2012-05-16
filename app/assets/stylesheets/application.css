@@ -335,6 +335,9 @@ span.updatepersoncount {
 .right {
 	text-align: right;
 	}
+.hidden {
+	display: none;
+	}
 p.emailicon {
 	font-size: 90%;
 	background: transparent url('/images/icons/email.png') 0 2px no-repeat;
