@@ -3,23 +3,36 @@
 	%head
 		%meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
 	%body
-		%h1
-			Hi, #{@name}
-		%p What have you been up to? Just reply to this email to let me know.
-		%p Offbott
+		%h1 Hi, #{@name}
 
-		%hr
+		#project_cols
+	
+			#project_col_left
 
-		- if @project.updates
+				%p What have you been up to on project #{@project.name}? Just reply to this email to let me know.
+				%p Offbott
 
-			%h2 Recently others involved with the project #{@project.name} said:
+				%hr
 
-			- @project.updates.order("created_at DESC").limit(3).each do |update|
-				%p #{extract_reply(update.body)}
-				%p{:style=>"border-bottom: 1px solid #cacaca;"} by #{update.person.name}, posted at #{update.created_at.strftime("%A %d %B")}
+				- if @project.updates
 
-		%hr
+					%h2 Recently others involved with the project #{@project.name} said:
 
-		%a{:href=>"http://offbott.com/projects/#{@project.id}"} See this project
-		\|
-		%a{:href=>"http://offbott.com/projects/#{@project.id}/edit"} Edit this project
+					#updates
+						- @project.updates.order("created_at DESC").limit(3).each do |update|
+							.update
+								- body = add_line_breaks(extract_reply(update.body))
+								%p.body= body
+								%p.credit 
+									<span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime("%I:%M %p")}</span>
+									%span.permalink= link_to '∞', update_path(update)
+
+			#project_col_right	
+
+				.link_box
+					%p
+						%a{:href=>"http://offbott.com/projects/#{@project.id}"} See this project
+				
+				.link_box
+					%p	
+						%a{:href=>"http://offbott.com/projects/#{@project.id}/edit"} Edit this project

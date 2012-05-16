@@ -1,5 +1,5 @@
 class WeeklyDigest < ActionMailer::Base
-	default :from => "weeklyupdate@#{DOMAIN}"
+	default :from => "weeklyupdate@#{DOMAIN}", :css => :email
 	def weekly_digest(project, person)
 		@project = project
 		@from = "#{@project.name.gsub(' ', '')}.weeklyupdate@#{DOMAIN}"
