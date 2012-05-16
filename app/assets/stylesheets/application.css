@@ -266,11 +266,12 @@ p.updatecount {
 	padding: 5px 0;
 	}
 span.updatepersoncount {
+	margin-left: -4px;
 	font-size: 50%;
 	font-weight: bold;
 	padding: 2px 5px;
 	vertical-align: super;
-	background: rgba(0,0,50,0.5);
+	background: rgba(0,0,100,0.5);
 	color: #fff;
 	border-radius: 15px;
 	}
