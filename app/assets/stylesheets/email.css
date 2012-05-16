@@ -148,6 +148,8 @@ p.updatecount {
 	padding: 5px 0;
 	}
 span.updatepersoncount {
+	display: block;
+	margin-left: -10px;
 	font-size: 50%;
 	font-weight: bold;
 	padding: 2px 5px;
