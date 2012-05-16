@@ -57,11 +57,11 @@
 			%ul.updatepersonlist
 				- @project.people.each do |person|
 					%li 
-						=link_to person.name.titleize, person
 						<span class="updatepersoncount">#{updates_count(person, @project)}</span>
+						=link_to person.name.titleize, person
 				- @project.invitations.uniq.each do |person|
 					- unless @project.people.include?(Person.find_by_email(person.email))
-						%li <em>#{person.email[0,20]}…</em>
+						%li <em style="margin-left: 18px; font-size: 90%;">#{person.email[0,20]}…</em>
 
 		#digest_box
 			- if @project.weekly_digest_day.nil? 
