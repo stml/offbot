@@ -14,9 +14,7 @@
 
 				- if @project.updates
 
-					%h3.project_name #{@project.name}
-
-					%p Recently others involved with the project #{@project.name} said:
+					%h3.project_name #{@project.name} - recent updates
 
 					#updates
 						- @project.updates.order("created_at DESC").limit(3).each do |update|
