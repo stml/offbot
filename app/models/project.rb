@@ -51,6 +51,6 @@ class Project < ActiveRecord::Base
     #strip off leading/trailing hyphen
     ret.gsub! /\A[-\.]+|[-\.]+\z/,""
 
-    ret
+    "#{ret}-#{self.id}"
   end
 end
