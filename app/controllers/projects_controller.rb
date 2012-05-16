@@ -106,6 +106,11 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def confirm_delete
+    @project = Project.find(params[:id])
+    raise NotPermitted unless @project.manageable_by?(current_person)
+  end
+
   def my_index
     @projects = Person.find(current_person.id).projects
     

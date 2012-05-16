@@ -1,0 +1,9 @@
+%h1 Deleting project #{@project.name}
+
+#pop_box
+  %table
+    %tr
+      %td= link_to @project.name, @project
+      - if @project.manageable_by?(current_person)
+        %td.delete= link_to 'Destroy', @project, :confirm => 'Are you sure?', :method => :delete
+        %td= link_to 'Cancel', root_url

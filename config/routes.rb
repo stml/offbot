@@ -1,7 +1,10 @@
 Offbot::Application.routes.draw do
   devise_for :people
   
-  resources :projects
+  resources :projects do
+    get 'confirm_delete', :on => :member, :as => "confirm_delete"
+  end
+
   resources :people
   resources :updates
 
