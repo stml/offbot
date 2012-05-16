@@ -37,9 +37,7 @@
 			%p These people have been invited to the project:	
 			%table#new_project_invited
 				- @project.invitations.each do |person|
-					%tr
-						%td.label= f.label person.email, person.email
-						%td.field= check_box_tag("invitation[project_ids][]", @project.id, person.projects.include?(@project))
+					%li <em>#{person.email}</em>
 			
 
 	%h3 Invite others to join the project
