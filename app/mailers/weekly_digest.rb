@@ -1,4 +1,5 @@
 class WeeklyDigest < ActionMailer::Base
+	helper :application
 	default :from => "weeklyupdate@#{DOMAIN}", :css => :email
 	def weekly_digest(project, person)
 		@project = project

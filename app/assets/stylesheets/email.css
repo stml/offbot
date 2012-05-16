@@ -5,7 +5,12 @@
 
 body {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	margin: 20px;
+	text-align: center;
+	}
+#container {
+	margin: 20px auto;
+	width: 800px;
+	text-align: left;
 	}
 
 h1 { font-size: 1.8em; }

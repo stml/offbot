@@ -3,17 +3,26 @@
 	%head
 		%meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
 	%body
-		%h1
-			Hi, #{@name}
+		#container
+			%h1.greeting
+				Hello, #{@person.name}
 
-		- if @project.updates
+			- if @project.updates
+			
+				%p Offbott has recorded #{@project.updates.where("created_at >= ? AND created_at <= ?", Date.today.beginning_of_day - 7.days, Date.today.end_of_day).count} updates to #{@project.name} this week.
 
-			%p Here's what your teammates have been up to this week:
+				%p You can check them out at any time on <a href="http://offbott.com/projects/#{@project.id}">the project page</a>.
 
-			- @project.updates.where("created_at >= ? AND created_at <= ?", Date.today.beginning_of_day - 7.days, Date.today.end_of_day).limit(20).each do |update|
-				%p #{update.body}
-				%p{:style=>"border-bottom: 1px solid #cacaca;"} by #{update.person.name}, posted at #{update.created_at.strftime("%A %d %B")}
+				%p Here's what your teammates have been up to this week:
+			
+				#updates
+					- @project.updates.where("created_at >= ? AND created_at <= ?", Date.today.beginning_of_day - 7.days, Date.today.end_of_day).limit(20).each do |update|
+						.update
+							- body = add_line_breaks(extract_reply(update.body))
+							%p.body= body
+							%p.credit 
+								<span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime("%I:%M %p, %A %B %e")}</span>
+			
+			- else
 
-		- else
-
-			%p Your team mates haven't posted any updates yet! 
+				%p Your team mates haven't posted any updates yet! 
