@@ -20,7 +20,7 @@ class ListenerController < ApplicationController
 		unless (params["text"].encoding == "UTF-8") or (params["text"].encoding == "utf-8")
 			text = params["text"].encode("utf-8", :invalid => :replace, :undef => :replace)
 		else
-			text = params["text"]
+			text = params["text"].encode("utf-8", :invalid => :replace, :undef => :replace)
 		end
 		body = remove_previous_updates(text)
 		date = params["headers"].scan(/\d{2}\s\w*\s\d{4}\s\d{2}:\d{2}:\d{2}\s.\d{4}\s\([a-zA-Z]{2,}\)/).last

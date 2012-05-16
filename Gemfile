@@ -9,6 +9,7 @@ gem 'uuid'
 gem 'acts-as-taggable-on'
 gem 'twitter-text'
 gem 'jquery-rails'
+gem 'roadie'
 
 # Gems used only for assets and not required
 # in production environments by default.
