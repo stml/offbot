@@ -20,7 +20,7 @@ Offbot::Application.routes.draw do
     root :to => 'projects#my_index'
   end
 
-  if Rails.env.development?
+  if ENV["RAILS_ENV"] == "development"
     mount RequestUpdate::Preview => 'request_update'
     mount SendInvitation::Preview => 'send_invitation'
     mount WeeklyDigest::Preview => 'weekly_digest'
