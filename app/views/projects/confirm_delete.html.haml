@@ -1,9 +1,11 @@
 %h1 Deleting project #{@project.name}
 
+%p Aww, are you sure? Deleting projects makes Offbott sad. AND you'll never get that project back! :(
+
 #pop_box
   %table
     %tr
-      %td= link_to @project.name, @project
+      %td= @project.name
       - if @project.manageable_by?(current_person)
         %td.delete= link_to 'Destroy', @project, :confirm => 'Are you sure?', :method => :delete
         %td= link_to 'Cancel', root_url
