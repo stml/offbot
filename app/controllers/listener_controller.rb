@@ -16,9 +16,11 @@ class ListenerController < ApplicationController
 		puts "Body encoding: #{params["text"].encoding}"
 		puts "Headers:"
 		puts params["headers"]
+		puts "Charsets:"
+		puts params["charsets"]
 
 		unless (params["text"].encoding == "UTF-8") or (params["text"].encoding == "utf-8")
-			text = params["text"].encode("utf-8", :invalid => :replace, :undef => :replace)
+			text = params["text"]
 		else
 			text = params["text"].encode("utf-8", :invalid => :replace, :undef => :replace)
 		end
