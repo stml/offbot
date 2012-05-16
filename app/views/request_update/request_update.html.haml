@@ -5,32 +5,23 @@
 	%body
 		%h1.greeting Hi, #{@name}!
 
-		#project_cols
-	
-			#project_col_left
+		%p What have you been up to on project #{@project.name}? Just reply to this email to let me know.
+		%p Offbott
+		
+		%p
+			%a{:href=>"http://offbott.com/projects/#{@project.id}"} Visit the web page for this project
 
-				%p What have you been up to on project #{@project.name}? Just reply to this email to let me know.
-				%p Offbott
+		- if @project.updates
 
-				- if @project.updates
+			%h3.project_name #{@project.name} - recent updates
 
-					%h3.project_name #{@project.name} - recent updates
+			#updates
+				- @project.updates.order("created_at DESC").limit(3).each do |update|
+					.update
+						- body = add_line_breaks(extract_reply(update.body))
+						%p.body= body
+						%p.credit 
+						<span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime("%I:%M %p")}</span>
+						%span.permalink= link_to '∞', update_path(update)
 
-					#updates
-						- @project.updates.order("created_at DESC").limit(3).each do |update|
-							.update
-								- body = add_line_breaks(extract_reply(update.body))
-								%p.body= body
-								%p.credit 
-									<span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime("%I:%M %p")}</span>
-									%span.permalink= link_to '∞', update_path(update)
 
-			#project_col_right	
-
-				.link_box
-					%p
-						%a{:href=>"http://offbott.com/projects/#{@project.id}"} See this project
-				
-				.link_box
-					%p	
-						%a{:href=>"http://offbott.com/projects/#{@project.id}/edit"} Edit this project
