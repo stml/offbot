@@ -142,6 +142,10 @@ p#notice {
 	margin-right: 15px;
 	}
 
+p.daymark {
+	font-size: 110%;
+	font-weight: bold;
+	}
 .update {
 	background: #ddf;
 	margin: 0 0 10px 0;
@@ -268,7 +272,7 @@ ul#new_project_invited {
 p.updatecount {
 	font-size: 200%;
 	text-align: center;
-	background: rgba(0,0,100,1);
+	background: #007 url('/images/stripes/blue_blue_stripe.png');
 	color: #fff; 
 	padding: 5px 0;
 	}

@@ -28,11 +28,11 @@
 					- updateday = update.created_at.strftime("%Y-%m-%d")
 					- if updateday != lastday
 						- if updateday == today.strftime("%Y-%m-%d")
-							%p= 'Today'
+							%p.daymark= 'Today'
 						- elsif updateday == yesterday.strftime("%Y-%m-%d")
-							%p= 'Yesterday'
+							%p.daymark= 'Yesterday'
 						- else
-							%p= update.created_at.strftime("%A %d %B")
+							%p.daymark= update.created_at.strftime("%A %d %B")
 					.update
 						- body = add_line_breaks(extract_reply(update.body))
 						- body_with_linked_hashtags = auto_link(body, { :hashtag_url_base => "http://#{request.host}/projects/#{@project.id}/updates/", :hashtag_class => "hashtag" })
