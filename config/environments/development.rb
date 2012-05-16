@@ -34,4 +34,14 @@ Offbot::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  ActionMailer::Base.smtp_settings = {
+    :user_name => SENDGRID_USERNAME,
+    :password => SENDGRID_PASSWORD,
+    :domain => "offbott.com",
+    :address => "smtp.sendgrid.net",
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
 end
