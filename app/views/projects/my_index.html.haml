@@ -17,6 +17,7 @@
 							%span.delete= link_to 'Delete', confirm_delete_project_path(project)
 						- if current_person.can_view?(project)
 							%span.edit= link_to 'Edit', edit_project_path(project), :title => "Edit this Project"
+						%span.add= link_to 'New Update', :controller => "updates", :action => "new", :project => project
 							
 	#project_col_right	
 

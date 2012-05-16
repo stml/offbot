@@ -8,6 +8,7 @@
 				- if project.manageable_by?(current_person)
 					%td.edit= link_to 'Edit', edit_project_path(project)
 					%td.delete= link_to 'Delete', confirm_delete_project_path(project)
+				%td.add= link_to 'New Update', :controller => "updates", :action => "new", :project => project
 
 %p= link_to 'Create a new Project', new_project_path
 

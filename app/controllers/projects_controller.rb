@@ -109,11 +109,15 @@ class ProjectsController < ApplicationController
   def confirm_delete
     @project = Project.find(params[:id])
     raise NotPermitted unless @project.manageable_by?(current_person)
+
+    respond_to do |format|
+      format.html 
+    end
   end
 
   def my_index
-    @projects = Person.find(current_person.id).projects
-    
+    @projects = current_person.projects
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @projects }
