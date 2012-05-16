@@ -78,7 +78,7 @@ task :extract_reply => :environment do
 end
 
 desc "Send out a test update request"
-task :text_update_request => :environment do
+task :test_update_request => :environment do
 	email = EmailMessage.new
 	email.person = Person.find_by_email("natalia.buckley@gmail.com")
 	email.project = Project.find_by_name("Test")

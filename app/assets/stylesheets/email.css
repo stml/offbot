@@ -99,16 +99,16 @@ ul#new_project_invited {
 	}
 	
 #project_cols {
-	width: 800px;
+	width: 450px;
 	overflow: hidden;
 	position: relative;
 	}
 #project_col_left {
-	width: 500px;
+	width: 300px;
 	float: left;
 	}
 #project_col_right {
-	width: 250px;
+	width: 150px;
 	float: right;
 	}
 #project_col_right h4 {
