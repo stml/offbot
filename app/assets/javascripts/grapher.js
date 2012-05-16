@@ -14,6 +14,5 @@ $(document).ready(function() {
 		project_sparkline_numbers.push($(elem).text());
 		});
 	console.log(project_sparkline_numbers)
-	$(".project_sparkline").sparkline(project_sparkline_numbers);
-		
+	$(".project_sparkline").sparkline(project_sparkline_numbers, {type: 'bar', barWidth: 10, chartRangeMin: 0, barColor: '#008'});
 	});
