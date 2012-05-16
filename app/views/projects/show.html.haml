@@ -48,7 +48,7 @@
 				- @project.people.each do |person|
 					%li 
 						=link_to person.name.titleize, person
-						<span class="updatepersoncount">#{person.updates.count}</span>
+						<span class="updatepersoncount">#{updates_count(person, @project)}</span>
 				- @project.invitations.uniq.each do |person|
 					- unless @project.people.include?(Person.find_by_email(person.email))
 						%li <em>#{person.email[0,20]}…</em>
