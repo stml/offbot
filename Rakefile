@@ -77,6 +77,14 @@ task :extract_reply => :environment do
 
 end
 
+desc "Send out a test update request"
+task :text_update_request => :environment do
+	email = EmailMessage.new
+	email.person = Person.find_by_email("natalia.buckley@gmail.com")
+	email.project = Project.find_by_name("Test")
+	email.save
+end
+
 desc "Add project admins list to every project that's missing one"
 task :add_project_admins_list => :environment do
 	Project.all.each do |project|
