@@ -21,22 +21,23 @@ body {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	background: #fff url('/images/robot_bg.png') bottom right no-repeat;
 	background-attachment: fixed;
+	margin-top: 65px;
 	}
 
 #header_o {
 	position: fixed;
 	z-index: 99999;
-	bottom: 0;
+	top: 0;
 	left: 0;
 	width: 100%;
-	background: #004;
+	background: #004 url('/images/stripes/blue_blue_stripe.png');
 	color: #fff;
-	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
 	}
 #header_i {
 	overflow: hidden;
 	position: relative;
-	padding: 10px 25px;
+	padding: 12px 25px 10px;
 	}
 #header_i h1 {
 	font-family: "Courier New", Courier, monospace;
