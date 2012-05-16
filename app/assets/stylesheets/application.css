@@ -106,6 +106,22 @@ p#notice {
 	background: #fffacd;
 	}
 
+#project_list p.project_name {
+	background: #008;
+	padding: 5px 20px;
+	margin-bottom: 5px;
+	}
+#project_list p.project_name a {
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	}
+#project_list p.project_note {
+	color: #888;
+	font-size: 90%;
+	margin-left: 20px;
+	}
+
 #project_name_bar {
 	margin-bottom: 10px;
 	padding: 5px 0;
@@ -172,6 +188,7 @@ p.daymark {
 	}
 .update .permalink a {
 	display: block;
+	margin-top: 2px;
 	margin-left: 10px;
 	float: right;
 	text-indent: -999999px;
@@ -182,6 +199,7 @@ p.daymark {
 span.edit a,
 .update .edit a {
 	display: block;
+	margin-top: 2px;
 	margin-left: 10px;
 	float: right;
 	text-indent: -999999px;
@@ -194,6 +212,7 @@ span.add a,
 .update .add a {
 	display: block;
 	margin-left: 10px;
+	margin-top: 2px;
 	float: right;
 	text-indent: -999999px;
 	width: 16px;
@@ -204,6 +223,7 @@ span.add a,
 span.delete a,
 .update .delete a {
 	display: block;
+	margin-top: 2px;
 	margin-left: 10px;
 	float: right;
 	text-indent: -999999px;
