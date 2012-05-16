@@ -3,5 +3,5 @@ if ENV["RAILS_ENV"] == "production"
 elsif ENV["RAILS_ENV"] == "staging"
 	DOMAIN = "staging.offbott.com"
 else
-	DOMAIN = "staging.offbott.com"
+	DOMAIN = "offbott.com"
 end

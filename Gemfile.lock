@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/37signals/mail_view.git
+  revision: 13890e10f699566e0325c5c9127b3fbe0fb029d1
+  specs:
+    mail_view (1.0.1)
+      tilt
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -150,6 +157,7 @@ DEPENDENCIES
   haml
   haml-rails
   jquery-rails
+  mail_view!
   pg
   rails (= 3.2.3)
   roadie

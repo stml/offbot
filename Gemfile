@@ -25,6 +25,8 @@ end
 
 group :development, :test do
 	gem 'sqlite3'
+	gem 'mail_view', :git => 'https://github.com/37signals/mail_view.git'
+
 end
 
 group :production do
