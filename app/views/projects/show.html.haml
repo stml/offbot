@@ -4,8 +4,17 @@
 	#{@project.name} 
 	%span.project_sparkline
 			
-/ group the updates by day and count them (update[0] = date, update[1] = count)
-- @upDateNums = @project.updates.group_by{|day| day.created_at.strftime("%Y-%m-%d")}.map {|d, items| [d, items.length]}.reverse
+/ CALCULATING THE LAST 10 WEEKDAYS ACTIVITY
+- thisday = Time.new
+/ add the last 10 weekdays to an array, with the count
+- count = 0
+- @upDateNums = Array.new
+- while count < 20
+	- if (1..5).member?(thisday.wday)
+		- @upDateNums << [thisday.strftime("%A %Y-%m-%d"),@project.updates.select {|u| u.created_at.strftime("%Y-%m-%d") == thisday.strftime("%Y-%m-%d") }.size]
+		- count += 1
+	- thisday -= 86400
+
 %ul#project_sparkline_numbers.hidden
 	- @upDateNums.each do |update|
 		%li= update[1]

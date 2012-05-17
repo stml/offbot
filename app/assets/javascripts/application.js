@@ -13,3 +13,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+$(document).ready(function() {
+	$('#project_list .project_name').hover(
+  		function () {
+    		$(this).css("background","#004");
+  			}, 
+  		function () {
+    		$(this).css("background","#008");
+ 			}
+ 		);
+	});

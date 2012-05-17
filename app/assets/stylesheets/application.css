@@ -293,7 +293,7 @@ ul#new_project_invited {
 p.updatecount {
 	font-size: 200%;
 	text-align: center;
-	background: #007 url('/images/stripes/blue_blue_stripe.png');
+	background: #007;
 	color: #fff; 
 	padding: 5px 0;
 	}
