@@ -9,6 +9,13 @@ task :cron => :environment do
 	time = Time.now.hour
 	date = Date.today
 
+	def send_update_request(person, project)
+    email = EmailMessage.new
+    email.person = person
+    email.project = project
+    email.save
+  end
+
 	def send_out_todays_request(projects)
 		time = Time.now.hour
 		#only during working hours
