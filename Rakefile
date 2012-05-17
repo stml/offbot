@@ -9,12 +9,12 @@ task :cron => :environment do
 	time = Time.now.hour
 	date = Date.today
 
-	#only on weekdays
-	if (1..5).member?(date.wday)
+	def send_out_todays_request(projects)
+		time = Time.now.hour
 		#only during working hours
 		if (9..17).member?(time)
 			time_left = 17 - time
-			Project.all.each do |project|
+			projects.each do |project|
 				project.people.each do |person|
 					message = person.email_messages.today_on_project(project).first
 					unless message
@@ -22,16 +22,18 @@ task :cron => :environment do
 						puts  "Likelihood of sending out the update request for #{person.name} on project #{project.name}: 1/#{random_number}"
 						Rails.logger.info "Likelihood of sending out the update request for #{person.name} on project #{project.name}: 1/#{random_number}"
 						if random_number.to_i === 1
-							email = EmailMessage.new
-							email.person = person
-							email.project = project
-							email.save
+							send_update_request(person, project)
 						end
 						sleep(2.minutes)
 					end
 				end
 			end
 		end
+	end
+
+	#only on weekdays
+	if (1..5).member?(date.wday)
+		send_out_todays_request(Project.all)
 	end
 
 	# send out weekly digest 

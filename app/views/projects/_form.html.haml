@@ -53,6 +53,13 @@
 			%p.address= text_field_tag "emails[]"
 		%p.right 
 			%span{:id => 'addmoreemails', :class => ['operate', 'button']} + Add more	
+	%table#new_project_update_frequency
+		%tr
+			%td= f.label :frequency, "How frequently would you like Offbott to request updates from your teammates?"
+			%td
+				- frequencies = {"0" => "Once a day", "1" => "Twice a week", "2" => "Once a week",  "3" => "Twice a month", "4" => "Once a month"}
+				= select(:project, :frequency, options_for_select(frequencies.map{|frequency,key| [key, frequency]}, @project.frequency))
+
 	%table#new_project_weekly_digest
 		%tr
 			%td= f.label :weekly_digest_day, "On which day would you like to receive the weekly digest of all updates?"

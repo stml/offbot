@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120516165631) do
+ActiveRecord::Schema.define(:version => 20120517125723) do
 
   create_table "email_messages", :force => true do |t|
     t.string    "message_id"
@@ -72,13 +72,13 @@ ActiveRecord::Schema.define(:version => 20120516165631) do
   end
 
   create_table "projects", :force => true do |t|
-    t.timestamp "created_at",            :null => false
-    t.timestamp "updated_at",            :null => false
-    t.string    "name"
-    t.integer   "created_by"
-    t.string    "weekly_digest_day"
-    t.timestamp "weekly_digest_sent_at"
-    t.integer   "frequency"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.string   "name"
+    t.integer  "created_by"
+    t.string   "weekly_digest_day"
+    t.datetime "weekly_digest_sent_at"
+    t.integer  "frequency"
   end
 
   create_table "taggings", :force => true do |t|
