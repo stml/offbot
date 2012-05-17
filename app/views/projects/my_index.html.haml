@@ -17,16 +17,19 @@
 					- if current_person.can_view?(project)
 						%span.edit= link_to 'Edit', edit_project_path(project), :title => "Edit this Project"
 					%span.add= link_to 'New Update', :controller => "updates", :action => "new", :project => project
-				- updateday = project.updates.last.created_at.strftime("%Y-%m-%d")
-				- today = Time.new
-				- yesterday = today - 86400
-				- if updateday == today.strftime("%Y-%m-%d")
-					- daymark = 'today'
-				- elsif updateday == yesterday.strftime("%Y-%m-%d")
-					- daymark = 'yesterday'
+				- unless project.updates.empty?
+					- updateday = project.updates.last.created_at.strftime("%Y-%m-%d")
+					- today = Time.new
+					- yesterday = today - 86400
+					- if updateday == today.strftime("%Y-%m-%d")
+						- daymark = 'today'
+					- elsif updateday == yesterday.strftime("%Y-%m-%d")
+						- daymark = 'yesterday'
+					- else
+						- daymark = 'on ' + project.updates.last.created_at.strftime("%A %d %B")
+					%p.project_note Last update by #{Person.find_by_id(project.updates.last.person_id).name} at #{project.updates.last.created_at.strftime("%I:%M %p")} #{daymark}
 				- else
-					- daymark = 'on ' + project.updates.last.created_at.strftime("%A %d %B")
-				%p.project_note Last update by #{Person.find_by_id(project.updates.last.person_id).name} at #{project.updates.last.created_at.strftime("%I:%M %p")} #{daymark}
+					%p.project_note No updates yet
 							
 	#project_col_right	
 
