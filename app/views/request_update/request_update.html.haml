@@ -19,7 +19,7 @@
 				#updates
 					- @project.updates.order("created_at DESC").limit(3).each do |update|
 						.update
-							- body = add_line_breaks(extract_reply(update.body))
+							- body = raw(add_line_breaks(extract_reply(update.body)))
 							%p.body= body
 							%p.credit 
 								<span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime("%I:%M %p, %A %B %e")}</span>

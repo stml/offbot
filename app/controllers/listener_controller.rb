@@ -1,5 +1,7 @@
 class ListenerController < ApplicationController
 	require 'iconv'
+	include ActionView::Helpers::TextHelper
+  include ActionView::Helpers::SanitizeHelper
 	skip_before_filter :verify_authenticity_token
 	skip_before_filter :authenticate_person!
 	
@@ -32,7 +34,7 @@ class ListenerController < ApplicationController
 		# end
 
 
-		body = remove_previous_updates(text)
+		body = strip_tags(remove_previous_updates(text))
 		date = params["headers"].scan(/\d{2}\s\w*\s\d{4}\s\d{2}:\d{2}:\d{2}\s.\d{4}\s\([a-zA-Z]{2,}\)/).last
 
 		if Person.find_by_email_key(message_id)
@@ -45,7 +47,7 @@ class ListenerController < ApplicationController
 				if project.to_slug == project_slug
 					unless Update.find_by_body(body)
 						@update = Update.new(:body => body, :person_id => person.id, :project_id => project.id, :created_at => date)
-					end
+					end	
 				end
 			end
 		else
@@ -57,12 +59,11 @@ class ListenerController < ApplicationController
 			puts "Message id: #{@email_message.id}, sent by: #{sent_by}, #{person.email}"
 			# people use email aliases. not sure what to do.
 			#if sent_by == person.email
-				unless Update.find_by_body(body)
-					@update = Update.new(:body => body, :person_id => person.id, :project_id => project.id, :created_at => date)
-				end
-			#else 
-				# @update = Update.new
-			#end										
+			unless Update.find_by_body(body)
+				@update = Update.new(:body => body, :person_id => person.id, :project_id => project.id, :created_at => date)
+			else
+				@update = Update.new
+			end										
 		end
 
 		respond_to do |format|

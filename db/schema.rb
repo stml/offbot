@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120503144316) do
+ActiveRecord::Schema.define(:version => 20120516165631) do
 
   create_table "email_messages", :force => true do |t|
     t.string    "message_id"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20120503144316) do
     t.integer   "created_by"
     t.string    "weekly_digest_day"
     t.timestamp "weekly_digest_sent_at"
+    t.integer   "frequency"
   end
 
   create_table "taggings", :force => true do |t|
