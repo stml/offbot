@@ -19,6 +19,13 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, :alert => "I'm very sorry, but you can't do this."
   end
 
+  def send_update_request(person, project)
+    email = EmailMessage.new
+    email.person = person
+    email.project = project
+    email.save
+  end
+
   # Pass in a string, will raise an Encoding::InvalidByteSequenceError
   # if it contains an invalid byte for it's encoding; otherwise
   # returns an equivalent string.
