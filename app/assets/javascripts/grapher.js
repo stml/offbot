@@ -10,9 +10,16 @@ $(document).ready(function() {
 	$('ul.updatepersonlist>li').tsort('span.updatepersoncount',{order:'desc'});
 	
 	var project_sparkline_numbers = []
-	$('ul#project_sparkline_numbers > li').each(function(i,elem) {
+	$('ul#project_sparkline_numbers > li span.num').each(function(i,elem) {
 		project_sparkline_numbers.push($(elem).text());
 		});
 	console.log(project_sparkline_numbers)
-	$(".project_sparkline").sparkline(project_sparkline_numbers, {type: 'bar', barWidth: 10, chartRangeMin: 0, barColor: '#008'});
+	$(".project_sparkline").sparkline( project_sparkline_numbers, {
+		type: 'bar', 
+		barWidth: 10, 
+		chartRangeMin: 0, 
+		barColor: '#008',
+		tooltipFormat: '<span style="color: {{color}}">&#9679;</span> {{value}}{{suffix}}',
+		tooltipSuffix: ' updates'
+		});
 	});
