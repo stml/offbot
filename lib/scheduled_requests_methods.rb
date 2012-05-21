@@ -1,0 +1,107 @@
+module ScheduledRequestsMethods 
+
+	def self.send_update_request(person, project)
+		email = EmailMessage.new
+		email.person = person
+		email.project = project
+		email.save
+	end
+
+	def self.create_scheduled_date(person, project, date)
+		scheduled_date = ScheduledRequestDate.new
+		scheduled_date.person = person
+		scheduled_date.project = project
+		scheduled_date.request_date = date
+		scheduled_date.save
+	end
+
+	def self.generate_scheduled_dates(frequency, *sunday)
+		dates = []
+
+		# base date for generation and regeneration:
+		# today (if sunday) or last sunday
+		if sunday.is_a?(Array)
+			if Date.today.wday == 0
+				sunday = Date.today
+			else
+				sunday = Date.today - Date.today.wday
+			end
+		end
+
+		year = sunday.year
+		month = sunday.month
+
+		if frequency == 0
+			# freq. once a day
+			# generate seven dates
+			i = 0
+			6.times  do
+				day = sunday.day + i +1
+				time = rand(9..17)
+				i = i+1
+				dates << Time.new(year,month,day,time)
+			end
+
+			dates
+
+		elsif frequency == 1
+			# twice a week
+			# generate two dates
+
+			i = 0
+
+			2.times  do
+				if i == 0
+					weekday = rand(1..3)
+				elsif i == 1
+					weekday = rand(4..5)
+				end
+				day = sunday.day + weekday
+				time = rand(9..17)
+				i = i+1
+				dates << Time.new(year,month,day,time)
+			end
+
+			dates
+
+		elsif frequency == 2
+			# once a week
+			# generate only one date
+
+			weekday = rand(1..5)
+			day = sunday.day + weekday
+			time = rand(9..17)
+			dates << Time.new(year,month,day,time)
+
+		elsif frequency == 3
+			# twice a month
+			# is this the last sunday of the month? 
+			#if ((sunday.end_of_month-7)..sunday.end_of_month).member?(sunday)
+			# generate two dates
+
+			i = 0
+
+			2.times  do
+				if i == 0
+					day = rand(1..15)
+				elsif i == 1
+					day = rand(16..sunday.end_of_month.day)
+				end
+				time = rand(9..17)
+				i = i+1
+				dates << Time.new(year,month,day,time)
+			end
+
+			dates
+			#end
+		elsif frequency == 4
+			# once a month
+			# generate one date
+			day = rand(1..sunday.end_of_month.day)
+			time = rand(9..17)
+			dates << Time.new(year,month,day,time)
+
+		end
+
+	end
+end

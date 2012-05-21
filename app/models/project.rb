@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+   
 	attr_accessible :name, :people, :person_ids, :created_by, :weekly_digest_day, :frequency
   has_and_belongs_to_many :people
   has_many :updates
@@ -7,7 +8,7 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :invitations
   validates_presence_of :name
 
-  after_create :add_project_admins_list, :add_creator_to_admins
+  after_create :add_project_admins_list, :add_creator_to_admins, :set_default_email_frequency
 
   def add_project_admins_list
   	admins_list = ProjectAdminsList.new
@@ -20,12 +21,32 @@ class Project < ActiveRecord::Base
     self.people << creator
   end
 
+  def set_default_email_frequency
+    self.frequency = 0
+  end
+
   def viewable_by?(person)
     self.people.include?(person) or person.is_superadmin?
   end
 
   def manageable_by?(person)
     self.created_by == person.id or person.is_superadmin? or person.is_admin?(self)
+  end
+
+  def frequency_description
+    if self.frequency == 0
+      "once a day"
+    elsif self.frequency == 1
+      "twice a week"
+    elsif self.frequency == 2
+      "once a week"
+    elsif self.frequency == 3
+      "twice a month"
+    elsif self.frequency == 4
+      "once a month"
+    else
+      "not set"
+    end
   end
 
   def to_slug
@@ -53,4 +74,5 @@ class Project < ActiveRecord::Base
 
     "#{ret}-#{self.id}"
   end
+
 end

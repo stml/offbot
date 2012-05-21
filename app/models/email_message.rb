@@ -13,6 +13,14 @@ class EmailMessage < ActiveRecord::Base
 	  where('project_id = ? AND created_at >= ? AND created_at <= ?', passed_project.id, Date.today.beginning_of_day, Date.today.end_of_day)
 	end
 
+  def self.first_part_of_the_week_on_project(passed_project)
+    where('project_id = ? AND created_at >= ? AND created_at <= ?', passed_project.id, Date.today.beginning_of_week.beginning_of_day, Date.today.beginning_of_week.advance(:days => 2).end_of_day)
+  end
+
+  def self.second_part_of_the_week_on_project(passed_project)
+    where('project_id = ? AND created_at >= ? AND created_at <= ?', passed_project.id, Date.today.beginning_of_week.advance(:days => 3).beginning_of_day, Date.today.beginning_of_week.advance(:days => 4).end_of_day)
+  end
+
   private 
 
   def generate_message_id

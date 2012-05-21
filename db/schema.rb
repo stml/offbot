@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120517125723) do
+ActiveRecord::Schema.define(:version => 20120521112527) do
 
   create_table "email_messages", :force => true do |t|
     t.string    "message_id"
@@ -80,6 +80,17 @@ ActiveRecord::Schema.define(:version => 20120517125723) do
     t.datetime "weekly_digest_sent_at"
     t.integer  "frequency"
   end
+
+  create_table "scheduled_request_dates", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "project_id"
+    t.datetime "request_date"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "scheduled_request_dates", ["person_id"], :name => "index_scheduled_request_dates_on_person_id"
+  add_index "scheduled_request_dates", ["project_id"], :name => "index_scheduled_request_dates_on_project_id"
 
   create_table "taggings", :force => true do |t|
     t.integer   "tag_id"

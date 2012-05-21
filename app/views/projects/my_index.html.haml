@@ -30,7 +30,11 @@
 					%p.project_note Last update by #{Person.find_by_id(project.updates.last.person_id).name} at #{project.updates.last.created_at.strftime("%I:%M %p")} #{daymark}
 				- else
 					%p.project_note No updates yet
-							
+				- unless project.frequency.nil?
+					%p.project_note Note requests sent out #{project.frequency_description}
+				- else
+					%p.project_note Note requests frequency not set, defaulting to once a day
+
 	#project_col_right	
 
 		.link_box
