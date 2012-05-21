@@ -10,7 +10,7 @@ task :cron => :environment do
 	#only on weekdays
 	if (1..5).member?(date.wday)
 		# only 9 to 5
-		if (9..24).member?(time)
+		if (9..17).member?(time)
 
 		  scheduled_requests = ScheduledRequestDate.where('request_date >= ? AND request_date <= ?', DateTime.now.beginning_of_hour, DateTime.now.end_of_hour)
 

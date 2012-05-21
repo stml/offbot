@@ -85,7 +85,7 @@ module ScheduledRequestsMethods
 				if i == 0
 					day = rand(15) + 1
 				elsif i == 1
-					day = rand(15) 16 - sunday.end_of_month.day
+					day = rand(15) - 15 + sunday.end_of_month.day
 				end
 				time = rand(9) + 9
 				i = i+1
