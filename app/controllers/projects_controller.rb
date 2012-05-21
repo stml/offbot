@@ -53,10 +53,14 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find(params[:id])
     raise NotPermitted unless @project.viewable_by?(current_person)
+    params[:frequency] == @project.frequency ? changed_frequency = true : changed_frequency = true
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
         invite_or_add_people
+        if changed_frequency
+          regenerate_schedule_for_everyone
+        end
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { head :no_content }
       else
@@ -100,6 +104,21 @@ class ProjectsController < ApplicationController
   # end
 
   protected
+
+  def regenerate_schedule_for_everyone
+    @project.people.each do |person|
+      if @project.frequency
+        dates = ScheduledRequestsMethods.generate_scheduled_dates(@project.frequency)
+      elsif @project.frequency.nil?
+        dates = ScheduledRequestsMethods.generate_scheduled_dates(0)
+      end
+      if dates
+        dates.each do |date|
+          ScheduledRequestsMethods.create_scheduled_date(person, @project, date)
+        end
+      end
+    end
+  end
 
   def invite_or_add_people
     invitations = params[:emails]

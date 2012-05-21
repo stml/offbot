@@ -15,6 +15,12 @@ module ScheduledRequestsMethods
 		scheduled_date.save
 	end
 
+	def self.regenerate_all(project)
+		project.people.each do |person|
+
+		end
+	end
+
 	def self.generate_scheduled_dates(frequency, *sunday)
 		dates = []
 
