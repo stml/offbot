@@ -36,8 +36,8 @@ module ScheduledRequestsMethods
 			# generate seven dates
 			i = 0
 			6.times  do
-				day = sunday.day + i +1
-				time = rand(9..17)
+				day = sunday.day + i + 1
+				time = rand(9) + 9
 				i = i+1
 				dates << Time.new(year,month,day,time)
 			end
@@ -52,12 +52,12 @@ module ScheduledRequestsMethods
 
 			2.times  do
 				if i == 0
-					weekday = rand(1..3)
+					weekday = rand(3) + 1
 				elsif i == 1
-					weekday = rand(4..5)
+					weekday = rand(2) + 4
 				end
 				day = sunday.day + weekday
-				time = rand(9..17)
+				time = rand(9) + 9
 				i = i+1
 				dates << Time.new(year,month,day,time)
 			end
@@ -68,9 +68,9 @@ module ScheduledRequestsMethods
 			# once a week
 			# generate only one date
 
-			weekday = rand(1..5)
+			weekday = rand(5) + 1
 			day = sunday.day + weekday
-			time = rand(9..17)
+			time = rand(9) + 9
 			dates << Time.new(year,month,day,time)
 
 		elsif frequency == 3
@@ -83,11 +83,11 @@ module ScheduledRequestsMethods
 
 			2.times  do
 				if i == 0
-					day = rand(1..15)
+					day = rand(15) + 1
 				elsif i == 1
-					day = rand(16..sunday.end_of_month.day)
+					day = rand(15) 16 - sunday.end_of_month.day
 				end
-				time = rand(9..17)
+				time = rand(9) + 9
 				i = i+1
 				dates << Time.new(year,month,day,time)
 			end
@@ -97,8 +97,9 @@ module ScheduledRequestsMethods
 		elsif frequency == 4
 			# once a month
 			# generate one date
-			day = rand(1..sunday.end_of_month.day)
-			time = rand(9..17)
+			last_day_of_month = sunday.end_of_month.day
+			day = rand(last_day_of_month) + 1
+			time = rand(9) + 9
 			dates << Time.new(year,month,day,time)
 
 		end
