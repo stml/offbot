@@ -39,7 +39,9 @@ module ScheduledRequestsMethods
 				day = sunday.day + i + 1
 				time = rand(9) + 9
 				i = i+1
-				dates << Time.new(year,month,day,time)
+				if Time.new(year,month,day,time) > Time.now
+					dates << Time.new(year,month,day,time)
+				end
 			end
 
 			dates
@@ -59,7 +61,9 @@ module ScheduledRequestsMethods
 				day = sunday.day + weekday
 				time = rand(9) + 9
 				i = i+1
-				dates << Time.new(year,month,day,time)
+				if Time.new(year,month,day,time) > Time.now
+					dates << Time.new(year,month,day,time)
+				end
 			end
 
 			dates
@@ -71,7 +75,9 @@ module ScheduledRequestsMethods
 			weekday = rand(5) + 1
 			day = sunday.day + weekday
 			time = rand(9) + 9
-			dates << Time.new(year,month,day,time)
+			if Time.new(year,month,day,time) > Time.now
+				dates << Time.new(year,month,day,time)
+			end
 
 		elsif frequency == 3
 			# twice a month
@@ -89,7 +95,9 @@ module ScheduledRequestsMethods
 				end
 				time = rand(9) + 9
 				i = i+1
-				dates << Time.new(year,month,day,time)
+				if Time.new(year,month,day,time) > Time.now
+					dates << Time.new(year,month,day,time)
+				end
 			end
 
 			dates
@@ -100,7 +108,9 @@ module ScheduledRequestsMethods
 			last_day_of_month = sunday.end_of_month.day
 			day = rand(last_day_of_month) + 1
 			time = rand(9) + 9
-			dates << Time.new(year,month,day,time)
+			if Time.new(year,month,day,time) > Time.now
+				dates << Time.new(year,month,day,time)
+			end
 
 		end
 

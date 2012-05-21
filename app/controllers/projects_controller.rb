@@ -31,24 +31,10 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(params[:project])
-    invitations = params[:emails]
-    invitations.each do |invitation|
-      person = Person.find_by_email(invitation)
-      if person
-        unless @project.people.include?(person)
-          unless person == current_person
-            @project.people << person
-          end
-        end
-      else
-        invite = Invitation.find_or_create_by_email(invitation)
-        invite.projects << @project
-        invite.save
-      end
-    end
 
     respond_to do |format|
       if @project.save
+        invite_or_add_people
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render json: @project, status: :created, location: @project }
       else
@@ -68,24 +54,9 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     raise NotPermitted unless @project.viewable_by?(current_person)
 
-    invitations = params[:emails]
-    invitations.each do |invitation|
-      person = Person.find_by_email(invitation)
-      if person
-        unless @project.people.include?(person)
-          unless person == current_person
-            @project.people << person
-          end
-        end
-      else
-        invite = Invitation.find_or_create_by_email(invitation)
-        invite.projects << @project
-        invite.save
-      end
-    end
-
     respond_to do |format|
       if @project.update_attributes(params[:project])
+        invite_or_add_people
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { head :no_content }
       else
@@ -136,9 +107,9 @@ class ProjectsController < ApplicationController
       person = Person.find_by_email(invitation)
       if person
         unless @project.people.include?(person)
-          unless person == current_person
-            @project.people << person
-          end
+          #unless person == current_person
+            person.projects << @project
+          #end
         end
       else
         invite = Invitation.find_or_create_by_email(invitation)

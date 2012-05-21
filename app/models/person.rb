@@ -8,7 +8,10 @@ class Person < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :project_ids, :email_key
   has_many :updates
   has_many :email_messages
-  has_and_belongs_to_many :projects
+  has_many :scheduled_request_dates
+  has_and_belongs_to_many :projects, 
+                          :after_add => :generate_schedule,
+                          :after_remove => :remove_scheduled_dates
   belongs_to :project_admins_list
   validates_presence_of :email, :name
   validates_uniqueness_of :email
@@ -39,6 +42,26 @@ class Person < ActiveRecord::Base
     uuid = UUID.new
     self.email_key = uuid.generate.to_s
     self.save
+  end
+
+  def generate_schedule(project)
+    dates = ScheduledRequestsMethods.generate_scheduled_dates(project.frequency)
+    if dates
+      dates.each do |date|
+        ScheduledRequestsMethods.create_scheduled_date(self, project, date)
+      end
+    end
+  end
+
+  def remove_scheduled_dates(project)
+    all_dates = ScheduledRequestDate.find_by_person(self)
+    if all_dates
+      all_dates.each do |date|
+        if date.project == project
+          date.destroy
+        end
+      end
+    end
   end
 
   private

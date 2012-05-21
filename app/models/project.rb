@@ -4,6 +4,7 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :people
   has_many :updates
   has_many :email_messages
+  has_many :scheduled_request_dates
   has_one :project_admins_list
   has_and_belongs_to_many :invitations
   validates_presence_of :name
