@@ -33,7 +33,7 @@
 				- lastday = ''
 				- today = Time.new
 				- yesterday = today - 86400
-				- @project.updates.order("created_at").reverse_each do |update|
+				- @updates.each do |update|
 					- updateday = update.created_at.strftime("%Y-%m-%d")
 					- if updateday != lastday
 						- if updateday == today.strftime("%Y-%m-%d")
@@ -54,6 +54,8 @@
 						%p.body= raw(body_with_linked_hashtags)
 						
 					- lastday = updateday	
+
+				= paginate @updates
 						
 	#project_col_right			
 		

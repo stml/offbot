@@ -11,6 +11,7 @@ gem 'twitter-text'
 gem 'jquery-rails'
 gem 'roadie'
 gem 'mail_view', :git => 'https://github.com/37signals/mail_view.git'
+gem 'kaminari'
 
 
 # Gems used only for assets and not required

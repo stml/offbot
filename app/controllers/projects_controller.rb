@@ -13,6 +13,8 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     raise NotPermitted unless @project.viewable_by?(current_person)
+    updates = Update.order(:created_at).find_all_by_project_id(@project.id).reverse
+    @updates = Kaminari.paginate_array(updates).page(params[:page]).per(10)
 
     respond_to do |format|
       format.html # show.html.erb
