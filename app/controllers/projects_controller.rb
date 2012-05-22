@@ -107,6 +107,8 @@ class ProjectsController < ApplicationController
 
   def regenerate_schedule_for_everyone
     @project.people.each do |person|
+      old_dates = ScheduledRequestDate.find_all_by_project_id_and_person_id(@project.id, person.id)
+      old_dates.each {|date| date.destroy }
       if @project.frequency
         dates = ScheduledRequestsMethods.generate_scheduled_dates(@project.frequency)
       elsif @project.frequency.nil?
