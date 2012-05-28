@@ -17,7 +17,7 @@ module ScheduledRequestsMethods
 
 	def self.regenerate_all(project)
 		project.people.each do |person|
-
+			person.generate_schedule(project)
 		end
 	end
 
@@ -43,16 +43,22 @@ module ScheduledRequestsMethods
 			i = 0
 			6.times  do
 				day = sunday.day + i + 1
+				if day > sunday.end_of_month.day
+					month = month + 1
+						if month == 13
+							month = 1
+							year = year + 1
+						end
+					day = 1
+				end
 				time = rand(9) + 9
 				i = i+1
-				date = Time.new(year,month,day,time)
-				puts date > Time.now
-				if date > Time.now
+				date = DateTime.new(year,month,day,time)
+				if date > DateTime.now
 					dates << date
 				end
 			end
 
-			puts dates
 			dates
 
 		elsif frequency == 1
@@ -68,10 +74,18 @@ module ScheduledRequestsMethods
 					weekday = rand(2) + 4
 				end
 				day = sunday.day + weekday
+				if day > sunday.end_of_month.day
+					month = month + 1
+						if month == 13
+							month = 1
+							year = year + 1
+						end
+					day = 1
+				end
 				time = rand(9) + 9
 				i = i+1
-				if Time.new(year,month,day,time) > Time.now
-					dates << Time.new(year,month,day,time)
+				if DateTime.new(year,month,day,time) > DateTime.now
+					dates << DateTime.new(year,month,day,time)
 				end
 			end
 
@@ -83,9 +97,17 @@ module ScheduledRequestsMethods
 
 			weekday = rand(5) + 1
 			day = sunday.day + weekday
+			if day > sunday.end_of_month.day
+				month = month + 1
+					if month == 13
+						month = 1
+						year = year + 1
+					end
+				day = 1
+			end
 			time = rand(9) + 9
-			if Time.new(year,month,day,time) > Time.now
-				dates << Time.new(year,month,day,time)
+			if DateTime.new(year,month,day,time) > DateTime.now
+				dates << DateTime.new(year,month,day,time)
 			end
 
 		elsif frequency == 3
@@ -102,10 +124,18 @@ module ScheduledRequestsMethods
 				elsif i == 1
 					day = rand(15) - 15 + sunday.end_of_month.day
 				end
+				if day > sunday.end_of_month.day
+					month = month + 1
+						if month == 13
+							month = 1
+							year = year + 1
+						end
+					day = 1
+				end
 				time = rand(9) + 9
 				i = i+1
-				if Time.new(year,month,day,time) > Time.now
-					dates << Time.new(year,month,day,time)
+				if DateTime.new(year,month,day,time) > DateTime.now
+					dates << DateTime.new(year,month,day,time)
 				end
 			end
 
@@ -116,9 +146,17 @@ module ScheduledRequestsMethods
 			# generate one date
 			last_day_of_month = sunday.end_of_month.day
 			day = rand(last_day_of_month) + 1
+			if day > sunday.end_of_month.day
+				month = month + 1
+					if month == 13
+						month = 1
+						year = year + 1
+					end
+				day = 1
+			end
 			time = rand(9) + 9
-			if Time.new(year,month,day,time) > Time.now
-				dates << Time.new(year,month,day,time)
+			if DateTime.new(year,month,day,time) > DateTime.now
+				dates << DateTime.new(year,month,day,time)
 			end
 
 		end
