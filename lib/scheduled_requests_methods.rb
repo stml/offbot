@@ -52,6 +52,7 @@ module ScheduledRequestsMethods
 				end
 			end
 
+			puts dates
 			dates
 
 		elsif frequency == 1
