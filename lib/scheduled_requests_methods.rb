@@ -45,8 +45,10 @@ module ScheduledRequestsMethods
 				day = sunday.day + i + 1
 				time = rand(9) + 9
 				i = i+1
-				if Time.new(year,month,day,time) > Time.now
-					dates << Time.new(year,month,day,time)
+				date = Time.new(year,month,day,time)
+				puts date
+				if date > Time.now
+					dates << date
 				end
 			end
 
