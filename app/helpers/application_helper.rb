@@ -3,7 +3,7 @@ module ApplicationHelper
 
 	def extract_reply(text)
     regex_arr = [
-      Regexp.new("From:\s*", Regexp::IGNORECASE | Regexp::MULTILINE),
+      Regexp.new("\\r\\nFrom:\soffbott.*", Regexp::IGNORECASE | Regexp::MULTILINE),
       #Regexp.new("<>", Regexp::IGNORECASE | Regexp::MULTILINE),
       #Regexp.new(Regexp.escape(address) + "\s+wrote:", Regexp::IGNORECASE | Regexp::MULTILINE),
       #Regexp.new("^.*On.*(\n)?wrote:$", Regexp::IGNORECASE | Regexp::MULTILINE),
