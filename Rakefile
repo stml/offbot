@@ -39,7 +39,7 @@ task :cron => :environment do
 	end
 
 	# generate schedule on Sundays
-	if date.wday == 0
+	if date.wday == 0 and Time.now.hour == 12
 		require "#{Rails.root}/lib/scheduled_requests_methods"
 	
 		Project.all.each do |project|
