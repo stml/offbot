@@ -8,11 +8,13 @@ module ScheduledRequestsMethods
 	end
 
 	def self.create_scheduled_date(person, project, date)
-		scheduled_date = ScheduledRequestDate.new
-		scheduled_date.person = person
-		scheduled_date.project = project
-		scheduled_date.request_date = date
-		scheduled_date.save
+		unless ScheduledRequestDate.find_by_person_id_and_project_id_and_request_date(person.id, project.id, date)
+			scheduled_date = ScheduledRequestDate.new
+			scheduled_date.person = person
+			scheduled_date.project = project
+			scheduled_date.request_date = date
+			scheduled_date.save
+		end
 	end
 
 	def self.regenerate_all(project)

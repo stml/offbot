@@ -8,19 +8,19 @@ task :cron => :environment do
 	time = Time.now.hour
 	date = Date.today
 	#only on weekdays
-	# if (1..5).member?(date.wday)
-	# 	# only 9 to 5
-	# 	if (9..17).member?(time)
+	if (1..5).member?(date.wday)
+		# only 9 to 5
+		if (9..17).member?(time)
 
-	# 	  scheduled_requests = ScheduledRequestDate.where('request_date >= ? AND request_date <= ?', DateTime.now.beginning_of_hour, DateTime.now.end_of_hour)
+		  scheduled_requests = ScheduledRequestDate.where('request_date >= ? AND request_date <= ?', DateTime.now.beginning_of_hour, DateTime.now.end_of_hour)
 
-	# 	  scheduled_requests.uniq.each do |request_date|
-	# 	  	ScheduledRequestsMethods.send_update_request(request_date.person, request_date.project)
-	# 	  	request_date.destroy
-	# 	  end
+		  scheduled_requests.uniq.each do |request_date|
+		  	ScheduledRequestsMethods.send_update_request(request_date.person, request_date.project)
+		  	request_date.destroy
+		  end
 
-	# 	 end
-	# end
+		 end
+	end
 
 	# send out weekly digest 
 	if Time.now.hour == 17
