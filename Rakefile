@@ -43,7 +43,7 @@ task :cron => :environment do
 		require "#{Rails.root}/lib/scheduled_requests_methods"
 	
 		Project.all.each do |project|
-			if (project.active == nil or project.active == true)
+			if (project.archived == nil or project.archived == false)
 				project.people.each do |person|
 					if (person.active == nil or person.active == true)
 						# on twice- or once-monthly projects only update the schedule once a month for next month
