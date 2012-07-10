@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120521112527) do
+ActiveRecord::Schema.define(:version => 20120710073116) do
 
   create_table "email_messages", :force => true do |t|
     t.string    "message_id"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20120521112527) do
     t.integer   "project_admins_list_id"
     t.boolean   "is_superadmin"
     t.string    "email_key"
+    t.boolean   "active"
   end
 
   add_index "people", ["email"], :name => "index_people_on_email", :unique => true
@@ -72,21 +73,21 @@ ActiveRecord::Schema.define(:version => 20120521112527) do
   end
 
   create_table "projects", :force => true do |t|
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
-    t.string   "name"
-    t.integer  "created_by"
-    t.string   "weekly_digest_day"
-    t.datetime "weekly_digest_sent_at"
-    t.integer  "frequency"
+    t.timestamp "created_at",            :null => false
+    t.timestamp "updated_at",            :null => false
+    t.string    "name"
+    t.integer   "created_by"
+    t.string    "weekly_digest_day"
+    t.timestamp "weekly_digest_sent_at"
+    t.integer   "frequency"
   end
 
   create_table "scheduled_request_dates", :force => true do |t|
-    t.integer  "person_id"
-    t.integer  "project_id"
-    t.datetime "request_date"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.integer   "person_id"
+    t.integer   "project_id"
+    t.timestamp "request_date"
+    t.timestamp "created_at",   :null => false
+    t.timestamp "updated_at",   :null => false
   end
 
   add_index "scheduled_request_dates", ["person_id"], :name => "index_scheduled_request_dates_on_person_id"
