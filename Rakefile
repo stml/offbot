@@ -161,7 +161,7 @@ task :remove_date_duplicates => :environment do
 				if index > 0
 					puts '---'
 					puts request_date.inspect
-					#request_date.destroy
+					request_date.destroy
 				end
 			end
 			puts "-----"
