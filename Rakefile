@@ -152,14 +152,14 @@ end
 desc 'Remove date duplicates'
 task :remove_date_duplicates => :environment do
 	ScheduledRequestDate.all.each do |date|
-		request_dates = ScheduledRequestDate.where('request_date >= ? AND request_date <= ? AND project_id = ? AND person_id = ?', date.request.date.beginning_of_day, date.request.end_of_day, date.project.id, date.person.id)
-		puts date
+		request_dates = ScheduledRequestDate.where('request_date >= ? AND request_date <= ? AND project_id = ? AND person_id = ?', date.request_date.beginning_of_day, date.request_date.end_of_day, date.project.id, date.person.id)
+		puts date.inspect
 		puts request_dates
 
 		if request_dates.length > 1 
 			request_dates.each_with_index do |request_date, index|
 				if index > 0
-					puts request_date
+					puts request_date.inspect
 					#request_date.destroy
 				end
 			end
