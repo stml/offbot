@@ -157,6 +157,7 @@ task :remove_date_duplicates => :environment do
 		if request_dates.length > 1 
 			request_dates.each_with_index do |request_date, index|
 				puts "-----"
+				puts index
 				puts request_date.inspect
 				if index > 0
 					puts '---'
