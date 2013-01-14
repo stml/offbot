@@ -149,3 +149,21 @@ task :generate_schedule => :environment do
 	end
 end
 
+desc 'Remove date duplicates'
+task :remove_date_duplicates => :environment do
+	ScheduledRequestDates.all.each do |date|
+		request_dates = ScheduledRequestDates.where('request_date >= ? AND request_date <= ?', date.request.date.beginning_of_day, date.request.end_of_day)
+		puts date
+		puts request dates
+
+		if request_dates.length > 1 
+			request_dates.each_with_index do |request_date, index|
+				if index > 0
+					puts request date
+					#request_date.destroy
+				end
+			end
+		end
+	end
+end
+
