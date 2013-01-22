@@ -45,6 +45,9 @@ class Person < ActiveRecord::Base
   end
 
   def generate_schedule(project)
+    # remove old dates first
+    ScheduledRequestDate.where(:person_id => self.id, :project_id => project.id).map {|date| date.destroy}
+    # make new ones
     dates = ScheduledRequestsMethods.generate_scheduled_dates(project.frequency)
     if dates
       dates.each do |date|

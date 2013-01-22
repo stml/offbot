@@ -23,20 +23,20 @@ task :cron => :environment do
 	end
 
 	# send out weekly digest 
-	if Time.now.hour == 17
-		todays_digests = Project.where(:weekly_digest_day => (Date.parse(Date.today.to_s).strftime("%A")))
-		unless todays_digests
-			todays_digests.each do |project|
-				unless Date.parse(project.weekly_digest_sent_at) == Date.today
-					project.people.each do |person|
-						WeeklyDigest.weekly_digest(project, person).deliver
-					end
-					project.weekly_digest_sent_at = DateTime.now
-					project.save
-				end
-			end
-		end
-	end
+	# if Time.now.hour == 17
+	# 	todays_digests = Project.where(:weekly_digest_day => (Date.parse(Date.today.to_s).strftime("%A")))
+	# 	unless todays_digests
+	# 		todays_digests.each do |project|
+	# 			unless Date.parse(project.weekly_digest_sent_at) == Date.today
+	# 				project.people.each do |person|
+	# 					WeeklyDigest.weekly_digest(project, person).deliver
+	# 				end
+	# 				project.weekly_digest_sent_at = DateTime.now
+	# 				project.save
+	# 			end
+	# 		end
+	# 	end
+	# end
 
 	# generate schedule on Sundays
 	if date.wday == 0 and Time.now.hour == 12
@@ -142,6 +142,9 @@ task :generate_schedule => :environment do
 						dates = ScheduledRequestsMethods.generate_scheduled_dates(0)
 					end
 					if dates
+						# remove all old ones to avoid duplicates
+						ScheduledRequestDate.where(:person_id => person.id, :project_id => project.id).map {|date| date.destroy}
+						# generate new ones
 						dates.each do |date|
 							ScheduledRequestsMethods.create_scheduled_date(person, project, date)
 						end
