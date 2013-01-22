@@ -127,6 +127,8 @@ end
 desc "Generate a schedule"
 task :generate_schedule => :environment do
 	require "#{Rails.root}/lib/scheduled_requests_methods"
+
+	date = Date.today
 	
 	Project.all.each do |project|
 		unless project.archived == true
