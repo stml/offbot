@@ -129,20 +129,23 @@ task :generate_schedule => :environment do
 	require "#{Rails.root}/lib/scheduled_requests_methods"
 	
 	Project.all.each do |project|
-
-		project.people.each do |person|
-			# on twice- or once-monthly projects only update the schedule once a month for next month
-			if ( (project.frequency == 3 or project.frequency == 4) and ((date.end_of_month-7)..date.end_of_month).member?(date) )
-				sunday = Date.today + 7
-				dates = ScheduledRequestsMethods.generate_scheduled_dates(project.frequency, sunday)
-			elsif (0..2).member?(project.frequency)
-				dates = ScheduledRequestsMethods.generate_scheduled_dates(project.frequency)
-			elsif project.frequency.nil?
-				dates = ScheduledRequestsMethods.generate_scheduled_dates(0)
-			end
-			if dates
-				dates.each do |date|
-					ScheduledRequestsMethods.create_scheduled_date(person, project, date)
+		unless project.archived == true
+			project.people.each do |person|
+				unless person.active == true
+					# on twice- or once-monthly projects only update the schedule once a month for next month
+					if ( (project.frequency == 3 or project.frequency == 4) and ((date.end_of_month-7)..date.end_of_month).member?(date) )
+							sunday = Date.today + 7
+							dates = ScheduledRequestsMethods.generate_scheduled_dates(project.frequency, sunday)
+					elsif (0..2).member?(project.frequency)
+						dates = ScheduledRequestsMethods.generate_scheduled_dates(project.frequency)
+					elsif project.frequency.nil?
+						dates = ScheduledRequestsMethods.generate_scheduled_dates(0)
+					end
+					if dates
+						dates.each do |date|
+							ScheduledRequestsMethods.create_scheduled_date(person, project, date)
+						end
+					end
 				end
 			end
 		end
@@ -151,6 +154,7 @@ end
 
 desc 'Remove date duplicates'
 task :remove_date_duplicates => :environment do
+	# I have a funny feeling I've done this wrong
 	ScheduledRequestDate.all.each do |date|
 		request_dates = ScheduledRequestDate.where('request_date >= ? AND request_date <= ? AND project_id = ? AND person_id = ?', date.request_date.beginning_of_day, date.request_date.end_of_day, date.project_id, date.person_id)
 
