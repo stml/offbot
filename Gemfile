@@ -12,6 +12,7 @@ gem 'jquery-rails'
 gem 'roadie'
 gem 'mail_view', :git => 'https://github.com/37signals/mail_view.git'
 gem 'kaminari'
+gem 'pry-rails'
 
 
 # Gems used only for assets and not required
