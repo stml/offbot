@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 gem 'haml'
 gem 'haml-rails'
@@ -13,6 +13,7 @@ gem 'roadie'
 gem 'mail_view', :git => 'https://github.com/37signals/mail_view.git'
 gem 'kaminari'
 gem 'pry-rails'
+gem 'dotenv'
 
 
 # Gems used only for assets and not required
@@ -29,6 +30,7 @@ end
 
 group :development, :test do
 	gem 'sqlite3'
+  gem 'jazz_hands'
 end
 
 group :production do
