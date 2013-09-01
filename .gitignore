@@ -15,3 +15,5 @@
 /tmp
 
 /config/initializers/sendgrid.rb
+.powrc
+.env
