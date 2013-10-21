@@ -17,3 +17,4 @@
 /config/initializers/sendgrid.rb
 .powrc
 .env
+.ruby-version
