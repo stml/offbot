@@ -14,18 +14,18 @@
 ActiveRecord::Schema.define(:version => 20120710075411) do
 
   create_table "email_messages", :force => true do |t|
-    t.string    "message_id"
-    t.timestamp "response_timestap"
-    t.integer   "project_id"
-    t.integer   "person_id"
-    t.timestamp "created_at",        :null => false
-    t.timestamp "updated_at",        :null => false
+    t.string   "message_id"
+    t.datetime "response_timestap"
+    t.integer  "project_id"
+    t.integer  "person_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "invitations", :force => true do |t|
-    t.string    "email"
-    t.timestamp "created_at", :null => false
-    t.timestamp "updated_at", :null => false
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "invitations_projects", :id => false, :force => true do |t|
@@ -34,28 +34,28 @@ ActiveRecord::Schema.define(:version => 20120710075411) do
   end
 
   create_table "people", :force => true do |t|
-    t.string    "name"
-    t.string    "email"
-    t.timestamp "created_at",                             :null => false
-    t.timestamp "updated_at",                             :null => false
-    t.integer   "project_id"
-    t.string    "encrypted_password",     :default => "", :null => false
-    t.string    "reset_password_token"
-    t.timestamp "reset_password_sent_at"
-    t.timestamp "remember_created_at"
-    t.integer   "sign_in_count",          :default => 0
-    t.timestamp "current_sign_in_at"
-    t.timestamp "last_sign_in_at"
-    t.string    "current_sign_in_ip"
-    t.string    "last_sign_in_ip"
-    t.string    "confirmation_token"
-    t.timestamp "confirmed_at"
-    t.timestamp "confirmation_sent_at"
-    t.string    "unconfirmed_email"
-    t.integer   "project_admins_list_id"
-    t.boolean   "is_superadmin"
-    t.string    "email_key"
-    t.boolean   "active"
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.integer  "project_id"
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.integer  "project_admins_list_id"
+    t.boolean  "is_superadmin"
+    t.string   "email_key"
+    t.boolean  "active"
   end
 
   add_index "people", ["email"], :name => "index_people_on_email", :unique => true
@@ -67,9 +67,9 @@ ActiveRecord::Schema.define(:version => 20120710075411) do
   end
 
   create_table "project_admins_lists", :force => true do |t|
-    t.integer   "project_id"
-    t.timestamp "created_at", :null => false
-    t.timestamp "updated_at", :null => false
+    t.integer  "project_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "projects", :force => true do |t|
@@ -84,24 +84,24 @@ ActiveRecord::Schema.define(:version => 20120710075411) do
   end
 
   create_table "scheduled_request_dates", :force => true do |t|
-    t.integer   "person_id"
-    t.integer   "project_id"
-    t.timestamp "request_date"
-    t.timestamp "created_at",   :null => false
-    t.timestamp "updated_at",   :null => false
+    t.integer  "person_id"
+    t.integer  "project_id"
+    t.datetime "request_date"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   add_index "scheduled_request_dates", ["person_id"], :name => "index_scheduled_request_dates_on_person_id"
   add_index "scheduled_request_dates", ["project_id"], :name => "index_scheduled_request_dates_on_project_id"
 
   create_table "taggings", :force => true do |t|
-    t.integer   "tag_id"
-    t.integer   "taggable_id"
-    t.string    "taggable_type"
-    t.integer   "tagger_id"
-    t.string    "tagger_type"
-    t.string    "context",       :limit => 128
-    t.timestamp "created_at"
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       :limit => 128
+    t.datetime "created_at"
   end
 
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
@@ -112,12 +112,12 @@ ActiveRecord::Schema.define(:version => 20120710075411) do
   end
 
   create_table "updates", :force => true do |t|
-    t.text      "body"
-    t.timestamp "created_at",       :null => false
-    t.timestamp "updated_at",       :null => false
-    t.integer   "person_id"
-    t.integer   "project_id"
-    t.integer   "email_message_id"
+    t.text     "body"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "person_id"
+    t.integer  "project_id"
+    t.integer  "email_message_id"
   end
 
 end
