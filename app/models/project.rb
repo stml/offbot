@@ -1,6 +1,6 @@
 class Project < ActiveRecord::Base
-   
-	attr_accessible :name, :people, :person_ids, :created_by, :weekly_digest_day, :frequency
+
+	attr_accessible :name, :people, :person_ids, :created_by, :weekly_digest_day, :frequency, :archived
   has_and_belongs_to_many :people
   has_many :updates
   has_many :email_messages
@@ -10,6 +10,8 @@ class Project < ActiveRecord::Base
   validates_presence_of :name
 
   after_create :add_project_admins_list, :add_creator_to_admins, :set_default_email_frequency
+
+  scope :active, -> { where(archived: false) }
 
   def add_project_admins_list
   	admins_list = ProjectAdminsList.new
@@ -62,7 +64,7 @@ class Project < ActiveRecord::Base
     ret.gsub! /\s*&\s*/, " and "
 
     #replace all non alphanumeric, underscore or periods with hyphen
-    ret.gsub! /\s*[^A-Za-z0-9\.\-]\s*/, '-'  
+    ret.gsub! /\s*[^A-Za-z0-9\.\-]\s*/, '-'
 
     #convert double underscores to single hyphen
     ret.gsub! /_+/,"-"

@@ -9,7 +9,7 @@ class Person < ActiveRecord::Base
   has_many :updates
   has_many :email_messages
   has_many :scheduled_request_dates
-  has_and_belongs_to_many :projects, 
+  has_and_belongs_to_many :projects,
                           :after_add => :generate_schedule,
                           :after_remove => :remove_scheduled_dates
   belongs_to :project_admins_list
@@ -17,6 +17,8 @@ class Person < ActiveRecord::Base
   validates_uniqueness_of :email
 
   after_create :add_to_projects, :set_superadmin_to_false, :generate_email_key
+
+  scope :active, -> { where(active: true) }
 
   def is_admin?(project)
     project.project_admins_list.people.include?(self)
