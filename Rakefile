@@ -3,54 +3,43 @@
 require File.expand_path('../config/application', __FILE__)
 
 Offbot::Application.load_tasks
+require "#{Rails.root}/lib/scheduled_requests_methods"
 
-task :cron => :environment do
-  time = Time.now.hour
+desc "Send out update requests"
+task send_update_requests: :environment do
+  scheduled_requests = ScheduledRequestDate.where('request_date >= ? AND request_date <= ?', DateTime.now.beginning_of_hour, DateTime.now.end_of_hour)
+
+  scheduled_requests.uniq.each do |request_date|
+    ScheduledRequestsMethods.send_update_request(request_date.person, request_date.project)
+    request_date.destroy
+  end
+end
+
+desc "Schedule update requests for upcoming week"
+task schedule_update_requests: :environment do
   date = Date.today
-  #only on weekdays
-  if (1..5).member?(date.wday)
-    # only 9 to 5
-    if (9..17).member?(time)
-
-      scheduled_requests = ScheduledRequestDate.where('request_date >= ? AND request_date <= ?', DateTime.now.beginning_of_hour, DateTime.now.end_of_hour)
-
-      scheduled_requests.uniq.each do |request_date|
-        ScheduledRequestsMethods.send_update_request(request_date.person, request_date.project)
-        request_date.destroy
+  Project.active.each do |project|
+    project.people.active.each do |person|
+      # on twice- or once-monthly projects only update the schedule once a month for next month
+      if ( (project.frequency == 3 or project.frequency == 4) and ((date.end_of_month-7)..date.end_of_month).member?(date) )
+        sunday = Date.today + 7
+        dates = ScheduledRequestsMethods.generate_scheduled_dates(project.frequency, sunday)
+      elsif (0..2).member?(project.frequency)
+        dates = ScheduledRequestsMethods.generate_scheduled_dates(project.frequency)
+      elsif project.frequency.nil?
+        dates = ScheduledRequestsMethods.generate_scheduled_dates(0)
       end
 
-     end
-  end
-
-  # generate schedule on Sundays
-  if date.wday == 0 and Time.now.hour == 12
-    require "#{Rails.root}/lib/scheduled_requests_methods"
-
-    Project.all.each do |project|
-      if (project.archived == nil or project.archived == false)
-        project.people.each do |person|
-          if (person.active == nil or person.active == true)
-            # on twice- or once-monthly projects only update the schedule once a month for next month
-            if ( (project.frequency == 3 or project.frequency == 4) and ((date.end_of_month-7)..date.end_of_month).member?(date) )
-              sunday = Date.today + 7
-              dates = ScheduledRequestsMethods.generate_scheduled_dates(project.frequency, sunday)
-            elsif (0..2).member?(project.frequency)
-              dates = ScheduledRequestsMethods.generate_scheduled_dates(project.frequency)
-            elsif project.frequency.nil?
-              dates = ScheduledRequestsMethods.generate_scheduled_dates(0)
-            end
-            if dates
-              dates.each do |date|
-                ScheduledRequestsMethods.create_scheduled_date(person, project, date)
-              end
-            end
-          end
+      if dates
+        dates.each do |date|
+          ScheduledRequestsMethods.create_scheduled_date(person, project, date)
         end
       end
+
     end
   end
-
 end
+
 
 task :extract_reply => :environment do
   def extract_reply(text, address)
@@ -104,39 +93,6 @@ task :send_out_weekly_digest => :environment do
   todays_digests.each do |project|
     project.people.each do |person|
       WeeklyDigest.weekly_digest(project, person).deliver
-    end
-  end
-end
-
-desc "Generate a schedule"
-task :generate_schedule => :environment do
-  require "#{Rails.root}/lib/scheduled_requests_methods"
-
-  date = Date.today
-
-  Project.all.each do |project|
-    unless project.archived == true
-      project.people.each do |person|
-        unless person.active == true
-          # on twice- or once-monthly projects only update the schedule once a month for next month
-          if ( (project.frequency == 3 or project.frequency == 4) and ((date.end_of_month-7)..date.end_of_month).member?(date) )
-              sunday = Date.today + 7
-              dates = ScheduledRequestsMethods.generate_scheduled_dates(project.frequency, sunday)
-          elsif (0..2).member?(project.frequency)
-            dates = ScheduledRequestsMethods.generate_scheduled_dates(project.frequency)
-          elsif project.frequency.nil?
-            dates = ScheduledRequestsMethods.generate_scheduled_dates(0)
-          end
-          if dates
-            # remove all old ones to avoid duplicates
-            ScheduledRequestDate.where(:person_id => person.id, :project_id => project.id).map {|date| date.destroy}
-            # generate new ones
-            dates.each do |date|
-              ScheduledRequestsMethods.create_scheduled_date(person, project, date)
-            end
-          end
-        end
-      end
     end
   end
 end
