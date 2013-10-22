@@ -1,91 +1,91 @@
 
 
-%h1 
-	#{@project.name} 
-	%span.project_sparkline
-			
+%h1
+  #{@project.name}
+  %span.project_sparkline
+
 / CALCULATING THE LAST 10 WEEKDAYS ACTIVITY
 - thisday = Time.new
 / add the last 10 weekdays to an array, with the count
 - count = 0
 - @upDateNums = Array.new
 - while count < 30
-	- if (1..5).member?(thisday.wday)
-		- @upDateNums << [thisday.strftime("%A %Y-%m-%d"),@project.updates.select {|u| u.created_at.strftime("%Y-%m-%d") == thisday.strftime("%Y-%m-%d") }.size]
-		- count += 1
-	- thisday -= 86400
+  - if (1..5).member?(thisday.wday)
+    - @upDateNums << [thisday.strftime("%A %Y-%m-%d"),@project.updates.select {|u| u.created_at.strftime("%Y-%m-%d") == thisday.strftime("%Y-%m-%d") }.size]
+    - count += 1
+  - thisday -= 86400
 
 %ul#project_sparkline_numbers.hidden
-	- @upDateNums.each do |update|
-		%li <span class="date">#{update[1]}</span> <span class="num">#{update[1]}</span>
+  - @upDateNums.each do |update|
+    %li <span class="date">#{update[1]}</span> <span class="num">#{update[1]}</span>
 
 #project_cols
-	
-	#project_col_left
 
-		- if @project.updates.empty?
-			%p No updates on this project yet!
-	
-		- else 
-			#updates
-				/ here we're checking if this update is the same day as the last one
-				/ if it's not, print the date (changing to "today" and "yesterday" as required)
-				- lastday = ''
-				- today = Time.new
-				- yesterday = today - 86400
-				- @updates.each do |update|
-					- updateday = update.created_at.strftime("%Y-%m-%d")
-					- if updateday != lastday
-						- if updateday == today.strftime("%Y-%m-%d")
-							%p.daymark= 'Today'
-						- elsif updateday == yesterday.strftime("%Y-%m-%d")
-							%p.daymark= 'Yesterday'
-						- else
-							%p.daymark= update.created_at.strftime("%A %d %B")
-					.update
-						- body = add_line_breaks(extract_reply(update.body))
-						- body_with_linked_hashtags = auto_link(body, { :hashtag_url_base => "http://#{request.host}/projects/#{@project.id}/updates/", :hashtag_class => "hashtag" })
-						%p.credit 
-							<span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime("%I:%M %p")}</span>
-							%span.permalink= link_to '∞', update_path(update)
-							- if update.editable_by?(current_person)
-								%span.edit= link_to 'Edit', edit_update_path(update)
-								%span.delete= link_to 'Delete', update, :confirm => 'Are you sure?', :method => :delete
-						%p.body= raw(body_with_linked_hashtags)
-						
-					- lastday = updateday	
+  #project_col_left
 
-				= paginate @updates
-						
-	#project_col_right			
-		
-		%h4 Project updates:
-		
-		%p.updatecount= @project.updates.count
-		
-		%h4 Project members:
+    - if @project.updates.empty?
+      %p No updates on this project yet!
 
-		#pop_box
-			%ul.updatepersonlist
-				- @project.people.each do |person|
-					%li 
-						<span class="updatepersoncount">#{updates_count(person, @project)}</span>
-						=link_to person.name.titleize, person
-				- @project.invitations.uniq.each do |person|
-					- unless @project.people.include?(Person.find_by_email(person.email))
-						%li <em style="margin-left: 18px; font-size: 90%;">#{person.email[0,20]}…</em>
+    - else
+      #updates
+        / here we're checking if this update is the same day as the last one
+        / if it's not, print the date (changing to "today" and "yesterday" as required)
+        - lastday = ''
+        - today = Time.new
+        - yesterday = today - 86400
+        - @updates.each do |update|
+          - updateday = update.created_at.strftime("%Y-%m-%d")
+          - if updateday != lastday
+            - if updateday == today.strftime("%Y-%m-%d")
+              %p.daymark= 'Today'
+            - elsif updateday == yesterday.strftime("%Y-%m-%d")
+              %p.daymark= 'Yesterday'
+            - else
+              %p.daymark= update.created_at.strftime("%A %d %B")
+          .update
+            - body = add_line_breaks(extract_reply(update.body))
+            - body_with_linked_hashtags = auto_link(body, { :hashtag_url_base => "http://#{request.host}/projects/#{@project.id}/updates/", :hashtag_class => "hashtag" })
+            %p.credit
+              <span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime("%I:%M %p")}</span>
+              %span.permalink= link_to '∞', update_path(update)
+              - if update.editable_by?(current_person)
+                %span.edit= link_to 'Edit', edit_update_path(update)
+                %span.delete= link_to 'Delete', update, :confirm => 'Are you sure?', :method => :delete
+            %p.body= raw(body_with_linked_hashtags)
 
-		#digest_box
-			- if @project.weekly_digest_day.nil? 
-				%p There is no weekly digest set up for this project
-			- else 
-				%p The weekly digest for this project comes out on a #{@project.weekly_digest_day}
+          - lastday = updateday
 
-		.link_box
-			%p= link_to "Add an update", :controller => "updates", :action => "new", :project => @project
-		.link_box
-			%p= link_to 'Edit this project', edit_project_path(@project)
-		.link_box
-			%p= link_to 'See all your projects', root_url
-		#bug_box
-			%p <strong>Found a bug?</strong> <a href="https://github.com/stml/offbot/issues/new">Let us know on github</a> or <a href="mailto:ntalia.buckley@gmail.com?subject=Found a bug in Offbott">via email</a>.
+        = paginate @updates
+
+  #project_col_right
+
+    %h4 Project updates:
+
+    %p.updatecount= @project.updates.count
+
+    %h4 Project members:
+
+    #pop_box
+      %ul.updatepersonlist
+        - @project.people.each do |person|
+          %li
+            <span class="updatepersoncount">#{updates_count(person, @project)}</span>
+            =link_to person.name.titleize, person
+        - @project.invitations.uniq.each do |person|
+          - unless @project.people.include?(Person.find_by_email(person.email))
+            %li <em style="margin-left: 18px; font-size: 90%;">#{person.email[0,20]}…</em>
+
+    #digest_box
+      - if @project.weekly_digest_day.nil?
+        %p There is no weekly digest set up for this project
+      - else
+        %p The weekly digest for this project comes out on a #{@project.weekly_digest_day}
+
+    .link_box
+      %p= link_to "Add an update", :controller => "updates", :action => "new", :project => @project
+    .link_box
+      %p= link_to 'Edit this project', edit_project_path(@project)
+    .link_box
+      %p= link_to 'See all your projects', root_url
+    #bug_box
+      %p <strong>Found a bug?</strong> <a href="https://github.com/stml/offbot/issues/new">Let us know on github</a> or <a href="mailto:ntalia.buckley@gmail.com?subject=Found a bug in Offbott">via email</a>.
