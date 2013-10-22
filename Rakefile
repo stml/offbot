@@ -18,6 +18,7 @@ end
 desc "Schedule update requests for upcoming week"
 task schedule_update_requests: :environment do
   date = Date.today
+  fail "Only want to run this task on Sundays" if Time.now.wday != 0
   Project.active.each do |project|
     project.people.active.each do |person|
       # on twice- or once-monthly projects only update the schedule once a month for next month
