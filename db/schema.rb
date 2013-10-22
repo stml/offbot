@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120710075411) do
+ActiveRecord::Schema.define(:version => 20131021194047) do
 
   create_table "email_messages", :force => true do |t|
     t.string   "message_id"
@@ -36,10 +36,10 @@ ActiveRecord::Schema.define(:version => 20120710075411) do
   create_table "people", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.integer  "project_id"
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(:version => 20120710075411) do
     t.integer  "project_admins_list_id"
     t.boolean  "is_superadmin"
     t.string   "email_key"
-    t.boolean  "active"
+    t.boolean  "active",                 :default => false, :null => false
   end
 
   add_index "people", ["email"], :name => "index_people_on_email", :unique => true
@@ -73,14 +73,14 @@ ActiveRecord::Schema.define(:version => 20120710075411) do
   end
 
   create_table "projects", :force => true do |t|
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.string   "name"
     t.integer  "created_by"
     t.string   "weekly_digest_day"
     t.datetime "weekly_digest_sent_at"
     t.integer  "frequency"
-    t.boolean  "archived"
+    t.boolean  "archived",              :default => false, :null => false
   end
 
   create_table "scheduled_request_dates", :force => true do |t|
