@@ -14,6 +14,7 @@ gem 'mail_view', :git => 'https://github.com/37signals/mail_view.git'
 gem 'kaminari'
 gem 'pry-rails'
 gem 'dotenv'
+gem 'prawn'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
