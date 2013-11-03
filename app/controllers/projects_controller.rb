@@ -19,6 +19,9 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @project }
+      format.pdf {
+        send_data PrintProject.new.to_pdf(@project, updates), filename: "hello.pdf", type: "application/pdf", disposition: "inline"
+      }
     end
   end
 
@@ -88,7 +91,7 @@ class ProjectsController < ApplicationController
     raise NotPermitted unless @project.manageable_by?(current_person)
 
     respond_to do |format|
-      format.html 
+      format.html
     end
   end
 
