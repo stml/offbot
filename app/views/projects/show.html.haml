@@ -84,6 +84,8 @@
     .link_box
       %p= link_to "Add an update", :controller => "updates", :action => "new", :project => @project
     .link_box
+      %p= link_to "Download updates as PDF", action: 'show', controller: 'projects', format: 'pdf'
+    .link_box
       %p= link_to 'Edit this project', edit_project_path(@project)
     .link_box
       %p= link_to 'See all your projects', root_url
