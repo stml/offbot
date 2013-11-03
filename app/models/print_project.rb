@@ -10,7 +10,8 @@ class PrintProject < Prawn::Document
         span(500) do
           text "<font size='16px'><b>#{update.person.name}</b></font>, <font size='16px'><i>#{update.created_at.strftime("%A %d %B, %Y")}</i></font>", inline_format: true
           move_down 10
-          text "<font size='14px'>#{update.body}</font>", inline_format: true
+          body = ApplicationController.helpers.extract_reply(update.body)
+          text "<font size='14px'>#{body}</font>", inline_format: true
         end
         move_down 40
       end
