@@ -20,7 +20,7 @@ describe ScheduledRequestsMethods do
         archived: false
     }
 
-    let(:start_time) { Time.local(2013, 12, 22).beginning_of_day }
+    let(:start_time) { Time.local(2013, 7, 7).beginning_of_day }
     let(:end_time) { start_time + duration }
     let(:emails) { scheduled_emails_sent_between(start_time, end_time).select { |email| email.subject == "[#{project.name}] Hello, it's Offbott again" and email.to.include?(person.email)} }
 
