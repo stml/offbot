@@ -4,10 +4,12 @@ describe ScheduledRequestsMethods do
 
   describe 'a single person on a single active project' do
     let!(:person) {
-      Person.create! \
+      person = Person.create! \
         email: 'hello@example.com',
         password: 'example',
         name: 'ntlk'
+      person.update_attribute(:active, true)
+      person
     }
 
     let!(:project) {
@@ -32,6 +34,24 @@ describe ScheduledRequestsMethods do
 
     specify 'the project belongs to the person' do
       person.projects.should include(project)
+    end
+
+    context 'after a week has elapsed' do
+      before(:each) do
+        Timecop.freeze(Time.now.sunday.beginning_of_day)
+        ScheduledRequestsMethods.schedule_update_requests
+
+        finish_time = 1.week.from_now
+        until finish_time.past?
+          Timecop.travel(1.hour)
+          ScheduledRequestsMethods.send_update_requests
+        end
+      end
+
+      specify 'six emails have been sent' do # because it currently delivers on a Saturday too
+        emails = ActionMailer::Base.deliveries.select { |email| email.subject == "[#{project.name}] Hello, it's Offbott again" and email.to.include?(person.email)}
+        emails.should have(6).messages
+      end
     end
   end
 end
