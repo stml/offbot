@@ -38,19 +38,17 @@ describe ScheduledRequestsMethods do
     end
 
     context 'after a week has elapsed' do
-      before(:each) do
-        start_time = Time.local(2013, 12, 22).beginning_of_day
-        run_tasks_between(start_time, start_time + 1.week)
-
-        @emails = ActionMailer::Base.deliveries.select { |email| email.subject == "[#{project.name}] Hello, it's Offbott again" and email.to.include?(person.email)}
-      end
+      let(:start_time) { Time.local(2013, 12, 22).beginning_of_day }
+      let(:duration) { 1.week }
+      let(:end_time) { start_time + duration }
+      let(:emails) { scheduled_emails_sent_between(start_time, end_time).select { |email| email.subject == "[#{project.name}] Hello, it's Offbott again" and email.to.include?(person.email)} }
 
       specify 'six emails have been sent' do # because it currently delivers on a Saturday too
-        @emails.should have(6).messages
+        emails.should have(6).messages
       end
 
       specify 'each email was sent on a different day' do
-        @emails.map(&:date).map(&:to_date).uniq.should have(6).days
+        emails.map(&:date).map(&:to_date).uniq.should have(6).days
       end
     end
   end

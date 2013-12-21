@@ -1,4 +1,10 @@
 module TimedTaskHelpers
+  def scheduled_emails_sent_between(start_time, end_time)
+    already_sent_emails = ActionMailer::Base.deliveries.dup
+    run_tasks_between(start_time, end_time)
+    ActionMailer::Base.deliveries - already_sent_emails
+  end
+
   def run_tasks_between(start_time, end_time)
     timed_tasks = []
 
