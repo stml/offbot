@@ -39,18 +39,7 @@ describe ScheduledRequestsMethods do
     context 'after a week has elapsed' do
       before(:each) do
         start_time = Time.local(2013, 12, 22).beginning_of_day
-        timed_tasks = []
-
-        timed_tasks << [start_time, -> { ScheduledRequestsMethods.schedule_update_requests }]
-
-        task_time = start_time
-        finish_time = start_time + 1.week
-        while task_time < finish_time
-          timed_tasks << [task_time, -> { ScheduledRequestsMethods.send_update_requests }]
-          task_time += 1.hour
-        end
-
-        run_timed_tasks(timed_tasks)
+        run_tasks_between(start_time, start_time + 1.week)
 
         @emails = ActionMailer::Base.deliveries.select { |email| email.subject == "[#{project.name}] Hello, it's Offbott again" and email.to.include?(person.email)}
       end
@@ -63,6 +52,56 @@ describe ScheduledRequestsMethods do
         @emails.map(&:date).map(&:to_date).uniq.should have(6).days
       end
     end
+  end
+
+  def run_tasks_between(start_time, end_time)
+    timed_tasks = []
+
+    times_for_schedule_update_requests(start_time, end_time).each do |time|
+      timed_tasks << [time, -> {
+        begin
+          ScheduledRequestsMethods.schedule_update_requests
+        rescue RuntimeError
+          # it's not Sunday
+        end
+      }]
+    end
+
+    times_for_send_update_requests(start_time, end_time).each do |time|
+      timed_tasks << [time, -> { ScheduledRequestsMethods.send_update_requests }]
+    end
+
+    run_timed_tasks(timed_tasks)
+  end
+
+  # in Heroku scheduler, runs daily at 1500
+  def times_for_schedule_update_requests(start_time, end_time)
+    times = []
+
+    task_time = start_time.beginning_of_day + 15.hours
+    task_time += 1.day if task_time < start_time
+
+    while task_time < end_time
+      times << task_time
+      task_time += 1.day
+    end
+
+    times
+  end
+
+  # in Heroku scheduler, runs hourly at half past the hour
+  def times_for_send_update_requests(start_time, end_time)
+    times = []
+
+    task_time = start_time.beginning_of_hour + 30.minutes
+    task_time += 1.hour if task_time < start_time
+
+    while task_time < end_time
+      times << task_time
+      task_time += 1.hour
+    end
+
+    times
   end
 
   def run_timed_tasks(timed_tasks)
