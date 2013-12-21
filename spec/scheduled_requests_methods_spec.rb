@@ -46,6 +46,8 @@ describe ScheduledRequestsMethods do
           Timecop.travel(1.hour)
           ScheduledRequestsMethods.send_update_requests
         end
+
+        @emails = ActionMailer::Base.deliveries.select { |email| email.subject == "[#{project.name}] Hello, it's Offbott again" and email.to.include?(person.email)}
       end
 
       after(:each) do
@@ -53,8 +55,7 @@ describe ScheduledRequestsMethods do
       end
 
       specify 'six emails have been sent' do # because it currently delivers on a Saturday too
-        emails = ActionMailer::Base.deliveries.select { |email| email.subject == "[#{project.name}] Hello, it's Offbott again" and email.to.include?(person.email)}
-        emails.should have(6).messages
+        @emails.should have(6).messages
       end
     end
   end
