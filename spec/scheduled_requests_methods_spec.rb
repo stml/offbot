@@ -53,6 +53,15 @@ describe ScheduledRequestsMethods do
       specify 'each email was sent on a different day' do
         emails.map(&:date).map(&:to_date).uniq.length.should == emails.length
       end
+
+      context 'when it goes across the year boundary (y2ntlk)' do
+        let(:start_time) { Time.local(2013, 12, 28).beginning_of_day }
+
+        specify 'six emails have been sent' do # because it currently delivers on a Saturday too
+          pending('fix y2ntlk bug') { emails.should have(6).messages }
+        end
+
+      end
     end
 
     context 'when the project has a twice weekly frequency' do
