@@ -29,6 +29,7 @@ group :development, :test do
   gem 'jazz_hands'
   gem 'rspec-rails'
   gem 'guard-test'
+  gem 'timecop'
 end
 
 group :production do

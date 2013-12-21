@@ -238,6 +238,7 @@ GEM
     test-unit (2.5.5)
     thor (0.18.1)
     tilt (1.4.1)
+    timecop (0.7.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -281,6 +282,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 3.2.3)
   sqlite3
+  timecop
   twitter-text
   uglifier (>= 1.0.3)
   unicorn
