@@ -57,6 +57,10 @@ describe ScheduledRequestsMethods do
       specify 'six emails have been sent' do # because it currently delivers on a Saturday too
         @emails.should have(6).messages
       end
+
+      specify 'each email was sent on a different day' do
+        @emails.map(&:date).map(&:to_date).uniq.should have(6).days
+      end
     end
   end
 end
