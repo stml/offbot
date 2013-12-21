@@ -25,6 +25,8 @@ end
 group :development, :test do
 	gem 'sqlite3'
   gem 'jazz_hands'
+  gem 'rspec-rails'
+  gem 'guard-test'
 end
 
 group :production do

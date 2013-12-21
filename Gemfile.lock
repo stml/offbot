@@ -77,10 +77,21 @@ GEM
     erubis (2.7.0)
     execjs (1.3.1)
       multi_json (~> 1.0)
+    ffi (1.9.3)
+    formatador (0.2.4)
     grit (2.5.0)
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
       posix-spawn (~> 0.3.6)
+    guard (1.8.3)
+      formatador (>= 0.2.4)
+      listen (~> 1.3)
+      lumberjack (>= 1.0.2)
+      pry (>= 0.9.10)
+      thor (>= 0.14.6)
+    guard-test (1.0.0)
+      guard (>= 1.8)
+      test-unit (~> 2.2)
     haml (3.1.4)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
@@ -114,6 +125,11 @@ GEM
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
     kgio (2.7.4)
+    listen (1.3.1)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
+      rb-kqueue (>= 0.2)
+    lumberjack (1.0.4)
     macaddr (1.5.0)
       systemu (>= 2.4.0)
     mail (2.5.4)
@@ -182,6 +198,11 @@ GEM
       thor (>= 0.14.6, < 2.0)
     raindrops (0.8.0)
     rake (10.1.0)
+    rb-fsevent (0.9.3)
+    rb-inotify (0.9.3)
+      ffi (>= 0.5.0)
+    rb-kqueue (0.2.0)
+      ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
     roadie (2.3.1)
@@ -189,6 +210,17 @@ GEM
       css_parser
       nokogiri (>= 1.4.4)
       sprockets
+    rspec-core (2.14.5)
+    rspec-expectations (2.14.3)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.14.3)
+    rspec-rails (2.14.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
     ruby-rc4 (0.1.5)
     sass (3.1.16)
     sass-rails (3.2.5)
@@ -203,6 +235,7 @@ GEM
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.6)
     systemu (2.5.0)
+    test-unit (2.5.5)
     thor (0.18.1)
     tilt (1.4.1)
     treetop (1.4.15)
@@ -233,6 +266,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   dotenv
+  guard-test
   haml
   haml-rails
   jazz_hands
@@ -244,6 +278,7 @@ DEPENDENCIES
   pry-rails
   rails (= 3.2.13)
   roadie
+  rspec-rails
   sass-rails (~> 3.2.3)
   sqlite3
   twitter-text
