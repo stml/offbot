@@ -38,20 +38,21 @@ describe ScheduledRequestsMethods do
 
     context 'after a week has elapsed' do
       before(:each) do
-        Timecop.freeze(Time.local(2013, 12, 22).beginning_of_day)
-        ScheduledRequestsMethods.schedule_update_requests
+        start_time = Time.local(2013, 12, 22).beginning_of_day
+        timed_tasks = []
 
-        finish_time = 1.week.from_now
-        until finish_time.past?
-          Timecop.travel(1.hour)
-          ScheduledRequestsMethods.send_update_requests
+        timed_tasks << [start_time, -> { ScheduledRequestsMethods.schedule_update_requests }]
+
+        task_time = start_time
+        finish_time = start_time + 1.week
+        while task_time < finish_time
+          timed_tasks << [task_time, -> { ScheduledRequestsMethods.send_update_requests }]
+          task_time += 1.hour
         end
 
-        @emails = ActionMailer::Base.deliveries.select { |email| email.subject == "[#{project.name}] Hello, it's Offbott again" and email.to.include?(person.email)}
-      end
+        run_timed_tasks(timed_tasks)
 
-      after(:each) do
-        Timecop.return
+        @emails = ActionMailer::Base.deliveries.select { |email| email.subject == "[#{project.name}] Hello, it's Offbott again" and email.to.include?(person.email)}
       end
 
       specify 'six emails have been sent' do # because it currently delivers on a Saturday too
@@ -60,6 +61,14 @@ describe ScheduledRequestsMethods do
 
       specify 'each email was sent on a different day' do
         @emails.map(&:date).map(&:to_date).uniq.should have(6).days
+      end
+    end
+  end
+
+  def run_timed_tasks(timed_tasks)
+    timed_tasks.sort_by(&:first).each do |time, task|
+      Timecop.freeze(time) do
+        task.call
       end
     end
   end
