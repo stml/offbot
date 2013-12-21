@@ -7,38 +7,12 @@ require "#{Rails.root}/lib/scheduled_requests_methods"
 
 desc "Send out update requests"
 task send_update_requests: :environment do
-  scheduled_requests = ScheduledRequestDate.where('request_date >= ? AND request_date <= ?', DateTime.now.beginning_of_hour, DateTime.now.end_of_hour)
-
-  scheduled_requests.uniq.each do |request_date|
-    ScheduledRequestsMethods.send_update_request(request_date.person, request_date.project)
-    request_date.destroy
-  end
+  ScheduledRequestsMethods.send_update_requests
 end
 
 desc "Schedule update requests for upcoming week"
 task schedule_update_requests: :environment do
-  date = Date.today
-  fail "Only want to run this task on Sundays" if Time.now.wday != 0
-  Project.active.each do |project|
-    project.people.active.each do |person|
-      # on twice- or once-monthly projects only update the schedule once a month for next month
-      if ( (project.frequency == 3 or project.frequency == 4) and ((date.end_of_month-7)..date.end_of_month).member?(date) )
-        sunday = Date.today + 7
-        dates = ScheduledRequestsMethods.generate_scheduled_dates(project.frequency, sunday)
-      elsif (0..2).member?(project.frequency)
-        dates = ScheduledRequestsMethods.generate_scheduled_dates(project.frequency)
-      elsif project.frequency.nil?
-        dates = ScheduledRequestsMethods.generate_scheduled_dates(0)
-      end
-
-      if dates
-        dates.each do |date|
-          ScheduledRequestsMethods.create_scheduled_date(person, project, date)
-        end
-      end
-
-    end
-  end
+  ScheduledRequestsMethods.schedule_update_requests
 end
 
 
