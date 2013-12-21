@@ -54,6 +54,55 @@ describe ScheduledRequestsMethods do
         emails.map(&:date).map(&:to_date).uniq.length.should == emails.length
       end
     end
+
+    context 'when the project has a twice weekly frequency' do
+      let(:duration) { 1.week }
+      before(:each) do
+        project.update_attribute(:frequency, 1)
+      end
+
+      specify 'two emails have been sent' do
+        emails.should have(2).messages
+      end
+
+      specify 'each email was sent on a different day' do
+        emails.map(&:date).map(&:to_date).uniq.length.should == emails.length
+      end
+
+    end
+
+    context 'when the project has a weekly frequency' do
+      let(:duration) { 1.week }
+      before(:each) do
+        project.update_attribute(:frequency, 2)
+      end
+
+      specify 'one email has been sent' do
+        emails.should have(1).message
+      end
+
+      specify 'each email was sent on a different day' do
+        emails.map(&:date).map(&:to_date).uniq.length.should == emails.length
+      end
+
+    end
+
+    context 'when the project has a twice monthly frequency' do
+      let(:duration) { 1.month }
+      before(:each) do
+        project.update_attribute(:frequency, 3)
+      end
+
+      specify 'two emails have been sent' do
+        pending('fix twice monthly frequency') { emails.should have(2).messages }
+      end
+
+      specify 'each email was sent on a different day' do
+        emails.map(&:date).map(&:to_date).uniq.length.should == emails.length
+      end
+
+    end
+
   end
 
 
