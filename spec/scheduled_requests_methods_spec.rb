@@ -48,7 +48,7 @@ describe ScheduledRequestsMethods do
       end
 
       specify 'each email was sent on a different day' do
-        emails.map(&:date).map(&:to_date).uniq.should have(6).days
+        emails.map(&:date).map(&:to_date).uniq.length.should == emails.length
       end
     end
   end
