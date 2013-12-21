@@ -103,6 +103,25 @@ describe ScheduledRequestsMethods do
 
     end
 
+    context 'when the project has a monthly frequency' do
+      let(:duration) { 1.month }
+      before(:each) do
+        project.update_attribute(:frequency, 4)
+      end
+
+      specify 'one email has been sent' do
+        pending 'fix random failures'
+        # it fails sometimes, but not other times. hooray
+        # run with --seed 55467 to make pass
+        emails.should have(1).message
+      end
+
+      specify 'each email was sent on a different day' do
+        emails.map(&:date).map(&:to_date).uniq.length.should == emails.length
+      end
+
+    end
+
   end
 
 
