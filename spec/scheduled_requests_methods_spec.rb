@@ -38,7 +38,7 @@ describe ScheduledRequestsMethods do
 
     context 'after a week has elapsed' do
       before(:each) do
-        Timecop.freeze(Time.now.sunday.beginning_of_day)
+        Timecop.freeze(Time.local(2013, 12, 22).beginning_of_day)
         ScheduledRequestsMethods.schedule_update_requests
 
         finish_time = 1.week.from_now
