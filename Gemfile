@@ -1,10 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+ruby '1.9.2'
+
+gem 'rails', '3.2.14'
 
 gem 'haml'
 gem 'haml-rails'
-gem 'devise'
+gem 'devise', '2.0.4'
 gem 'uuid'
 gem 'acts-as-taggable-on'
 gem 'twitter-text'
@@ -14,8 +16,8 @@ gem 'mail_view', :git => 'https://github.com/37signals/mail_view.git'
 gem 'kaminari'
 gem 'pry-rails'
 gem 'dotenv'
-gem 'prawn'
-gem 'bugsnag'
+gem 'prawn', '0.12.0'
+gem 'rollbar'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
