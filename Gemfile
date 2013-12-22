@@ -15,7 +15,6 @@ gem 'kaminari'
 gem 'pry-rails'
 gem 'dotenv'
 gem 'prawn'
-gem 'appsignal'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
