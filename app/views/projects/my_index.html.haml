@@ -1,46 +1,46 @@
 %h1 Your projects
 
 #project_cols
-	
-	#project_col_left
 
-		- if @projects.empty?
-			%p <span class="logotype">Offbot</span> doesn't know about any of your projects yet.
-	
-		- else
-		#project_list
-			- @projects.each do |project|
-				%p.project_name
-					= link_to project.name, project, :title => "Check out this Project"
-					- if project.manageable_by?(current_person)
-						%span.delete= link_to 'Delete', confirm_delete_project_path(project)
-					- if current_person.can_view?(project)
-						%span.edit= link_to 'Edit', edit_project_path(project), :title => "Edit this Project"
-					%span.add= link_to 'New Update', :controller => "updates", :action => "new", :project => project
-				- unless project.updates.empty?
-					- updateday = project.updates.last.created_at.strftime("%Y-%m-%d")
-					- today = Time.new
-					- yesterday = today - 86400
-					- if updateday == today.strftime("%Y-%m-%d")
-						- daymark = 'today'
-					- elsif updateday == yesterday.strftime("%Y-%m-%d")
-						- daymark = 'yesterday'
-					- else
-						- daymark = 'on ' + project.updates.last.created_at.strftime("%A %d %B")
-					%p.project_note Last update by #{Person.find_by_id(project.updates.last.person_id).name} at #{project.updates.last.created_at.strftime("%I:%M %p")} #{daymark}
-				- else
-					%p.project_note No updates yet
-				- unless project.frequency.nil?
-					%p.project_note Note requests sent out #{project.frequency_description}
-				- else
-					%p.project_note Note requests frequency not set, defaulting to once a day
+  #project_col_left
 
-	#project_col_right	
+    - if @projects.empty?
+      %p <span class="logotype">Offbot</span> doesn't know about any of your projects yet.
 
-		.link_box
-			%p= link_to 'Create a new Project', new_project_path
-		.link_box
-			- if current_person.is_superadmin?
-				%p= link_to 'See all Projects', projects_path
-		#bug_box
-			%p <strong>Found a bug?</strong> <a href="https://github.com/stml/offbot/issues/new">Let us know on github</a> or <a href="mailto:ntalia.buckley@gmail.com?subject=Found a bug in Offbott">via email</a>.
+    - else
+    #project_list
+      - @projects.each do |project|
+        %p.project_name
+          = link_to project.name, project, :title => "Check out this Project"
+          - if project.manageable_by?(current_person)
+            %span.delete= link_to 'Delete', confirm_delete_project_path(project)
+          - if current_person.can_view?(project)
+            %span.edit= link_to 'Edit', edit_project_path(project), :title => "Edit this Project"
+          %span.add= link_to 'New Update', :controller => "updates", :action => "new", :project => project
+        - unless project.updates.empty?
+          - updateday = project.updates.last.created_at.strftime("%Y-%m-%d")
+          - today = Time.new
+          - yesterday = today - 86400
+          - if updateday == today.strftime("%Y-%m-%d")
+            - daymark = 'today'
+          - elsif updateday == yesterday.strftime("%Y-%m-%d")
+            - daymark = 'yesterday'
+          - else
+            - daymark = 'on ' + project.updates.last.created_at.strftime("%A %d %B")
+          %p.project_note Last update by #{Person.find_by_id(project.updates.last.person_id).name} at #{project.updates.last.created_at.strftime("%I:%M %p")} #{daymark}
+        - else
+          %p.project_note No updates yet
+        - unless project.frequency.nil?
+          %p.project_note Note requests sent out #{project.frequency_description}
+        - else
+          %p.project_note Note requests frequency not set, defaulting to once a day
+
+  #project_col_right
+
+    .link_box
+      %p= link_to 'Create a new Project', new_project_path
+    .link_box
+      - if current_person.is_superadmin?
+        %p= link_to 'See all Projects', projects_path
+    #bug_box
+      %p <strong>Found a bug?</strong> <a href="https://github.com/stml/offbot/issues/new">Let us know on github</a> or <a href="mailto:hi@ntlk.net?subject=Found a bug in Offbott">via email</a>.
