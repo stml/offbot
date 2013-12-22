@@ -15,6 +15,7 @@ gem 'kaminari'
 gem 'pry-rails'
 gem 'dotenv'
 gem 'prawn'
+gem 'bugsnag'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
