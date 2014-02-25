@@ -2,7 +2,7 @@ FactoryGirl.define do
 
   factory :project do
     name 'My project'
-    frequency 1
+    frequency 0 # daily
   end
 
 end
