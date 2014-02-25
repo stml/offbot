@@ -4,6 +4,7 @@ feature 'inviting other people' do
   include TimedTaskHelpers
 
   before do
+    Timecop.travel(2014, 2, 24, 8, 00) # A Monday at 8:00am
     @owner = create :person
     @project = create :project, created_by: @owner.id
     @email_address = 'invitee@example.com'
@@ -28,15 +29,12 @@ feature 'inviting other people' do
   end
 
   scenario 'person invites someone to a project, they join, both get update request email'  do
+    Timecop.travel(2014, 2, 24, 8, 01) # A Monday at 8:01am
     sign_up_from_invite_email
     start_time = Time.now
     end_time = start_time + 24.hours
     emails = scheduled_emails_sent_between(start_time, end_time).select { |email| email.subject == "[#{@project.name}] Hello, it's Offbott again" }
-
-    binding.pry
     expect(emails).to have(2).messages
-
-    # invitee = Person.find_by_email(@email_address)
   end
 
   def sign_up_from_invite_email
