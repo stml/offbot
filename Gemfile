@@ -31,6 +31,10 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-test'
   gem 'timecop'
+  gem 'factory_girl'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'capybara-email'
 end
 
 group :production do
