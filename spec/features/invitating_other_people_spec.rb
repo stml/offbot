@@ -19,6 +19,14 @@ feature 'inviting other people' do
   end
 
   scenario 'person invites someone to a project and they join'  do
+    sign_up_from_invite_email
+
+    invitee = Person.find_by_email(@email_address)
+    expect(@project.people).to include(invitee)
+    expect(invitee.active).to eq true
+  end
+
+  def sign_up_from_invite_email
     open_email(@email_address)
     current_email.click_on('Offbott.com')
     ActionMailer::Base.deliveries.clear
@@ -31,10 +39,6 @@ feature 'inviting other people' do
 
     open_email(@email_address)
     current_email.click_on('Confirm my Offbott account')
-
-    invitee = Person.find_by_email(@email_address)
-    expect(@project.people).to include(invitee)
-
   end
 
 end
