@@ -26,12 +26,15 @@ group :assets do
 end
 
 group :development, :test do
-	gem 'sqlite3'
+  gem 'sqlite3'
   gem 'jazz_hands'
+  gem 'rspec-rails'
+  gem 'guard-test'
+  gem 'timecop'
 end
 
 group :production do
-	gem 'pg'
+  gem 'pg'
 end
 
 gem 'unicorn'
