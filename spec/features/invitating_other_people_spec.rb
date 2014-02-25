@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 feature 'inviting other people' do
+  include TimedTaskHelpers
 
   before do
     @owner = create :person
@@ -24,6 +25,18 @@ feature 'inviting other people' do
     invitee = Person.find_by_email(@email_address)
     expect(@project.people).to include(invitee)
     expect(invitee.active).to eq true
+  end
+
+  scenario 'person invites someone to a project, they join, both get update request email'  do
+    sign_up_from_invite_email
+    start_time = Time.now
+    end_time = start_time + 24.hours
+    emails = scheduled_emails_sent_between(start_time, end_time).select { |email| email.subject == "[#{@project.name}] Hello, it's Offbott again" }
+
+    binding.pry
+    expect(emails).to have(2).messages
+
+    # invitee = Person.find_by_email(@email_address)
   end
 
   def sign_up_from_invite_email
