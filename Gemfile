@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '1.9.2'
+ruby '1.9.3'
 
 gem 'rails', '3.2.14'
 
@@ -26,12 +26,19 @@ group :assets do
 end
 
 group :development, :test do
-	gem 'sqlite3'
+  gem 'sqlite3'
   gem 'jazz_hands'
+  gem 'rspec-rails'
+  gem 'guard-test'
+  gem 'timecop'
+  gem 'factory_girl'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'capybara-email'
 end
 
 group :production do
-	gem 'pg'
+  gem 'pg'
 end
 
 gem 'unicorn'

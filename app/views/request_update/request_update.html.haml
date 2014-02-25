@@ -1,30 +1,30 @@
 !!!
 %html
-	%head
-		%meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-	%body
-		#container
-			%h1.greeting Hi, #{@name}!
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    #container
+      %h1.greeting Hi, #{@name}!
 
-			%p What have you been up to on project #{@project.name}? Just reply to this email to let me know.
-			%p Offbott
+      %p What have you been up to on project #{@project.name}? Just reply to this email to let me know.
+      %p Offbott
 
-			%p
-				%a{:href=>"http://offbott.com/projects/#{@project.id}"} Visit the web page for this project
+      %p
+        %a{:href=>"http://offbott.com/projects/#{@project.id}"} Visit the web page for this project
 
-			%p
-				%a{:href=>"http://offbott.com/projects/#{@project.id}/edit"} Don't want Offbott to send emails for this project again? You can now mark projects as archived
+      %p
+        %a{:href=>"http://offbott.com/projects/#{@project.id}/edit"} Don't want Offbott to send emails for this project again? You can now mark projects as archived
 
-			- if @project.updates
+      - if @project.updates
 
-				%h3.project_name #{@project.name} - recent updates
+        %h3.project_name #{@project.name} - recent updates
 
-				#updates
-					- @project.updates.order("created_at DESC").limit(3).each do |update|
-						.update
-							- body = raw(add_line_breaks(extract_reply(update.body)))
-							%p.body= body
-							%p.credit
-								<span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime("%I:%M %p, %A %B %e")}</span>
+        #updates
+          - @project.updates.order("created_at DESC").limit(3).each do |update|
+            .update
+              - body = raw(add_line_breaks(extract_reply(update.body)))
+              %p.body= body
+              %p.credit
+                <span class="author">#{update.person.name.titleize}</span> <span class="date">#{update.created_at.strftime("%I:%M %p, %A %B %e")}</span>
 
 
