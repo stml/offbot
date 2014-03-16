@@ -69,16 +69,4 @@ class Person < ActiveRecord::Base
     end
   end
 
-  private
-
-  def add_to_projects
-    invitation = Invitation.find_by_email(self.email)
-    if invitation
-      invitation.projects.each do |project|
-        unless self.projects.include?(project)
-          self.projects << project
-        end
-      end
-    end
-  end
 end

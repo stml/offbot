@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :authenticate_person!
   before_filter :mailer_set_url_options
+  before_filter :add_current_person_to_projects
 
   helper :all
 
@@ -55,5 +56,12 @@ class ApplicationController < ActionController::Base
     end.join
   end
 
+  def add_current_person_to_projects
+    if person_signed_in?
+      if invitation = Invitation.find_by_email(current_person.email)
+        invitation.projects.select {|p| !current_person.projects.include?(p) }.map {|p| current_person.projects << p }
+      end
+    end
+  end
 
 end
