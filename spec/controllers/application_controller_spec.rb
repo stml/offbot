@@ -22,19 +22,39 @@ describe ApplicationController do
     end
 
     context 'logged in' do
-      before do
-        @alice = create :person
-        @project = create :project, created_by: @alice.id
-        @bob = create :person, email: 'hi@offbott.com'
-        @invitation = create :invitation, email: @bob.email
-        @invitation.projects << @project
+
+      context 'with the same email' do
+        before do
+          @alice = create :person
+          @project = create :project, created_by: @alice.id
+          @bob = create :person, email: 'hi@offbott.com'
+          @invitation = create :invitation, email: @bob.email
+          @invitation.projects << @project
+        end
+
+        it 'adds person to the invited project' do
+          sign_in(:person, @bob)
+          get :index, invitation: @invitation.token
+          expect(@bob.projects).to include(@project)
+        end
       end
 
-      it 'adds person to the invited project' do
-        sign_in(:person, @bob)
-        get :index, invitation: @invitation.token
-        expect(@bob.projects).to include(@project)
+      context 'with different email' do
+        before do
+          @alice = create :person
+          @project = create :project, created_by: @alice.id
+          @bob = create :person, email: 'hi@offbott.com'
+          @invitation = create :invitation, email: 'another@offbott.com'
+          @invitation.projects << @project
+        end
+
+        it 'adds person to the invited project' do
+          sign_in(:person, @bob)
+          get :index, invitation: @invitation.token
+          expect(@bob.projects).to include(@project)
+        end
       end
+
     end
   end
 
