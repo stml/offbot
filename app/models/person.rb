@@ -16,7 +16,7 @@ class Person < ActiveRecord::Base
   validates_presence_of :email, :name
   validates_uniqueness_of :email
 
-  after_create :add_to_projects, :set_superadmin_to_false, :generate_email_key
+  after_create :generate_email_key
 
   scope :active, -> { where(active: true) }
 
@@ -81,9 +81,4 @@ class Person < ActiveRecord::Base
       end
     end
   end
-
-  def set_superadmin_to_false
-    self.is_superadmin = false
-  end
-
 end
