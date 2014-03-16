@@ -47,9 +47,6 @@ feature 'inviting other people' do
     fill_in('Password', with: 'password')
     fill_in('Password confirmation', with: 'password')
     click_on('Sign up')
-
-    open_email(@email_address)
-    current_email.click_on('Confirm my Offbott account')
   end
 
 end
