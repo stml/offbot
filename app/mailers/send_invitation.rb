@@ -8,10 +8,9 @@ class SendInvitation < ActionMailer::Base
 
   class Preview < MailView
     def send_out_invite
-    	@invite = Invitation.last
-    	@projects = @invite.projects
-    	::SendInvitation.send_out_invite(@invite)
+      @invite = Invitation.last
+      @projects = @invite.projects
+      ::SendInvitation.send_out_invite(@invite)
     end
-
   end
 end
