@@ -48,7 +48,7 @@ feature 'inviting other people' do
 
   def sign_up_from_invite_email
     open_email(@email_address)
-    current_email.click_on('Offbott.com')
+    current_email.click_on('sign up to Offbott.com')
     ActionMailer::Base.deliveries.clear
     click_on('register a new account')
     fill_in('Name', with: 'Max Invitee')
@@ -60,7 +60,7 @@ feature 'inviting other people' do
 
   def sign_up_from_invite_email_with_a_different_email
     open_email(@email_address)
-    current_email.click_on('Offbott.com')
+    current_email.click_on('sign up to Offbott.com')
     ActionMailer::Base.deliveries.clear
     click_on('register a new account')
     fill_in('Name', with: 'Max Invitee')
