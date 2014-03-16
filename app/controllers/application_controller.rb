@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :authenticate_person!, :mailer_set_url_options
+  before_filter :authenticate_person!
+  before_filter :mailer_set_url_options
 
   helper :all
 
