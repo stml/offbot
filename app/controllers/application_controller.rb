@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :authenticate_person!
   before_filter :mailer_set_url_options
+  before_filter :remeber_invitation_token
+  before_filter :authenticate_person!
   before_filter :add_current_person_to_projects
 
   helper :all
@@ -61,6 +62,12 @@ class ApplicationController < ActionController::Base
       if invitation = Invitation.find_by_email(current_person.email)
         invitation.projects.select {|p| !current_person.projects.include?(p) }.map {|p| current_person.projects << p }
       end
+    end
+  end
+
+  def remeber_invitation_token
+    if params[:invitation]
+      session[:invitation_token] = params[:invitation]
     end
   end
 
