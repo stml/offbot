@@ -9,14 +9,30 @@ describe ApplicationController do
   end
 
   context 'with invitation query string' do
-    it 'saves the invitation token in session if not logged in' do
-      get :index, invitation: 'abc'
-      expect(session[:invitation_token]).to eq 'abc'
+    context 'logged out' do
+      it 'saves the invitation token in session' do
+        get :index, invitation: 'abc'
+        expect(session[:invitation_token]).to eq 'abc'
+      end
+
+      it 'leaves invitation token as nil if none is present' do
+        get :index
+        expect(session[:invitation_token]).to be_nil
+      end
     end
 
-    it 'leaves invitation token as nil if none is present' do
-      get :index
-      expect(session[:invitation_token]).to be_nil
+    context 'logged in' do
+      before do
+        @alice = create :person
+        @project = create :project, created_by: @alice.id
+        @invitation = create :invitation, email: @alice.email
+        @invitation.projects << @project
+      end
+
+      it 'adds person to the invited project' do
+        get :index, invitation: @invitation.token
+        expect(@alice.projects).to include(@project)
+      end
     end
   end
 
