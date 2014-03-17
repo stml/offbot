@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_filter :mailer_set_url_options
   before_filter :remeber_invitation_token
   before_filter :authenticate_person!
-  before_filter :add_current_person_to_projects
+  before_filter :process_invites
 
   helper :all
 
@@ -57,11 +57,11 @@ class ApplicationController < ActionController::Base
     end.join
   end
 
-  def add_current_person_to_projects
-    if person_signed_in?
-      if invitation = Invitation.find_by_email(current_person.email)
-        invitation.projects.select {|p| !current_person.projects.include?(p) }.map {|p| current_person.projects << p }
-      end
+  def process_invites
+    if person_signed_in? and invitation_token and invitation = Invitation.find_by_token(invitation_token)
+      add_current_person_to_invite_projects(invitation)
+    elsif person_signed_in? and invitation = Invitation.find_by_email(current_person.email)
+      add_current_person_to_invite_projects(invitation)
     end
   end
 
@@ -71,4 +71,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def invitation_token
+    params[:invitation]
+  end
+
+  def add_current_person_to_invite_projects(invitation)
+    invitation.projects.select {|p| !current_person.projects.include?(p) }.map {|p| current_person.projects << p }
+  end
 end
