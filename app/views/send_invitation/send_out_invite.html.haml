@@ -1,30 +1,30 @@
 !!!
 %html
-	%head
-		%meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-	%body
-		#container
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    #container
 
-			%h1 Hello!
+      %h1 Hello!
 
-			%p Someone has sent you an invite to <a href="http://offbott.com">Offbott</a>.
-			
-			%p <strong><a href="http://offbott.com">Offbott</a> is a (mostly) friendly robot who helps small teams keep a journal of their projects.</strong> There's more information at <a href="http://offbott.com">Offbott.com/about</a>.
-			
-			- if @projects.count == 1
-				- @controller = Person.find([@projects[0].created_by])
-				%h3 You've been invited to join a project called "#{@projects[0].name}", created by #{@controller[0].name}.
-			- else
-				%h3 You've been invited to several projects:
-				
-				%ul
-					- @projects.each do |proj|
-						- @controller = Person.find([proj.created_by])
-						%li "#{proj.name}", created by #{@controller[0].name}.
+      %p Someone has sent you an invite to <a href="http://offbott.com/?invitation=#{@invite.token}">Offbott</a>.
 
-			%p To join in, you just need to register with this email at <a href="http://offbott.com">Offbott.com</a>, and follow the instructions.
+      %p <strong><a href="http://offbott.com/?invitation=#{@invite.token}">Offbott</a> is a (mostly) friendly robot who helps small teams keep a journal of their projects.</strong> There's more information at <a href="http://offbott.com/about?invitation=#{@invite.token}">Offbott.com/about</a>.
 
-			%p
-				Yours,
-				%br
-				Offbott
+      - if @projects.count == 1
+        - @controller = Person.find([@projects[0].created_by])
+        %h3 You've been invited to join a project called "#{@projects[0].name}", created by #{@controller[0].name}.
+      - else
+        %h3 You've been invited to several projects:
+
+        %ul
+          - @projects.each do |proj|
+            - @controller = Person.find([proj.created_by])
+            %li "#{proj.name}", created by #{@controller[0].name}.
+
+      %p To join in, you just need to <a href="http://offbott.com/?invitation=#{@invite.token}">sign up to Offbott.com</a>, and follow the instructions.
+
+      %p
+        Yours,
+        %br
+        Offbott

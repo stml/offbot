@@ -28,6 +28,46 @@ feature 'inviting other people' do
     expect(invitee.active).to eq true
   end
 
+  scenario 'person invites someone to a project and they join with a different email address'  do
+    sign_up_from_invite_email_with_a_different_email
+
+    invitee = Person.find_by_email('max@invitee.com')
+    expect(@project.people).to include(invitee)
+    expect(invitee.active).to eq true
+  end
+
+  scenario 'person joins a project through a legacy invite (without token)' do
+    invite = Invitation.find_by_email(@email_address)
+    invite.update_attribute(:token, nil)
+    logout(:person)
+    visit '/you/sign_up'
+    fill_in('Name', with: 'Max Invitee')
+    fill_in('Email', with: @email_address)
+    fill_in('Password', with: 'password')
+    fill_in('Password confirmation', with: 'password')
+    click_on('Sign up')
+
+    invitee = Person.find_by_email(@email_address)
+    expect(@project.people).to include(invitee)
+    expect(invitee.active).to eq true
+  end
+
+  scenario 'person joins without a valid invite token and is not added to a project' do
+    logout(:person)
+
+    visit '/?invitation=INVALIDTOKEN'
+    click_on('register a new account')
+    fill_in('Name', with: 'Max Invitee')
+    fill_in('Email', with: 'max@invitee.com')
+    fill_in('Password', with: 'password')
+    fill_in('Password confirmation', with: 'password')
+    click_on('Sign up')
+
+    invitee = Person.find_by_email('max@invitee.com')
+    expect(@project.people).to_not include(invitee)
+    expect(invitee.active).to eq true
+  end
+
   scenario 'person invites someone to a project, they join, both get update request email'  do
     Timecop.travel(2014, 2, 24, 8, 01) # A Monday at 8:01am
     sign_up_from_invite_email
@@ -39,7 +79,7 @@ feature 'inviting other people' do
 
   def sign_up_from_invite_email
     open_email(@email_address)
-    current_email.click_on('Offbott.com')
+    current_email.click_on('sign up to Offbott.com')
     ActionMailer::Base.deliveries.clear
     click_on('register a new account')
     fill_in('Name', with: 'Max Invitee')
@@ -47,9 +87,17 @@ feature 'inviting other people' do
     fill_in('Password', with: 'password')
     fill_in('Password confirmation', with: 'password')
     click_on('Sign up')
-
-    open_email(@email_address)
-    current_email.click_on('Confirm my Offbott account')
   end
 
+  def sign_up_from_invite_email_with_a_different_email
+    open_email(@email_address)
+    current_email.click_on('sign up to Offbott.com')
+    ActionMailer::Base.deliveries.clear
+    click_on('register a new account')
+    fill_in('Name', with: 'Max Invitee')
+    fill_in('Email', with: 'max@invitee.com')
+    fill_in('Password', with: 'password')
+    fill_in('Password confirmation', with: 'password')
+    click_on('Sign up')
+  end
 end

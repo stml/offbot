@@ -1,10 +1,7 @@
 class Person < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable, :validatable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
 
-  # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :project_ids, :email_key
   has_many :updates
   has_many :email_messages
@@ -16,7 +13,7 @@ class Person < ActiveRecord::Base
   validates_presence_of :email, :name
   validates_uniqueness_of :email
 
-  after_create :add_to_projects, :set_superadmin_to_false, :generate_email_key
+  after_create :generate_email_key
 
   scope :active, -> { where(active: true) }
 
@@ -67,23 +64,6 @@ class Person < ActiveRecord::Base
         end
       end
     end
-  end
-
-  private
-
-  def add_to_projects
-    invitation = Invitation.find_by_email(self.email)
-    if invitation
-      invitation.projects.each do |project|
-        unless self.projects.include?(project)
-          self.projects << project
-        end
-      end
-    end
-  end
-
-  def set_superadmin_to_false
-    self.is_superadmin = false
   end
 
 end

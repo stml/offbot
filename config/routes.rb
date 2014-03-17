@@ -26,7 +26,4 @@ Offbot::Application.routes.draw do
     mount WeeklyDigest::Preview => 'weekly_digest'
   end
 
-
-  # See how all your routes lay out with "rake routes"
-
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140225221522) do
+ActiveRecord::Schema.define(:version => 20140316202100) do
 
   create_table "email_messages", :force => true do |t|
     t.string   "message_id"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20140225221522) do
     t.string   "email"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "token"
   end
 
   create_table "invitations_projects", :id => false, :force => true do |t|
@@ -36,10 +37,10 @@ ActiveRecord::Schema.define(:version => 20140225221522) do
   create_table "people", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.integer  "project_id"
-    t.string   "encrypted_password",     :default => "",   :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -53,9 +54,9 @@ ActiveRecord::Schema.define(:version => 20140225221522) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.integer  "project_admins_list_id"
-    t.boolean  "is_superadmin"
+    t.boolean  "is_superadmin",          :default => false
     t.string   "email_key"
-    t.boolean  "active",                 :default => true, :null => false
+    t.boolean  "active",                 :default => true,  :null => false
   end
 
   add_index "people", ["email"], :name => "index_people_on_email", :unique => true
