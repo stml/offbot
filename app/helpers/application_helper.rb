@@ -30,7 +30,7 @@ module ApplicationHelper
 
 
   def add_line_breaks(text)
-    text.gsub(/\r\n?\r\n?/,"<br/><br/>")
+    text.gsub(/\r\n?\r\n?/,"<br/><br/>").gsub(/\n\n/,"<br/><br/>")
   end
 
 end
